@@ -88,6 +88,7 @@ statistics include opinion polls and drug trials.
 > 
 > Would results from a population census be an example of inferential statistics? 
 > Discuss briefly with your neighbour.
+>
 > > ## Solution to challenge 2
 > > 
 > > Probably not, because a census is an attempt to directly 
@@ -123,7 +124,8 @@ we have 95% confidence that the real population mean occurs.
 > 2. You can accept the alternative hypothesis with low confidence
 > 3. You should reject the alternative hypothesis
 > 4. You can neither accept nor reject the alternative hypothesis
-> > Solution to challenge 3
+>
+> > ## Solution to challenge 3
 > > 
 > > 3. If the p-value is above our chosen significance level (commonly 0.05, 0.01 or 0.001) we reject the alternative hypothesis
 > {: .solution}
