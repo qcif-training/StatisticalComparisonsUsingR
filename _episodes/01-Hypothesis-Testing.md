@@ -32,8 +32,8 @@ The following is a well-established research pipeline:
 In this model, the hypothesis should be clearly defined and testable. In 
 hypothesis testing, this means that our question has just two possible answers: 
 a ”null hypothesis” (H~0~), which is a specific statement that we are looking to
-disprove with our data, and an “alternative hypothesis” (`H<sub>1</sub>`), which is a 
-statement opposing `H<sub>0</sub>` and which we will only accept if the data and analysis is 
+disprove with our data, and an “alternative hypothesis” (H~1~), which is a 
+statement opposing H~0~ and which we will only accept if the data and analysis is 
 sufficiently convincing. 
 
 > ## Tip: Defining your alternative hypothesis
@@ -123,7 +123,7 @@ we have 95% confidence that the real population mean occurs.
 > 2. You can accept the alternative hypothesis with low confidence
 > 3. You should reject the alternative hypothesis
 > 4. You can neither accept nor reject the alternative hypothesis
-> > Solution to challenge 3
+> > ## Solution to challenge 3
 > > 
 > > 3. If the p-value is above our chosen significance level (commonly 0.05, 0.01 or 0.001) we reject the alternative hypothesis
 > {: .solution}
