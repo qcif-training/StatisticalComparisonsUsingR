@@ -5,7 +5,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 ---
 FIXME: home page introduction
 
-<!-- this is an html comment -->
+<!-- This is an html comment -->
 
 {% comment %} This is a comment in Liquid {% endcomment %}
 
