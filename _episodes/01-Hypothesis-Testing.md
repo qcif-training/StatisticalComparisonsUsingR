@@ -88,6 +88,7 @@ statistics include opinion polls and drug trials.
 > 
 > Would results from a population census be an example of inferential statistics? 
 > Discuss briefly with your neighbour.
+>
 > > ## Solution to challenge 2
 > > 
 > > Probably not, because a census is an attempt to directly 
