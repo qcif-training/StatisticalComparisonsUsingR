@@ -19,8 +19,6 @@ output: html_document
 
 
 
-
-
 ## Hypothesis Testing
 
 The following is a well-established research pipeline: 
@@ -128,6 +126,8 @@ we have 95% confidence that the real population mean occurs.
 > > Solution to challenge 3
 > > 
 > > 3. If the p-value is above our chosen significance level (commonly 0.05, 0.01 or 0.001) we reject the alternative hypothesis
+> {: .solution}
+{: .challenge}
 
 ## Testing errors
 In hypothesis testing, there are two possible causes for a false 
@@ -136,4 +136,4 @@ error), or failing to reject the null hypothesis when it is false (a type
 II error). The probability of a type 1 error is given by the P-value; it
 is possible to calculate the probability of a type II error, but we will 
 not cover that in this course.
-![RStudio layout](fig/01-errortypes.png)
+![RStudio layout](../fig/01-errortypes.png)
