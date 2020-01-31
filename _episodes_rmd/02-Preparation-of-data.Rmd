@@ -1,4 +1,4 @@
-  ---
+---
 title: "Preparation of Data"
 teaching: 45
 exercises: 10
