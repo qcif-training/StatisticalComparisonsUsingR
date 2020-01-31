@@ -3,7 +3,7 @@ title: "Preparation of Data"
 teaching: 45
 exercises: 10
 questions:
-- "How can I import a dataset into R"
+- "How can I import a dataset into R?"
 objectives:
 - "Review the structure of a CSV datafile"
 - "Read a CSV file into a dataframe"
@@ -22,12 +22,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Previewing data
 
-> ## Tip
-When reading in tabular data in R, you can use either `read.table` or a range of 
-pre-configured aliases: `read.csv`, `read.csv2`, `read.delim` and `read.delim2`.
-These have function arguments already set to correspond to a range of different 
-formats of CSV (comma separated value) and TSV (tab separated value) files.
-{: .callout}
+Prior to uploaded any dataset into R for analysis, it is useful to review the 
+contents of that file to understand the structure of the data. This will allow
+you to chose the best data structure for your dataset, and will identify the 
+relevant command and settings you need when uploading the data to R. 
+
+For small files, like the one we are using today, this review can be done with a
+simple text editor, either a app on your computer or from within RStudio. For 
+very large datasets this is not advisable - files may take a very long time to 
+open and may even crash your computer. Such large files may have documentation 
+explaining their format, or you may need to use the `head` function to just look 
+at the first part of the file.
 
 > ## Challenge 1
 > 
