@@ -3,16 +3,16 @@ title: "Preparation of Data"
 teaching: 45
 exercises: 10
 questions:
-- "To be defined"
+- "How can I import a dataset into R"
 objectives:
 - "Review the structure of a CSV datafile"
 - "Read a CSV file into a dataframe"
-- "Convert data between character strings and vectors"
+- "Manage the assignment of data as factors or character strings"
 keypoints:
 - "Open a data file in a text editor or RStudio file viewer"
 - "Use `read.table` or `read.csv` to import data"
 - "Review a dataframe using `str` and `summary`"
-- "Convert columns to factors using `as.factor"
+- "Convert columns from factors to string using `as.character`"
 output: html_document
 ---
 
@@ -22,15 +22,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Previewing data
 
-To be added 
-
 > ## Tip
 When reading in tabular data in R, you can use either `read.table` or a range of 
 pre-configured aliases: `read.csv`, `read.csv2`, `read.delim` and `read.delim2`.
 These have function arguments already set to correspond to a range of different 
-formats of csv and tsv files.
+formats of CSV (comma separated value) and TSV (tab separated value) files.
 {: .callout}
-
 
 > ## Challenge 1
 > 
@@ -41,41 +38,71 @@ formats of csv and tsv files.
 > > ## Solution to challenge 1
 > > 
 > > The field contents are as follows:
-> > Patient_ID – a unique numerical identifier for each patient
-> > Gender – female or male: one-letter character string
-> > Age – patient’s age: numerical value in years
-> > Height – patient’s height: numerical value in (probably) cm
-> > Weight – patient’s weight: numerical value in (probably) kg
-> > BMI – patient’s body mass index (weight/height in m<sup>2</sup>)
-> > Obese – is the patient obese (BMI>30): 0=no, 1=yes;
-> > Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker; 
-> > Alcohol.Consumption – does the patient drink alcohol: 0=no, 1=low consumption,
+> > * Patient_ID – a unique numerical identifier for each patient
+> > * Gender – female or male: one-letter character string
+> > * Age – patient’s age: numerical value in years
+> > * Height – patient’s height: numerical value in (probably) cm
+> > * Weight – patient’s weight: numerical value in (probably) kg
+> > * BMI – patient’s body mass index (weight/height in m<sup>2</sup>)
+> > * Obese – is the patient obese (BMI>30): 0=no, 1=yes;
+> > * Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker; 
+> > * Alcohol.Consumption – does the patient drink alcohol: 0=no, 1=low consumption,
 > > 2=moderate/high consumption; 
-> > Treatment – did the patient receive the ursodeoxycholic acid treatment: 
+> > * Treatment – did the patient receive the ursodeoxycholic acid treatment: 
 > > 0=untreated, 1=treated; 
-> > Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
-> > Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
+> > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
+> > * Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
 > > stones; 
-> > Diam – gallstone diameter in mm; Dis – time in days for gallstone dissolution
+> > * Diam – gallstone diameter in mm; Dis – time in days for gallstone dissolution
 > {: .solution}
 {: .challenge}
 
-Use read.csv to upload the file into a dataframe called ‘gallstones’
+## Importing data
 
+Once you've reviewed the contents of the data file, you can decide how best to
+upload it into R. In this case, we have a tabular layout with fields separated
+by commas - a csv file, so we will use the `read.csv` function to import this
+dataset.
+
+> ## Tip
+When reading in tabular data in R, you can use either `read.table` or a range of 
+pre-configured aliases: `read.csv`, `read.csv2`, `read.delim` and `read.delim2`.
+These have function arguments already set to correspond to a range of different 
+formats of csv and tsv files.
+{: .callout}
+
+The default settings of `read.csv` are compatible with this datafile, so when
+running the command, all we need to specify is the target filename
 ```{r}
-gallstones<-read.csv("../Data/gallstones.csv")
+gallstones<-read.csv("data/gallstones.csv")
 ```
 
-Look at the structure of the dataframe using str and summary
+Now the file is uploaded, you can find out more about this dataset using the `str`
+and `summary` functions.
 ```{r}
 str(gallstones)
 summary(gallstones)
 ```
+This shows, among other details, that the dataset consists of records from 37 
+patients, aged 31 to 90, of whom 21 are female and 16 male. Looking further, you
+may notice that patient identifier, which should be unique, has been imported 
+as a factor - this is probably not the best option for a unique identifier so it 
+would be best to convert this to character strings.
 
-Finally, patient identifiers should be unique in our dataset, and so probably 
-are best not recorded as factors. We'll use `as.character` to convert that column to 
-character data
 ```{r}
 gallstones$Patient_ID <- as.character(gallstones$Patient_ID)
 str(gallstones$Patient_ID)
 ```
+
+> ## Challenge 2
+> 
+> How could you have modified your `read.csv` command so that patient identifiers
+> were imported as character strings in the first place? What other issues might
+> this have caused?
+> > ## Solution to challenge 2
+> > 
+> > You could use the `stringsAsFactors = FALSE` argument to `read.csv`. But this
+> > would mean that Gender was also read in as character strings, and that is best
+> > represented as a factor.
+> {: .solution}
+{: .challenge}
