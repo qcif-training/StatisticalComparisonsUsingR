@@ -31,15 +31,15 @@ For small files, like the one we are using today, this review can be done with a
 simple text editor, either a app on your computer or from within RStudio. For 
 very large datasets this is not advisable - files may take a very long time to 
 open and may even crash your computer. Such large files may have documentation 
-explaining their format, or you may need to use the `head` function to just look 
-at the first part of the file.
+explaining their format, or you may need to use the `head` function to look at 
+just the first part of the file.
 
 > ## Challenge 1
 > 
 > Use RStudio “Files” window, your text editor of choice, or a spreadsheet 
 > program to open and review the data file gallstones.csv (do not overwrite 
 > the file by saving afterwards). Briefly discuss with your neighbour the 
-> meaning of the headers and the nature of the data in each field
+> meaning of the headers and the nature of the data in each field.
 > > ## Solution to challenge 1
 > > 
 > > The field contents are as follows:
@@ -66,20 +66,21 @@ at the first part of the file.
 
 Once you've reviewed the contents of the data file, you can decide how best to
 upload it into R. In this case, we have a tabular layout with fields separated
-by commas - a csv file, so we will use the `read.csv` function to import this
+by commas - a CSV file - so we will use the `read.csv` function to import this
 dataset.
 
 > ## Tip
 When reading in tabular data in R, you can use either `read.table` or a range of 
 pre-configured aliases: `read.csv`, `read.csv2`, `read.delim` and `read.delim2`.
 These have function arguments already set to correspond to a range of different 
-formats of csv and tsv files.
+formats of CSV (comma separated value) and TSV (tab separated value) files.
 {: .callout}
+
 
 The default settings of `read.csv` are compatible with this datafile, so when
 running the command, all we need to specify is the target filename
 ```{r}
-gallstones<-read.csv("data/gallstones.csv")
+gallstones <- read.csv("data/gallstones.csv")
 ```
 
 Now the file is uploaded, you can find out more about this dataset using the `str`
