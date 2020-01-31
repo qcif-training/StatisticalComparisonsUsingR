@@ -62,12 +62,12 @@ formats of csv and tsv files.
 
 Use read.csv to upload the file into a dataframe called ‘gallstones’
 
-```{r Read csv file}
+```{r}
 gallstones<-read.csv("../Data/gallstones.csv")
 ```
 
 Look at the structure of the dataframe using str and summary
-```{r Dataframe summary}
+```{r}
 str(gallstones)
 summary(gallstones)
 ```
@@ -75,7 +75,7 @@ summary(gallstones)
 Finally, patient identifiers should be unique in our dataset, and so probably 
 are best not recorded as factors. We'll use `as.character` to convert that column to 
 character data
-```{r Set patient identifiers}
+```{r}
 gallstones$Patient_ID <- as.character(gallstones$Patient_ID)
 str(gallstones$Patient_ID)
 ```
