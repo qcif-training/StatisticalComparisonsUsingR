@@ -1,0 +1,25 @@
+---
+title: "Relationship between two continuous variables"
+teaching: 45
+exercises: 10
+questions:
+- "What are continuous variables?"
+- "How do I evaluate the relationship between two continuous variables?"
+objectives:
+- "Exploring data with scatter plots"
+- "Identifying positive and negative correlation"
+- "Identifying and applying appropriate correlation tests"
+- "Interpretation of correlation values and coefficient of determination"
+keypoints:
+- "Distinguish a continuous variable"
+- "Review data using `plot` and `ggplot`"
+- "Test for normality of a dataset using `shapiro.test`"
+- "Calculate correlation coefficient using `cor` and `cor.test`"
+- "Summarise continuous data using the `by` command"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
