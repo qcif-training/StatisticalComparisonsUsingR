@@ -19,7 +19,6 @@ output: html_document
 ---
 
 
-
 ## Previewing data
 
 Prior to uploaded any dataset into R for analysis, it is useful to review the 
@@ -149,6 +148,8 @@ summary(gallstones)
 ## 
 ~~~
 {: .output}
+
+## Columns as factors
 
 This shows, among other details, that the dataset consists of records from 37 
 patients, aged 31 to 90, of whom 21 are female and 16 male. Looking further, you
