@@ -36,10 +36,10 @@ can evaluate relatedness using correlation analysis.
 > ## Challenge 1
 > 
 > Which of the following datasets are continuous variables
-> 1. The weight of a dog
-> 2. The age of a dog
-> 3. The breed of a dog
-> 4. The colour of a dog
+> * The weight of a dog
+> * The age of a dog
+> * The breed of a dog
+> * The colour of a dog
 > > ## Solution to challenge 1
 > > 
 > > 1 and 2 are both continous variables, although age in particular is often 
@@ -102,7 +102,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > >
 > > Two variables - Diam and Dis - are skewed towards the low end of values. Try 
 > > log-transforming these (`log10(gallstones$Diam)`) and see what impact this
-> > has on the plot
+> > has on the plot.
 > {: .solution}
 {: .challenge}
 
@@ -110,7 +110,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 
 Having visualised the data and identified that it shows signs of an association
 between the variables, the next step is to quantify the degree of association, 
-or *correlation* between the variables. There are different tests for measuring 
+or **correlation** between the variables. There are different tests for measuring 
 correlation, depending on the distribution of those variables. Today we will 
 focus mainly on two: Pearson's correlation coefficient and Spearman's rank. 
 
@@ -133,7 +133,7 @@ variables
 ![RStudio layout](../fig/03-degreesofcorrelation.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *_r_* can be squared, *_r~2~_*, to derive a coefficient of 
+> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
 > can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 
@@ -174,9 +174,9 @@ correlation is significantly different from zero.
 > > ## Solution to challenge 3
 > > 
 > > Example commands: `mean(data1$x)`, `sd(data2$y)`, 
-> > `cor.test(data3$x, data3$y)`. 
+> > `cor.test(data3$x, data3$y)`
 > >
-> > Example plot command: `plot(data1$x, data1$y)`.
+> > Example plot command: `plot(data1$x, data1$y)`
 > > 
 > > Did you expect this result? How important is visualising data?
 > {: .solution}
