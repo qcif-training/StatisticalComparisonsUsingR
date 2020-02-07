@@ -25,8 +25,6 @@ output: html_document
 
 ## Introducing continuous variables
 
-Testing first. Can I get subscripts - H~0~ What about superscripts H^2^
-
 The first feature of our dataset we are going to investigate is to look at 
 relationships between continuous variables. A continuous variable is one which
 can take any value between a minimum and maximum possible value - measurements 
@@ -140,7 +138,7 @@ variables
 ![RStudio layout](../fig/03-degreesofcorrelation.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
+> Pearson's *__r__* can be squared, *__r<sup>2</sup>__*, to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
 > can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 
@@ -156,26 +154,27 @@ correlated, so we will calculate the correlation value for these variables.
 # First, test if the variables are normally distributed
 shapiro.test(gallstones$Height)
 ```
-
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
 ```
+~~~
+{: .output}
 
 ```r
 shapiro.test(gallstones$Weight)
 ```
-
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
-```
+~~~
+{: .output}
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
@@ -185,8 +184,7 @@ should use Spearman's test for this analysis.
 ```r
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ```
-
-```
+~~~
 ## 
 ## 	Spearman's rank correlation rho
 ## 
@@ -196,7 +194,8 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ## sample estimates:
 ##       rho 
 ## 0.6151261
-```
+~~~
+{: .output}
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 
