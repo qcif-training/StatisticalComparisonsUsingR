@@ -130,7 +130,7 @@ the two variables. This value indicates the degree of association between the
 variables
 
 |\|r\| = 0 |No relationship|
-|\|r\| = 1 |Perfect *linear* relationship|
+|\|r\| = 1 |Perfect **linear** relationship|
 |\|r\| < 0.3 | Weak relationship|
 |0.3 ≤ \|r\| ≤ 0.7  | Moderate relationship|
 |\|r\| = 0.7 | Strong relationship|
