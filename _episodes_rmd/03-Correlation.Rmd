@@ -36,10 +36,11 @@ can evaluate relatedness using correlation analysis.
 > ## Challenge 1
 > 
 > Which of the following datasets are continuous variables
-> * The weight of a dog
-> * The age of a dog
-> * The breed of a dog
-> * The colour of a dog
+> 1. The weight of a dog
+> 2. The age of a dog
+> 3. The breed of a dog
+> 4. The colour of a dog
+> 
 > > ## Solution to challenge 1
 > > 
 > > 1 and 2 are both continous variables, although age in particular is often 
@@ -99,6 +100,9 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > > There are six continuous variables in the gallstones dataset: Height, 
 > > Weight, Age, BMI, Diam and Dis. Using Weight and BMI as an example:
 > > `plot(gallstones$Weight, gallstones$BMI)`
+> > 
+> > All pairwise comparisons of Height, Weight and BMI look to be correlated. 
+> > There is little evidence of correlation between any other pairs of variables.
 > >
 > > Two variables - Diam and Dis - are skewed towards the low end of values. Try 
 > > log-transforming these (`log10(gallstones$Diam)`) and see what impact this
@@ -124,11 +128,11 @@ Both Pearson's and Spearman's tests give a correlation value 'r' between the two
 variable supplied. This value indicates the degree of association between the
 variables
 
-* |r| = 0 No relationship
-* |r| = 1 Perfect *linear* relationship
-* |r| < 0.3 Weak relationship
-* 0.3 ≤ |r| ≤ 0.7 Moderate relationship 
-* |r| = 0.7 Strong relationship
+|\|r\| = 0 |No relationship|
+|\|r\| = 1 |Perfect *linear* relationship|
+|\|r\| < 0.3 | Weak relationship|
+|0.3 ≤ \|r\| ≤ 0.7  | Moderate relationship|
+|\|r\| = 0.7 | Strong relationship|
 
 ![RStudio layout](../fig/03-degreesofcorrelation.png)
 

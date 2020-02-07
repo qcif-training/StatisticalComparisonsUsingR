@@ -37,7 +37,7 @@ just the first part of the file.
 > ## Challenge 1
 > 
 > Use RStudio “Files” window, your text editor of choice, or a spreadsheet 
-> program to open and review the data file gallstones.csv (do not overwrite 
+> program to open and review the data file _gallstones.csv_ (do not overwrite 
 > the file by saving afterwards). Briefly discuss with your neighbour the 
 > meaning of the headers and the nature of the data in each field.
 > > ## Solution to challenge 1

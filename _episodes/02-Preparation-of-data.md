@@ -19,6 +19,7 @@ output: html_document
 ---
 
 
+
 ## Previewing data
 
 Prior to uploaded any dataset into R for analysis, it is useful to review the 
@@ -36,7 +37,7 @@ just the first part of the file.
 > ## Challenge 1
 > 
 > Use RStudio “Files” window, your text editor of choice, or a spreadsheet 
-> program to open and review the data file gallstones.csv (do not overwrite 
+> program to open and review the data file _gallstones.csv_ (do not overwrite 
 > the file by saving afterwards). Briefly discuss with your neighbour the 
 > meaning of the headers and the nature of the data in each field.
 > > ## Solution to challenge 1
@@ -57,7 +58,7 @@ just the first part of the file.
 > > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
 > > * Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
 > > stones; 
-> > * Diam – gallstone diameter in mm;
+> > * Diam – gallstone diameter in mm; 
 > > * Dis – time in days for gallstone dissolution
 > {: .solution}
 {: .challenge}
@@ -91,7 +92,7 @@ and `summary` functions.
 str(gallstones)
 ```
 
-~~~
+```
 ## 'data.frame':	37 obs. of  14 variables:
 ##  $ Patient_ID         : Factor w/ 37 levels "P1","P10","P11",..: 18 21 9 20 33 34 35 19 28 30 ...
 ##  $ Gender             : Factor w/ 2 levels "F","M": 1 1 2 1 1 1 1 1 1 1 ...
@@ -107,14 +108,13 @@ str(gallstones)
 ##  $ Mult               : int  1 1 0 0 0 0 1 0 0 1 ...
 ##  $ Diam               : int  6 7 20 15 18 19 14 18 15 5 ...
 ##  $ Dis                : int  8 6 20 2 14 8 8 4 15 3 ...
-~~~
-{: .output}
+```
 
 ```r
 summary(gallstones)
 ```
 
-~~~
+```
 ##    Patient_ID Gender      Age            Height          Weight     
 ##  P1     : 1   F:21   Min.   :31.00   Min.   :147.0   Min.   : 46.0  
 ##  P10    : 1   M:16   1st Qu.:67.00   1st Qu.:160.0   1st Qu.: 58.0  
@@ -147,8 +147,7 @@ summary(gallstones)
 ##  3rd Qu.:12.00  
 ##  Max.   :48.00  
 ## 
-~~~
-{: .output}
+```
 
 ## Columns as factors
 
@@ -164,10 +163,9 @@ gallstones$Patient_ID <- as.character(gallstones$Patient_ID)
 str(gallstones$Patient_ID)
 ```
 
-~~~
+```
 ##  chr [1:37] "P25" "P28" "P17" "P27" "P5" "P6" "P7" "P26" "P34" "P36" "P11" ...
-~~~
-{: .output}
+```
 
 > ## Challenge 2
 > 
