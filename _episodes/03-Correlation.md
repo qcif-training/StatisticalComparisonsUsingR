@@ -115,7 +115,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 
 Having visualised the data and identified that it shows signs of an association
 between the variables, the next step is to quantify the degree of association, 
-or **correlation** between the variables. There are different tests for measuring 
+or correlation between the variables. There are different tests for measuring 
 correlation, depending on the distribution of those variables. Today we will 
 focus mainly on two: Pearson's correlation coefficient and Spearman's rank. 
 
