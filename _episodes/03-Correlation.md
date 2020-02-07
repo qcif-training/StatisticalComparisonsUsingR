@@ -34,11 +34,11 @@ can evaluate relatedness using correlation analysis.
 
 > ## Challenge 1
 > 
-> Which of the following datasets are continuous variables
-> * The weight of a dog
-> * The age of a dog
-> * The breed of a dog
-> * The colour of a dog
+> Which of the following datasets are continuous variables?
+> The weight of a dog
+> The age of a dog
+> The breed of a dog
+> The colour of a dog
 > > ## Solution to challenge 1
 > > 
 > > 1 and 2 are both continous variables, although age in particular is often 
@@ -67,7 +67,6 @@ The gallstones dataset contains a number of continuous variables. The first step
 in studying potential relationships between these is to examine them using 
 scatter plots
 
-
 ```r
 plot(gallstones$Height, gallstones$Weight, 
      xlab = "Height", 
@@ -79,7 +78,6 @@ plot(gallstones$Height, gallstones$Weight,
 From this graph, there appears to be a correlation between height and weight.
 We can look at this further using ggplot, which provides them `geom_smooth` 
 function with which you can add a line showing the best correlation estimate
-
 
 ```r
 library(ggplot2)
@@ -151,36 +149,37 @@ correlated, so we will calculate the correlation value for these variables.
 shapiro.test(gallstones$Height)
 ```
 
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
-```
+~~~
+{: .language-r}
 
 ```r
 shapiro.test(gallstones$Weight)
 ```
 
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
-```
+~~~
+{: .language-r}
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
 should use Spearman's test for this analysis.
 
-
 ```r
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ```
 
-```
+~~~
 ## 
 ## 	Spearman's rank correlation rho
 ## 
@@ -190,7 +189,8 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ## sample estimates:
 ##       rho 
 ## 0.6151261
-```
+~~~
+{: .language-r}
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 
