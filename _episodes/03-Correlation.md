@@ -35,10 +35,11 @@ can evaluate relatedness using correlation analysis.
 > ## Challenge 1
 > 
 > Which of the following datasets are continuous variables?
-> The weight of a dog
-> The age of a dog
-> The breed of a dog
-> The colour of a dog
+> 1. The weight of a dog
+> 2. The age of a dog
+> 3. The breed of a dog
+> 4. The colour of a dog
+>
 > > ## Solution to challenge 1
 > > 
 > > 1 and 2 are both continous variables, although age in particular is often 
@@ -124,15 +125,15 @@ variable supplied. This value indicates the degree of association between the
 variables
 
 |\|r\| = 0 |No relationship|
-|r = 1 |Perfect *linear* relationship|
-|r| < 0.3 | Weak relationship|
-|0.3 ≤ r ≤ 0.7  | Moderate relationship|
-|r = 0.7 | Strong relationship|
+|\|r\| = 1 |Perfect *linear* relationship|
+|\|r\| < 0.3 | Weak relationship|
+|0.3 ≤ \|r\| ≤ 0.7  | Moderate relationship|
+|\|r\| = 0.7 | Strong relationship|
 
 ![RStudio layout](../fig/03-degreesofcorrelation.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
+> Pearson's *__r__* can be squared, *__r^2^__*, r^2^ to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
 > can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 
