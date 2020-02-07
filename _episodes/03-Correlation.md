@@ -74,8 +74,7 @@ plot(gallstones$Height, gallstones$Weight,
      ylab = "Weight",
      main = "Plot of patient weight against height")
 ```
-
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+![RStudio layout](../fig/03-fig1.png)
 
 From this graph, there appears to be a correlation between height and weight.
 We can look at this further using ggplot, which provides them `geom_smooth` 
@@ -90,8 +89,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
   theme(axis.text = element_text(size = 12),
         axis.title = element_text(size = 14, face = "bold"))
 ```
-
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+![RStudio layout](../fig/03-fig2.png)
 
 > ## Challenge 2
 > 
@@ -102,6 +100,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > > There are six continuous variables in the gallstones dataset: Height, 
 > > Weight, Age, BMI, Diam and Dis. Using Weight and BMI as an example:
 > > `plot(gallstones$Weight, gallstones$BMI)`
+> >
 > > Two variables - Diam and Dis - are skewed towards the low end of values. Try 
 > > log-transforming these (`log10(gallstones$Diam)`) and see what impact this
 > > has on the plot
@@ -125,6 +124,7 @@ whether the data can be treated as normally distributed or not.
 Both Pearson's and Spearman's tests give a correlation value 'r' between the two 
 variable supplied. This value indicates the degree of association between the
 variables
+
 * |r| = 0 No relationship
 * |r| = 1 Perfect *linear* relationship
 * |r| < 0.3 Weak relationship
@@ -136,7 +136,7 @@ variables
 > ## Tip: Coefficient of determination
 > Pearson's *_r_* can be squared, *_r~2~_*, to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
->can be accounted for by the variability in the second one
+> can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 
 > and Y is -0.7 (strong negative relationship), 49% of the variability in X is 
 > determined by the variability in Y
@@ -209,7 +209,9 @@ correlation is significantly different from zero.
 > > 
 > > Example commands: `mean(data1$x)`, `sd(data2$y)`, 
 > > `cor.test(data3$x, data3$y)`. 
+> >
 > > Example plot command: `plot(data1$x, data1$y)`.
+> > 
 > > Did you expect this result? How important is visualising data?
 > {: .solution}
 {: .challenge}

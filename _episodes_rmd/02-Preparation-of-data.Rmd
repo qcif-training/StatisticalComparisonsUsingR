@@ -58,7 +58,8 @@ just the first part of the file.
 > > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
 > > * Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
 > > stones; 
-> > * Diam – gallstone diameter in mm; Dis – time in days for gallstone dissolution
+> > * Diam – gallstone diameter in mm; 
+> > * Dis – time in days for gallstone dissolution
 > {: .solution}
 {: .challenge}
 
