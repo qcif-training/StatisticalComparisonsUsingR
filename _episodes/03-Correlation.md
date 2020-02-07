@@ -25,6 +25,8 @@ output: html_document
 
 ## Introducing continuous variables
 
+Testing first. Can I get subscripts - H~0~ What about superscripts H^2^
+
 The first feature of our dataset we are going to investigate is to look at 
 relationships between continuous variables. A continuous variable is one which
 can take any value between a minimum and maximum possible value - measurements 
@@ -125,8 +127,8 @@ rank is for when there are two continuous variables, but at least one is not
 normally distributed. An associated test, Shapiro-Wilk, can be used to determine
 whether the data can be treated as normally distributed or not.
 
-Both Pearson's and Spearman's tests give a correlation value 'r' between the two 
-variable supplied. This value indicates the degree of association between the
+Both Pearson's and Spearman's tests calculate a correlation value _r_ between 
+the two variables. This value indicates the degree of association between the
 variables
 
 |\|r\| = 0 |No relationship|
