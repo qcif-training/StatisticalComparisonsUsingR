@@ -73,7 +73,10 @@ plot(gallstones$Height, gallstones$Weight,
      ylab = "Weight",
      main = "Plot of patient weight against height")
 ```
+~~~
 ![RStudio layout](../fig/03-fig1.png)
+~~~
+{: .output}
 
 From this graph, there appears to be a correlation between height and weight.
 We can look at this further using ggplot, which provides them `geom_smooth` 
@@ -87,7 +90,10 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
   theme(axis.text = element_text(size = 12),
         axis.title = element_text(size = 14, face = "bold"))
 ```
+~~~
 ![RStudio layout](../fig/03-fig2.png)
+~~~
+{: .output}
 
 > ## Challenge 2
 > 
@@ -123,7 +129,7 @@ Both Pearson's and Spearman's tests give a correlation value 'r' between the two
 variable supplied. This value indicates the degree of association between the
 variables
 
-* |r| = 0 No relationship
+* r = 0 No relationship
 * |r| = 1 Perfect *linear* relationship
 * |r| < 0.3 Weak relationship
 * 0.3 ≤ |r| ≤ 0.7 Moderate relationship 
@@ -156,7 +162,7 @@ shapiro.test(gallstones$Height)
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
 ~~~
-{: .language-r}
+{: .output}
 
 ```r
 shapiro.test(gallstones$Weight)
@@ -169,7 +175,7 @@ shapiro.test(gallstones$Weight)
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
 ~~~
-{: .language-r}
+{: .output}
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
@@ -190,7 +196,7 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ##       rho 
 ## 0.6151261
 ~~~
-{: .language-r}
+{: .output}
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 
