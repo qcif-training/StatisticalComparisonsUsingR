@@ -73,10 +73,7 @@ plot(gallstones$Height, gallstones$Weight,
      ylab = "Weight",
      main = "Plot of patient weight against height")
 ```
-~~~
 ![RStudio layout](../fig/03-fig1.png)
-~~~
-{: .output}
 
 From this graph, there appears to be a correlation between height and weight.
 We can look at this further using ggplot, which provides them `geom_smooth` 
@@ -90,10 +87,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
   theme(axis.text = element_text(size = 12),
         axis.title = element_text(size = 14, face = "bold"))
 ```
-~~~
 ![RStudio layout](../fig/03-fig2.png)
-~~~
-{: .output}
 
 > ## Challenge 2
 > 
@@ -129,11 +123,11 @@ Both Pearson's and Spearman's tests give a correlation value 'r' between the two
 variable supplied. This value indicates the degree of association between the
 variables
 
-* r = 0 No relationship
-* |r| = 1 Perfect *linear* relationship
-* |r| < 0.3 Weak relationship
-* 0.3 ≤ |r| ≤ 0.7 Moderate relationship 
-* |r| = 0.7 Strong relationship
+|r = 0 |No relationship|
+|r = 1 |Perfect *linear* relationship|
+|r| < 0.3 | Weak relationship|
+|0.3 ≤ r ≤ 0.7  | Moderate relationship|
+|r = 0.7 | Strong relationship|
 
 ![RStudio layout](../fig/03-degreesofcorrelation.png)
 
