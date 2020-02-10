@@ -94,20 +94,31 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 
 > ## Challenge 2
 > 
-> Pick a pair of continuous variables from the dataset and visulise them using
-> the plot function. Do they appear to be correlated?
+> As well as height and weight, the gallstones dataset contains a number of 
+> other continuous variables, including include age and BMI. Plot any two of 
+> these to see if they show signs of correlation
 > > ## Solution to challenge 2
 > > 
-> > There are six continuous variables in the gallstones dataset: Height, 
-> > Weight, Age, BMI, Diam and Dis. Using Weight and BMI as an example:
+> > Using Weight and BMI as an example:
 > > `plot(gallstones$Weight, gallstones$BMI)`
+> > As you might expect, increased weight seems to be associated with increased
+> > BMI. Height is, as we've seen, correlated with weight but much less so with 
+> > BMI. Age does not seem to be correlated with any of the other three 
+> > variables.
 > > 
-> > All pairwise comparisons of Height, Weight and BMI look to be correlated. 
-> > There is little evidence of correlation between any other pairs of variables.
-> >
-> > Two variables - Diam and Dis - are skewed towards the low end of values. Try 
-> > log-transforming these (`log10(gallstones$Diam)`) and see what impact this
-> > has on the plot.
+> > > ## Tip
+> > > You can use `for` loops as a quick and dirty way of plotting all pairwise
+> > > comparisons at once
+> > > 
+> > > ```r
+> > > par(mfrow=c(4,4))
+> > > for (data1 in c("Age","Height","Weight","BMI")) {
+> > >   for (data2 in c("Age","Height","Weight","BMI")) {
+> > >     plot(gallstones[,data1], gallstones[,data2], xlab=data1, ylab=data2)
+> > >   }
+> > > }
+> > > ```
+> > {: .callout}
 > {: .solution}
 {: .challenge}
 
@@ -138,7 +149,7 @@ variables
 ![RStudio layout](../fig/03-degreesofcorrelation.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *__r__* can be squared, *__r<sup>2</sup>__*, to derive a coefficient of 
+> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
 > can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 
@@ -154,27 +165,26 @@ correlated, so we will calculate the correlation value for these variables.
 # First, test if the variables are normally distributed
 shapiro.test(gallstones$Height)
 ```
-~~~
+
+```
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
 ```
-~~~
-{: .output}
 
 ```r
 shapiro.test(gallstones$Weight)
 ```
-~~~
+
+```
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
-~~~
-{: .output}
+```
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
@@ -184,7 +194,8 @@ should use Spearman's test for this analysis.
 ```r
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ```
-~~~
+
+```
 ## 
 ## 	Spearman's rank correlation rho
 ## 
@@ -194,8 +205,7 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ## sample estimates:
 ##       rho 
 ## 0.6151261
-~~~
-{: .output}
+```
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 
@@ -220,3 +230,10 @@ correlation is significantly different from zero.
 > > Did you expect this result? How important is visualising data?
 > {: .solution}
 {: .challenge}
+
+> ## Challenge 4
+>
+> 
+Two variables - Diam and Dis - are skewed towards the low end of values. Try 
+> > log-transforming these (`log10(gallstones$Diam)`) and see what impact this
+> > has on the plot.
