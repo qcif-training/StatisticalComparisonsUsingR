@@ -17,7 +17,6 @@ keypoints:
 - "Review data using `plot` and `ggplot`"
 - "Test for normality of a dataset using `shapiro.test`"
 - "Calculate correlation coefficient using `cor` and `cor.test`"
-- "Summarise continuous data using the `by` command"
 output: html_document
 ---
 
