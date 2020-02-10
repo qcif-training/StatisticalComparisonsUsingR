@@ -174,7 +174,7 @@ shapiro.test(gallstones$Height)
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
 ~~~
-{: .language-r}
+{: .output}
 
 ```r
 shapiro.test(gallstones$Weight)
@@ -187,7 +187,7 @@ shapiro.test(gallstones$Weight)
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
 ~~~
-{: .language-r}
+{: .output}
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
@@ -209,7 +209,7 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ##       rho 
 ## 0.6151261
 ~~~
-{: .language-r}
+{: .output}
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 

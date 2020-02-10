@@ -109,7 +109,7 @@ str(gallstones)
 ##  $ Diam               : int  6 7 20 15 18 19 14 18 15 5 ...
 ##  $ Dis                : int  8 6 20 2 14 8 8 4 15 3 ...
 ~~~
-{: .language-r}
+{: .output}
 
 ```r
 summary(gallstones)
@@ -149,7 +149,7 @@ summary(gallstones)
 ##  Max.   :48.00  
 ## 
 ~~~
-{: .language-r}
+{: .output}
 
 ## Columns as factors
 
@@ -168,7 +168,7 @@ str(gallstones$Patient_ID)
 ~~~
 ##  chr [1:37] "P25" "P28" "P17" "P27" "P5" "P6" "P7" "P26" "P34" "P36" "P11" ...
 ~~~
-{: .language-r}
+{: .output}
 
 > ## Challenge 2
 > 
