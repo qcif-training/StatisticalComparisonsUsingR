@@ -101,6 +101,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > > 
 > > Using Weight and BMI as an example:
 > > `plot(gallstones$Weight, gallstones$BMI)`
+> > 
 > > As you might expect, increased weight seems to be associated with increased
 > > BMI. Height is, as we've seen, correlated with weight but much less so with 
 > > BMI. Age does not seem to be correlated with any of the other three 
@@ -166,25 +167,27 @@ correlated, so we will calculate the correlation value for these variables.
 shapiro.test(gallstones$Height)
 ```
 
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
-```
+~~~
+{: .language-r}
 
 ```r
 shapiro.test(gallstones$Weight)
 ```
 
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
-```
+~~~
+{: .language-r}
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
@@ -195,7 +198,7 @@ should use Spearman's test for this analysis.
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ```
 
-```
+~~~
 ## 
 ## 	Spearman's rank correlation rho
 ## 
@@ -205,7 +208,8 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ## sample estimates:
 ##       rho 
 ## 0.6151261
-```
+~~~
+{: .language-r}
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 
@@ -227,13 +231,47 @@ correlation is significantly different from zero.
 > >
 > > Example plot command: `plot(data1$x, data1$y)`
 > > 
-> > Did you expect this result? How important is visualising data?
+> > Did you expect this result? Does it emphasise the importance of visualising
+> > data?
 > {: .solution}
 {: .challenge}
 
 > ## Challenge 4
 >
-> 
-Two variables - Diam and Dis - are skewed towards the low end of values. Try 
-> > log-transforming these (`log10(gallstones$Diam)`) and see what impact this
-> > has on the plot.
+> The gallstones dataset contains two continuous variables about the properties
+> of patients' gallstones - their diameter (_Diam_) and the time taken for full
+> dissolution (_Dis_). Is there evidence for correlation of these properties?
+> > ## Solution to challenge 4
+> > First, plot the data
+> > 
+> > ```r
+> > plot(gallstones$Diam, gallstones$Dis,
+> >      xlab="Diameter", ylab="Dissolution time",
+> >      main="Plot of dissolution time against diameter"
+> > )
+> > ```
+> > There is no obvious sign of correlation, but both variables are skewed
+> > towards the low end of values. We can log-transform the axes to make the 
+> > data more evenly distributed.
+> > 
+> > ```r
+> > plot(gallstones$Diam, gallstones$Dis,
+> >      xlab="Diameter", ylab="Dissolution time",
+> >      main="Plot of dissolution time against diameter",
+> >      log="xy"
+> > )
+> > ```
+> > Still no obvious correlation, but we can confirm that mathematically
+> > 
+> > ```r
+> > # Test data for normality
+> > shapiro.test(gallstones$Diam)
+> > shapiro.test(gallstones$Dis)
+> > Neither appears to be normally distributed, so use Spearman's correlation
+> > cor.test(gallstones$Diam, gallstones$Dis, method="spearman")
+> > ```
+> > The correlation coefficient is near zero, and the p-value not significant - 
+> > there is no evidence of a relationship between stone diameter and time to 
+> > dissolution
+> {: .solution}
+{: .challenge}

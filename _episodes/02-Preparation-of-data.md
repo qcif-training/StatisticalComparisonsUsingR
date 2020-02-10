@@ -92,7 +92,7 @@ and `summary` functions.
 str(gallstones)
 ```
 
-```
+~~~
 ## 'data.frame':	37 obs. of  14 variables:
 ##  $ Patient_ID         : Factor w/ 37 levels "P1","P10","P11",..: 18 21 9 20 33 34 35 19 28 30 ...
 ##  $ Gender             : Factor w/ 2 levels "F","M": 1 1 2 1 1 1 1 1 1 1 ...
@@ -108,13 +108,14 @@ str(gallstones)
 ##  $ Mult               : int  1 1 0 0 0 0 1 0 0 1 ...
 ##  $ Diam               : int  6 7 20 15 18 19 14 18 15 5 ...
 ##  $ Dis                : int  8 6 20 2 14 8 8 4 15 3 ...
-```
+~~~
+{: .language-r}
 
 ```r
 summary(gallstones)
 ```
 
-```
+~~~
 ##    Patient_ID Gender      Age            Height          Weight     
 ##  P1     : 1   F:21   Min.   :31.00   Min.   :147.0   Min.   : 46.0  
 ##  P10    : 1   M:16   1st Qu.:67.00   1st Qu.:160.0   1st Qu.: 58.0  
@@ -147,7 +148,8 @@ summary(gallstones)
 ##  3rd Qu.:12.00  
 ##  Max.   :48.00  
 ## 
-```
+~~~
+{: .language-r}
 
 ## Columns as factors
 
@@ -163,9 +165,10 @@ gallstones$Patient_ID <- as.character(gallstones$Patient_ID)
 str(gallstones$Patient_ID)
 ```
 
-```
+~~~
 ##  chr [1:37] "P25" "P28" "P17" "P27" "P5" "P6" "P7" "P26" "P34" "P36" "P11" ...
-```
+~~~
+{: .language-r}
 
 > ## Challenge 2
 > 
