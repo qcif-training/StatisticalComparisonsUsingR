@@ -267,7 +267,7 @@ correlation is significantly different from zero.
 > > # Test data for normality
 > > shapiro.test(gallstones$Diam)
 > > shapiro.test(gallstones$Dis)
-> > Neither appears to be normally distributed, so use Spearman's correlation
+> > # Neither appears to be normally distributed, so use Spearman's correlation
 > > cor.test(gallstones$Diam, gallstones$Dis, method="spearman")
 > > ```
 > > The correlation coefficient is near zero, and the p-value not significant - 
