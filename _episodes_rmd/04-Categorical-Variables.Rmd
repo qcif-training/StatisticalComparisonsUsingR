@@ -1,5 +1,5 @@
 ---
-title: "04-Categorical-Variables"
+title: "Categorical-Variables"
 teaching: 45
 exercises: 10
 questions:
