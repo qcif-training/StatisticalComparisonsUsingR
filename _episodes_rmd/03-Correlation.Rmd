@@ -15,13 +15,13 @@ keypoints:
 - "Review data using `plot` and `ggplot`"
 - "Test for normality of a dataset using `shapiro.test`"
 - "Calculate correlation coefficient using `cor` and `cor.test`"
-- "Summarise continuous data using the `by` command"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 gallstones <- read.csv("data/gallstones.csv")
+library(ggplot2)
 ```
 
 ## Introducing continuous variables
@@ -54,12 +54,12 @@ can evaluate relatedness using correlation analysis.
 
 A correlation measures the 'degree of association' between two continuous 
 variables. Associations can be:
-* *positive* (an increase in one variable is associated with an increase in the 
-other)
-* *negative* (an increase in one variable is associated with a decrease in the
-other)
-* *non-linear* (as one variable increases, the other changes but not in a 
-consistant way)
+* *positive*: an increase in one variable is associated with an increase in the 
+other
+* *negative*: an increase in one variable is associated with a decrease in the
+other
+* *non-linear*: as one variable increases, the other changes but not in a 
+consistant way
 
 ![RStudio layout](../fig/03-correlationexamples.png)
 
@@ -226,7 +226,7 @@ correlation is significantly different from zero.
 > > # Test data for normality
 > > shapiro.test(gallstones$Diam)
 > > shapiro.test(gallstones$Dis)
-> > Neither appears to be normally distributed, so use Spearman's correlation
+> > # Neither appears to be normally distributed, so use Spearman's correlation
 > > cor.test(gallstones$Diam, gallstones$Dis, method="spearman")
 > > ```
 > > The correlation coefficient is near zero, and the p-value not significant - 

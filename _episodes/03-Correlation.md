@@ -52,12 +52,12 @@ can evaluate relatedness using correlation analysis.
 
 A correlation measures the 'degree of association' between two continuous 
 variables. Associations can be:
-* *positive* (an increase in one variable is associated with an increase in the 
-other)
-* *negative* (an increase in one variable is associated with a decrease in the
-other)
-* *non-linear* (as one variable increases, the other changes but not in a 
-consistant way)
+* *positive*: an increase in one variable is associated with an increase in the 
+other
+* *negative*: an increase in one variable is associated with a decrease in the
+other
+* *non-linear*: as one variable increases, the other changes but not in a 
+consistant way
 
 ![RStudio layout](../fig/03-correlationexamples.png)
 
