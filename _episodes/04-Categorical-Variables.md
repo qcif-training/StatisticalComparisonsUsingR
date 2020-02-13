@@ -153,10 +153,11 @@ To carry out a statistical test, we need a null and alternative hypothesis. In
 most cases, the null hypothesis H<sub>0</sub> is that the proportion of samples in each 
 category is the same in both groups. 
 
-Our question: Is there a relationship between obesity and gallstone recurrence
-Hypotheses: 
-  H<sub>0</sub>: Gallstone recurrence is independent of obesity
-  H<sub>1</sub>: Gallstone recurrence is linked with obesity
+Our question: Is there a relationship between obesity and gallstone recurrence?
+
+Hypotheses:  
+  H<sub>0</sub>: Gallstone recurrence is independent of obesity  
+  H<sub>1</sub>: Gallstone recurrence is linked with obesity  
 
 > ## NOTE FOR CONTENT DEVELOPMENT
 > The manual includes several pages on the Chi-Square statistic, degrees of freedom
@@ -298,6 +299,7 @@ size provided sufficient statistical power to detect a relationship.
 > > 
 > > # Plot using barplot
 > > barplot(counts, beside = TRUE, legend = rownames(counts), col = c('red','blue'))
+> >
 > > # Or plot using ggplot
 > > ggplot(gallstones, aes(Treatment, fill=Rec)) + 
 > >   geom_bar(position="dodge") +
@@ -310,7 +312,7 @@ size provided sufficient statistical power to detect a relationship.
 > > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
-> > CrossTable(data$Rec,data$Mult,format="SPSS",prop.chisq=F,expected=T)
+> > CrossTable(gallstones$Rec,gallstones$Treatment,format="SPSS",prop.chisq=F,expected=T)
 > > 
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec)
