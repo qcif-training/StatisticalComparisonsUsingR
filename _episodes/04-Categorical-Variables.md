@@ -158,11 +158,11 @@ Hypotheses:
   H<sub>0</sub>: Gallstone recurrence is independent of obesity
   H<sub>1</sub>: Gallstone recurrence is linked with obesity
 
-# NOTE FOR CONTENT DEVELOPMENT
-The manual includes several pages on the Chi-Square statistic, degrees of freedom
-and contingency tables. How much, if any, of that is relevant? The key learning
-is to chose the appropriate test (ChiSq, Fisher, McNemar) and to apply that test
-# END OF NOTE
+> ## NOTE FOR CONTENT DEVELOPMENT
+> The manual includes several pages on the Chi-Square statistic, degrees of freedom
+> and contingency tables. How much, if any, of that is relevant? The key learning
+> is to chose the appropriate test (ChiSq, Fisher, McNemar) and to apply that test
+{: .callout}
 
 There are three main hypothesis tests for categorical variables:
 * *Chi-square test*: used when the _expected_ count in each cell of the table is
