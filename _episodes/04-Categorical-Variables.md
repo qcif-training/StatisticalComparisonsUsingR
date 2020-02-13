@@ -265,7 +265,7 @@ significant, so we reject our alternative hypothesis - there is no evidence of
 different recurrence rates between obese and non-obese patients. The apparently
 higher rate of recurrence in obese patients is no more than might be expected by
 random chance in a sample group of this size. It is possible however that we
-have made a type II error and incorrectly rejected H<sub>1</sub> - we should have 
+have made a type II error and incorrectly rejected H~1~ - we should have 
 consulted a statistician before gathering the data to check whether the sample 
 size provided sufficient statistical power to detect a relationship.
 
@@ -285,11 +285,11 @@ size provided sufficient statistical power to detect a relationship.
 {: .challenge}
 
 > ## Challenge 3
-> Repeat the analysis to test whether recurrence is affected by treatment
-> Prepare simple and proportion/expected tables, prepare a bar chart, perform 
-> the appropriate test
+> Repeat the analysis to test whether recurrence is affected by treatment. 
+> 
+> Prepare simple and proportion/expected tables, prepare a bar chart, identify 
+> and perform the appropriate statistical test.
 > > ## Solution to Challenge 3
-> > 
 > > 
 > > ```r
 > > # Create the initial counts table
