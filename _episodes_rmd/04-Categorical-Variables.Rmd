@@ -126,7 +126,7 @@ category is the same in both groups.
 
 Our question: Is there a relationship between obesity and gallstone recurrence?
 
-Hypotheses:  
+_Hypotheses_:  
   H~0~: Gallstone recurrence is independent of obesity  
   H~1~: Gallstone recurrence is linked with obesity  
 
