@@ -30,7 +30,7 @@ columns contain just two or three distinct values - for example, M and F, or 1,
 2, and 3. These are examples of __categorical__ data - where samples are 
 assigned to one of a limited number of fixed, distinct categories. Categories 
 may be emergent features of the data (for example 'received treatment' and 'did 
-not receive treatment', but others may be more arbitrary according to the needs
+not receive treatment') but others may be more arbitrary according to the needs
 of the analysis (in this dataset, the three levels of alcohol consumption relate
 to researcher-defined levels of 'low', 'moderate' and 'high').
 
@@ -39,7 +39,7 @@ we cannot study relationships between two variables by looking for correlations.
 Instead, statistical analysis of categorical data is based around count 
 frequencies - are the numbers of samples in each category what would be expected
 from random distribution, or do certain categories occur together more often
-than would happen just by chance. 
+than would happen just by chance?
 
 ## Ordinal data
 
@@ -90,7 +90,7 @@ As with continuous data, it can often be useful to visualise categorical data
 before starting on more complex analysis. We can do this numerically with a 
 simple count table, or graphically by expressing that table as a bar graph. For
 this example, we will test whether there is a relationship between obesity and 
-the recurrence of gallstones
+the recurrence of gallstones.
 
 ```{r}
 # Summarise the data into a table.
@@ -166,8 +166,8 @@ fisher.test(gallstones$Obese, gallstones$Rec)
 Perhaps surprisingly given the plot data, the p-value of this test is not 
 significant, so we reject our alternative hypothesis - there is no evidence of 
 different recurrence rates between obese and non-obese patients. The apparently
-higher rate of recurrence in obese patients is no more than might be expected  
-by random chance in a sample group of this size. It is possible however that we
+higher rate of recurrence in obese patients is no more than might be expected by
+random chance in a sample group of this size. It is possible however that we
 have made a type II error and incorrectly rejected H~1~ - we should have 
 consulted a statistician before gathering the data to check whether the sample 
 size provided sufficient statistical power to detect a relationship.
@@ -180,6 +180,7 @@ size provided sufficient statistical power to detect a relationship.
 > 2. When there are more than five counts expected in each cell
 > 3. When the data is paired
 > 4. You can use it interchangeably with Fisher's Exact test
+> 
 > > ## Solution to Challenge 2
 > > 
 > > Answer: 2
@@ -196,6 +197,7 @@ size provided sufficient statistical power to detect a relationship.
 > > # Create the initial counts table
 > > counts <- table(gallstones$Rec, gallstones$Treatment)
 > > counts
+> >
 > > # Plot using barplot
 > > barplot(counts, beside = TRUE, legend = rownames(counts), col = c('red','blue'))
 > > # Or plot using ggplot
@@ -207,9 +209,11 @@ size provided sufficient statistical power to detect a relationship.
 > >         axis.title=element_text(size=18),
 > >         plot.title = element_text(size=22, face="bold")) +
 > >   ggtitle("Treatment vs. Recurrence") 
+> > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
 > > CrossTable(data$Rec,data$Mult,format="SPSS",prop.chisq=F,expected=T)
+> > 
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec)
 > > ```

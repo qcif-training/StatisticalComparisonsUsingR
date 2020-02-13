@@ -28,7 +28,7 @@ columns contain just two or three distinct values - for example, M and F, or 1,
 2, and 3. These are examples of __categorical__ data - where samples are 
 assigned to one of a limited number of fixed, distinct categories. Categories 
 may be emergent features of the data (for example 'received treatment' and 'did 
-not receive treatment', but others may be more arbitrary according to the needs
+not receive treatment') but others may be more arbitrary according to the needs
 of the analysis (in this dataset, the three levels of alcohol consumption relate
 to researcher-defined levels of 'low', 'moderate' and 'high').
 
@@ -37,7 +37,7 @@ we cannot study relationships between two variables by looking for correlations.
 Instead, statistical analysis of categorical data is based around count 
 frequencies - are the numbers of samples in each category what would be expected
 from random distribution, or do certain categories occur together more often
-than would happen just by chance. 
+than would happen just by chance?
 
 ## Ordinal data
 
@@ -83,7 +83,7 @@ levels(gallstones$Rec) <- c("NoRecurrence", "Recurrence")
 str(gallstones)
 ```
 
-```
+~~~
 ## 'data.frame':	37 obs. of  14 variables:
 ##  $ Patient_ID         : Factor w/ 37 levels "P1","P10","P11",..: 18 21 9 20 33 34 35 19 28 30 ...
 ##  $ Gender             : Factor w/ 2 levels "F","M": 1 1 2 1 1 1 1 1 1 1 ...
@@ -99,7 +99,8 @@ str(gallstones)
 ##  $ Mult               : Factor w/ 2 levels "0","1": 2 2 1 1 1 1 2 1 1 2 ...
 ##  $ Diam               : int  6 7 20 15 18 19 14 18 15 5 ...
 ##  $ Dis                : int  8 6 20 2 14 8 8 4 15 3 ...
-```
+~~~
+{: .output}
 
 ## Visualising categorical data
 
@@ -107,7 +108,7 @@ As with continuous data, it can often be useful to visualise categorical data
 before starting on more complex analysis. We can do this numerically with a 
 simple count table, or graphically by expressing that table as a bar graph. For
 this example, we will test whether there is a relationship between obesity and 
-the recurrence of gallstones
+the recurrence of gallstones.
 
 
 ```r
@@ -116,12 +117,13 @@ counts <- table(gallstones$Rec, gallstones$Obese)
 counts
 ```
 
-```
+~~~
 ##               
 ##                NonObese Obese
 ##   NoRecurrence       17     4
 ##   Recurrence          9     7
-```
+~~~
+{: .output}
 
 ```r
 # Then plot that table into a bar graph
@@ -148,13 +150,13 @@ rate of recurrence, so we will test whether that is statistically significant
 ## Statistical tests for categorical variables
 
 To carry out a statistical test, we need a null and alternative hypothesis. In 
-most cases, the null hypothesis H~0~ is that the proportion of samples in each 
+most cases, the null hypothesis H<sub>0</sub> is that the proportion of samples in each 
 category is the same in both groups. 
 
 Our question: Is there a relationship between obesity and gallstone recurrence
 Hypotheses: 
-  H~0~: Gallstone recurrence is independent of obesity
-  H~1~: Gallstone recurrence is linked with obesity
+  H<sub>0</sub>: Gallstone recurrence is independent of obesity
+  H<sub>1</sub>: Gallstone recurrence is linked with obesity
 
 # NOTE FOR CONTENT DEVELOPMENT
 The manual includes several pages on the Chi-Square statistic, degrees of freedom
@@ -180,17 +182,7 @@ CrossTable(gallstones$Rec, gallstones$Obese,
            format = "SPSS", expected = T, prop.chisq = F)
 ```
 
-```
-## Warning in chisq.test(t, correct = TRUE, ...): Chi-squared approximation may be
-## incorrect
-```
-
-```
-## Warning in chisq.test(t, correct = FALSE, ...): Chi-squared approximation may be
-## incorrect
-```
-
-```
+~~~
 ## 
 ##    Cell Contents
 ## |-------------------------|
@@ -237,7 +229,8 @@ CrossTable(gallstones$Rec, gallstones$Obese,
 ##  
 ##        Minimum expected frequency: 4.756757 
 ## Cells with Expected Frequency < 5: 1 of 4 (25%)
-```
+~~~
+{: .output}
 
 This is slightly complicated output, but we are most interested in the "Expected 
 Values" and "Column Percent" figures - the second and fourth line of each box. 
@@ -252,7 +245,7 @@ Because one expected value is less than 5, we should use Fisher's Exact test
 fisher.test(gallstones$Obese, gallstones$Rec)
 ```
 
-```
+~~~
 ## 
 ## 	Fisher's Exact Test for Count Data
 ## 
@@ -264,13 +257,15 @@ fisher.test(gallstones$Obese, gallstones$Rec)
 ## sample estimates:
 ## odds ratio 
 ##   3.193654
-```
+~~~
+{: .output}
+
 Perhaps surprisingly given the plot data, the p-value of this test is not 
 significant, so we reject our alternative hypothesis - there is no evidence of 
 different recurrence rates between obese and non-obese patients. The apparently
-higher rate of recurrence in obese patients is no more than might be expected  
-by random chance in a sample group of this size. It is possible however that we
-have made a type II error and incorrectly rejected H~1~ - we should have 
+higher rate of recurrence in obese patients is no more than might be expected by
+random chance in a sample group of this size. It is possible however that we
+have made a type II error and incorrectly rejected H<sub>1</sub> - we should have 
 consulted a statistician before gathering the data to check whether the sample 
 size provided sufficient statistical power to detect a relationship.
 
@@ -282,6 +277,7 @@ size provided sufficient statistical power to detect a relationship.
 > 2. When there are more than five counts expected in each cell
 > 3. When the data is paired
 > 4. You can use it interchangeably with Fisher's Exact test
+> 
 > > ## Solution to Challenge 2
 > > 
 > > Answer: 2
@@ -299,6 +295,7 @@ size provided sufficient statistical power to detect a relationship.
 > > # Create the initial counts table
 > > counts <- table(gallstones$Rec, gallstones$Treatment)
 > > counts
+> > 
 > > # Plot using barplot
 > > barplot(counts, beside = TRUE, legend = rownames(counts), col = c('red','blue'))
 > > # Or plot using ggplot
@@ -310,9 +307,11 @@ size provided sufficient statistical power to detect a relationship.
 > >         axis.title=element_text(size=18),
 > >         plot.title = element_text(size=22, face="bold")) +
 > >   ggtitle("Treatment vs. Recurrence") 
+> > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
 > > CrossTable(data$Rec,data$Mult,format="SPSS",prop.chisq=F,expected=T)
+> > 
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec)
 > > ```
