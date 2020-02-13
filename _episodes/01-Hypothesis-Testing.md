@@ -13,7 +13,8 @@ objectives:
 - "Understand the hypothesis-testing process"
 - "Recognise the different types of hypothesis testing errors"
 keypoints:
-- "To be defined"
+- "Defining null and alternative hypotheses"
+- "Using p-values to accept or reject the alternative hypothesis"
 output: html_document
 ---
 
@@ -81,7 +82,7 @@ more favourable to H<sub>1</sub>) occurring if H<sub>0</sub> were true.
 
 Hypothesis testing is often used in inferential statistics, where measurements 
 are taken on a random sample from a large population in order to estimate (or 
-infer) something about that population as a whole. Example of inferential 
+infer) something about that population as a whole. Examples of inferential 
 statistics include opinion polls and drug trials.
 
 > ## Challenge 2
@@ -111,10 +112,10 @@ some disciplines)
 ## Confidence intervals
 A confidence interval gives more information than the results of a
 hypothesis test (reject or don’t reject): it provides a range of
-plausible values for the parameter being studied.
-Example: If the sample mean is used to estimate the population mean, the
+plausible values for the parameter being studied.  
+_Example_: If the sample mean is used to estimate the population mean, the
 confidence interval gives the upper and lower bounds of a range in which
-we have 95% confidence that the real population mean occurs.
+we have 95% confidence that the __real__ population mean occurs.
 
 
 > ## Challenge 3

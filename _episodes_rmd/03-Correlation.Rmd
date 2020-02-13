@@ -1,5 +1,5 @@
 ---
-title: "Relationship between two continuous variables"
+title: "Relationship Between Continuous Variables"
 teaching: 45
 exercises: 10
 questions:
