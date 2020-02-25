@@ -180,7 +180,7 @@ correlation is significantly different from zero.
 > ## Challenge 3
 > 
 > Import the example dataset in the file "data/ep03_data.RData" using the 
-> command `load(data/ep03_data.RData")`. This will load three dataframes of x
+> command `load("data/ep03_data.RData")`. This will load three dataframes of x
 > and y coordinates. Without plotting the data, carry out some basic statistical
 > tests (mean, standard deviation, correlation) on the three dataframes and see 
 > if you can characterise the differences between them. Then plot them and see 
