@@ -68,12 +68,12 @@ The Student's T-test compares the means of two unrelated groups measured on the
 same continuous variable, assuming that both groups have a normal distribution
 of data
 
-H<sub>0</sub>: µ~1</sub> = µ~2</sub> | against | H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> (two-sided)
- | or | H<sub>1</sub>: µ<sub>1</sub> < µ<sub></sub> or µ<sub>1</sub> < µ<sub>2</sub> (one-sided)
+H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> | against | H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> (two-sided)
+ | or | H<sub>1</sub>: µ<sub>1</sub> < µ<sub>2</sub> or µ<sub>1</sub> > µ<sub>2</sub> (one-sided)
 
-If **equal variance**: Student's T-test
-If **unequal variance**: Welch's two-sample T-test
-If **data are paired**: Student's paired T-test
+If **equal variance**: Student's T-test  
+If **unequal variance**: Welch's two-sample T-test  
+If **data are paired**: Student's paired T-test  
 
 > ## Tip
 > The R `t.test` function combines all three of these tests, and defaults to
@@ -101,11 +101,11 @@ means, by considering the data as rank order values rather than absolute values.
 Is there a difference in height between females and males in the gallstones
 dataset?
 
-Height: Continuous variable
-Gender: Categorical variable with two levels
-Null hypothesis: There is no difference in height between the groups
+Height: Continuous variable  
+Gender: Categorical variable with two levels  
+Null hypothesis: There is no difference in height between the groups  
 
-#### Step one - visualise the data
+_Step one - visualise the data_
 We will start by reviewing the data using a boxplot to see if there is an
 indication of difference between the groups
 
@@ -121,7 +121,7 @@ plot(gallstones$Height ~ gallstones$Gender,
 Visually there certainly appears to be a difference. But is it statistically
 significant?
 
-#### Step two - is the data normally distributed
+_Step two - is the data normally distributed_
 
 ```r
 hist(gallstones$Height[which(gallstones$Gender == 'F')], main = "Histogram of heights of females", xlab = "")
@@ -160,7 +160,7 @@ Neither test gives a significant p-value, so in the absence of sufficient
 evidence to accept the alternative hypothesis of non-normality, we treat the
 data as if it were normal; that is, we use a T-test.
 
-#### Step three - carrying out a T-test
+_Step three - carrying out a T-test_
 
 ```r
 t.test(gallstones$Height ~ gallstones$Gender)

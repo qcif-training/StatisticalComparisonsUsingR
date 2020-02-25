@@ -70,7 +70,7 @@ same continuous variable, assuming that both groups have a normal distribution
 of data
 
 H~0~: µ~1~ = µ~2~ | against | H~1~: µ~1~ ≠ µ~2~ (two-sided)
- | or | H~1~: µ~1~ < µ~2~ or µ~1~ < µ~2~ (one-sided)
+ | or | H~1~: µ~1~ < µ~2~ or µ~1~ > µ~2~ (one-sided)
 
 If **equal variance**: Student's T-test  
 If **unequal variance**: Welch's two-sample T-test  
@@ -106,7 +106,7 @@ Height: Continuous variable
 Gender: Categorical variable with two levels  
 Null hypothesis: There is no difference in height between the groups  
 
-#### Step one - visualise the data
+_Step one - visualise the data_
 We will start by reviewing the data using a boxplot to see if there is an 
 indication of difference between the groups
 ```{r}
@@ -119,7 +119,7 @@ plot(gallstones$Height ~ gallstones$Gender,
 Visually there certainly appears to be a difference. But is it statistically
 significant?
 
-#### Step two - is the data normally distributed 
+_Step two - is the data normally distributed_
 ```{r}
 par(mfrow=c(1,2))
 hist(gallstones$Height[which(gallstones$Gender == 'F')], main = "Histogram of heights of females", xlab = "")
@@ -141,7 +141,7 @@ Neither test gives a significant p-value, so in the absence of sufficient
 evidence to accept the alternative hypothesis of non-normality, we treat the
 data as if it were normal; that is, we use a T-test 
 
-#### Step three - carrying out a T-test
+_Step three - carrying out a T-test_
 ```{r}
 t.test(gallstones$Height ~ gallstones$Gender)
 ```
