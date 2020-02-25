@@ -45,6 +45,7 @@ independent (for example, two separate groups of patients, one group treated and
 one untreated).
 
 
+
 > ## Challenge 1
 >
 > In our gallstones dataset, assume that BMI is normally distributed for
@@ -67,15 +68,15 @@ The Student's T-test compares the means of two unrelated groups measured on the
 same continuous variable, assuming that both groups have a normal distribution
 of data
 
-H<sub>0</sub>: µ~1</sup> = µ~2</sup> | against | H<sub>1</sub>: µ<sub>1</sup> ≠ µ<sub>2</sub> (two-sided)
- | or | H<sub>1</sub>: µ<sub>1</sub> < µ<sub></sup> or µ<sub>1</sup> < µ<sub>2</sup> (one-sided)
+H<sub>0</sub>: µ~1</sub> = µ~2</sub> | against | H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> (two-sided)
+ | or | H<sub>1</sub>: µ<sub>1</sub> < µ<sub></sub> or µ<sub>1</sub> < µ<sub>2</sub> (one-sided)
 
 If **equal variance**: Student's T-test
 If **unequal variance**: Welch's two-sample T-test
 If **data are paired**: Student's paired T-test
 
 > ## Tip
-> The R `t.test` function combines all thre of these tests, and defaults to
+> The R `t.test` function combines all three of these tests, and defaults to
 > Welch's two-sample T-test. To perform a standard T-test, use the parameter
 > setting `var.equal = TRUE`, and for a paired T-test, use `paired = TRUE`.
 {: .callout}
@@ -87,7 +88,7 @@ is a non-parametric test analogous to the unpaired T-test, used when the
 _dependent_ variable is non-normally distributed
 
 The Mann-Whitney test compares the medians of the two groups rather than the
-means by considering the data as rank order values rather than absolute values.
+means, by considering the data as rank order values rather than absolute values.
 
 > ## Tip
 > The `wilcox.test` function in R defaults to unpaired data - effectively
@@ -131,7 +132,7 @@ hist(gallstones$Height[which(gallstones$Gender == 'M')], main = "Histogram of he
 
 This doesn't look very normally-distributed, but we do have relatively few data
 points. A more convincing way to determine this would be with the Shapiro-Wilks
-test
+test.
 
 ```r
 by(gallstones$Height, gallstones$Gender, shapiro.test)
@@ -157,7 +158,7 @@ by(gallstones$Height, gallstones$Gender, shapiro.test)
 
 Neither test gives a significant p-value, so in the absence of sufficient
 evidence to accept the alternative hypothesis of non-normality, we treat the
-data as if it were normal; that is, we use a T-test
+data as if it were normal; that is, we use a T-test.
 
 #### Step three - carrying out a T-test
 

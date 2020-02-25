@@ -72,12 +72,12 @@ of data
 H~0~: µ~1~ = µ~2~ | against | H~1~: µ~1~ ≠ µ~2~ (two-sided)
  | or | H~1~: µ~1~ < µ~2~ or µ~1~ < µ~2~ (one-sided)
 
-If **equal variance**: Student's T-test
-If **unequal variance**: Welch's two-sample T-test
-If **data are paired**: Student's paired T-test
+If **equal variance**: Student's T-test  
+If **unequal variance**: Welch's two-sample T-test  
+If **data are paired**: Student's paired T-test  
 
 > ## Tip
-> The R `t.test` function combines all thre of these tests, and defaults to 
+> The R `t.test` function combines all three of these tests, and defaults to 
 > Welch's two-sample T-test. To perform a standard T-test, use the parameter 
 > setting `var.equal = TRUE`, and for a paired T-test, use `paired = TRUE`. 
 {: .callout}
@@ -89,7 +89,7 @@ is a non-parametric test analogous to the unpaired T-test, used when the
 _dependent_ variable is non-normally distributed
 
 The Mann-Whitney test compares the medians of the two groups rather than the 
-means by considering the data as rank order values rather than absolute values.
+means, by considering the data as rank order values rather than absolute values.
 
 > ## Tip
 > The `wilcox.test` function in R defaults to unpaired data - effectively 
@@ -102,9 +102,9 @@ means by considering the data as rank order values rather than absolute values.
 Is there a difference in height between females and males in the gallstones 
 dataset? 
 
-Height: Continuous variable
-Gender: Categorical variable with two levels
-Null hypothesis: There is no difference in height between the groups
+Height: Continuous variable  
+Gender: Categorical variable with two levels  
+Null hypothesis: There is no difference in height between the groups  
 
 #### Step one - visualise the data
 We will start by reviewing the data using a boxplot to see if there is an 
