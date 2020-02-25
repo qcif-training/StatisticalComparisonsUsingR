@@ -59,7 +59,7 @@ other
 * *non-linear*: as one variable increases, the other changes but not in a 
 consistant way
 
-![RStudio layout](../fig/03-correlationexamples.png)
+![RStudio layout](../fig/03-fig1.png)
 
 ## Previewing relationships with scatter plots
 
@@ -74,7 +74,7 @@ plot(gallstones$Height, gallstones$Weight,
      ylab = "Weight",
      main = "Plot of patient weight against height")
 ```
-![RStudio layout](../fig/03-fig1.png)
+![RStudio layout](../fig/03-fig2.png)
 
 From this graph, there appears to be a correlation between height and weight.
 We can look at this further using ggplot, which provides them `geom_smooth` 
@@ -89,7 +89,7 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
   theme(axis.text = element_text(size = 12),
         axis.title = element_text(size = 14, face = "bold"))
 ```
-![RStudio layout](../fig/03-fig2.png)
+![RStudio layout](../fig/03-fig3.png)
 
 > ## Challenge 2
 > 
@@ -146,10 +146,10 @@ variables
 |0.3 ≤ \|r\| ≤ 0.7  | Moderate relationship|
 |\|r\| = 0.7 | Strong relationship|
 
-![RStudio layout](../fig/03-degreesofcorrelation.png)
+![RStudio layout](../fig/03-fig4.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
+> Pearson's *__r__* can be squared, *__r<sup>2</sup>__*, to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
 > can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 

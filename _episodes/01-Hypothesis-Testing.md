@@ -13,8 +13,7 @@ objectives:
 - "Understand the hypothesis-testing process"
 - "Recognise the different types of hypothesis testing errors"
 keypoints:
-- "Defining null and alternative hypotheses"
-- "Using p-values to accept or reject the alternative hypothesis"
+- "To be defined"
 output: html_document
 ---
 
@@ -32,14 +31,14 @@ The following is a well-established research pipeline:
 
 In this model, the hypothesis should be clearly defined and testable. In 
 hypothesis testing, this means that our question has just two possible answers: 
-a ”null hypothesis” (H<sub>0</sub>), which is a specific statement that we are looking to
-disprove with our data, and an “alternative hypothesis” (H<sub>1</sub>), which is a 
-statement opposing H<sub>0</sub> and which we will only accept if the data and analysis is 
+a ”null hypothesis” (H~0~), which is a specific statement that we are looking to
+disprove with our data, and an “alternative hypothesis” (H~1~), which is a 
+statement opposing H~0~ and which we will only accept if the data and analysis is 
 sufficiently convincing. 
 
 > ## Tip: Defining your alternative hypothesis
 > The alternative hypothesis must cover all options not included in the null 
-> hypothesis; if H<sub>0</sub> is: “There is no difference between A and B”, then H<sub>1</sub> must 
+> hypothesis; if H~0~ is: “There is no difference between A and B”, then H~1~ must 
 > be: “A and B are different”, not: “A is greater than B”. 
 > Generally, a two-sided test (“A and B are different”) is regarded as better 
 > practice than a one-sided test (“A is greater than B”).
@@ -75,14 +74,14 @@ When carrying out hypothesis testing, we normally use a standard framework.
 group representative of the whole populations
 3. From the data, we calculate a test statistic – an estimation of a population 
 parameter derived from the data – and a rejection region – a range of values for
-the test statistic for which we would reject H<sub>0</sub> and accept H<sub>1</sub>
-4. If the test statistic falls within the rejection region and we accept H<sub>1</sub>, we 
+the test statistic for which we would reject H~0~ and accept H~1~
+4. If the test statistic falls within the rejection region and we accept H~1~, we 
 can calculate a P-value, the probability of the observed test statistic (or one 
-more favourable to H<sub>1</sub>) occurring if H<sub>0</sub> were true.
+more favourable to H~1~) occurring if H~0~ were true.
 
 Hypothesis testing is often used in inferential statistics, where measurements 
 are taken on a random sample from a large population in order to estimate (or 
-infer) something about that population as a whole. Examples of inferential 
+infer) something about that population as a whole. Example of inferential 
 statistics include opinion polls and drug trials.
 
 > ## Challenge 2
@@ -101,21 +100,21 @@ statistics include opinion polls and drug trials.
 ## P-values and rejection of the null hypothesis
 * The null hypothesis is tested against the alternative one using a 
 distribution of a statistic
-* The P-value is the probability of making a mistake by rejecting H<sub>0</sub> even
+* The P-value is the probability of making a mistake by rejecting H~0~ even
 if it is true
-* The probability of rejecting H<sub>0</sub>, given the truth of H<sub>0</sub>, is called the 
+* The probability of rejecting H~0~, given the truth of H~0~, is called the 
 significance level, denoted α (often α=0.05, but as low as α=0.0000003 in
 some disciplines)
-* If the P-value < 0.05, we are 95% confident when we reject H<sub>0</sub> 
-  + Conclusion: we can reject H<sub>0</sub>
+* If the P-value < 0.05, we are 95% confident when we reject H~0~ 
+  + Conclusion: we can reject H~0~
 
 ## Confidence intervals
 A confidence interval gives more information than the results of a
 hypothesis test (reject or don’t reject): it provides a range of
-plausible values for the parameter being studied.  
-_Example_: If the sample mean is used to estimate the population mean, the
+plausible values for the parameter being studied.
+Example: If the sample mean is used to estimate the population mean, the
 confidence interval gives the upper and lower bounds of a range in which
-we have 95% confidence that the __real__ population mean occurs.
+we have 95% confidence that the real population mean occurs.
 
 
 > ## Challenge 3
@@ -138,4 +137,4 @@ error), or failing to reject the null hypothesis when it is false (a type
 II error). The probability of a type 1 error is given by the P-value; it
 is possible to calculate the probability of a type II error, but we will 
 not cover that in this course.
-![RStudio layout](../fig/01-errortypes.png)
+![RStudio layout](../fig/01-fig1.png)
