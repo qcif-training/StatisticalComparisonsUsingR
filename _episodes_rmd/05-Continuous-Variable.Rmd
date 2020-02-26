@@ -29,20 +29,39 @@ Earlier we discussed continuous data, and how to investigate relationships
 how to identify whether a single continuous trait differs between two sample 
 groups - a two sample test. Specifically, we will investigate whether there is a
 statistically-significant difference between the distribution of that variable 
-between the two groups.
+between the two groups. As an example, we will test whether male patients in our
+gallstones study are taller than female patients.
 
-There are two primary questions we need to ask for a two sample test - are the 
-two datasets normally-distributed, and are the data paired. The figure below 
-summarises the choice of statistical test used for each of these cases.
+> ## Discussion
+>
+> See if you can identify other examples where you might use a two sample groups
+> comparison. Do you have any in your own research?
+{: .discussion}
+
+### Choosing the relevant test
+
+As with testing for categorical variables, there are a range of different 
+statistical analyses for two sample group comparisons; the appropriate one to 
+use is determined by the nature of the dataset. There are two primary questions
+we need to ask to identify the relevant test: are the two datasets 
+normally-distributed, and are the data paired? The figure below summarises the 
+choice of statistical test used for each of these cases.
 
 ![RStudio layout](../fig/05-fig1.png)
 
-We previously explored how to test whether data is normally distributed using 
-the `shapiro.test` function. Paired data is when the two groups are the same 
-test samples but measured under different conditions (for example, a group of 
-patients tested before and after treatment), unpaired is when the two groups are
-independent (for example, two separate groups of patients, one group treated and
-one untreated). 
+The first step is to determine whether the continuous variable in each group is
+normally distributed. We've already learned about the `shapiro.test` function to 
+test for normality, and can use that again in this situation.
+
+The second decision is to identify whether the data is paired or not. Paired 
+data is when the two groups are the same test samples but measured under 
+different conditions (for example, a group of patients tested before and after 
+treatment), unpaired is when the two groups are independent (for example, two 
+separate groups of patients, one group treated and one untreated). 
+
+There are a few further subtleties beyond this which we will come to in a 
+moment, but these are the two major determining factors in choosing the correct
+test.
 
 
 > ## Challenge 1
@@ -63,12 +82,19 @@ one untreated).
 
 ## Two sample Student's T-test
 
-The Student's T-test compares the means of two unrelated groups measured on the 
-same continuous variable, assuming that both groups have a normal distribution 
-of data
+If data is normally distributed for **both** groups, we will generally use the 
+Student's T-test. This compares the means of two groups measured on the same 
+continuous variable. Tests can be two-sided (testing whether the groups are not
+equal) or one-sided (testing either whether the second group is greater than or
+less that the first). As we discussed in the introduction, generally a two-sided
+test is preferred unless there is a specific reason why a single-sided one is
+justified.
 
 H~0~: µ~1~ = µ~2~ | against | H~1~: µ~1~ ≠ µ~2~ (two-sided)
- | or | H~1~: µ~1~ < µ~2~ or µ~1~ > µ~2~ (one-sided)
+ | or | 
+H~0~: µ~1~ <= µ~2~ | against | H~1~: µ~1~ > µ~2~ (greater)
+ | or | 
+H~0~: µ~1~ >= µ~2~ | against | H~1~: µ~1~ < µ~2~ (less)
 
 If **equal variance**: Student's T-test  
 If **unequal variance**: Welch's two-sample T-test  
@@ -155,16 +181,16 @@ t.test(gallstones$Height ~ gallstones$Gender)
 hypothesis and conclude that there is a difference in the mean height of males
 and females in our dataset.
 
+
 > ## Challenge 2
->
+> 
 > Using the gallstones dataset, test whether the gallstone diameter ("Diam") is
 > different between patients who suffer a recurrence and those who do not.
-
 > > ## Solution to Challenge 2
 > > 
 > > ```{r}
 > > # Visualise data
-> > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue")
+> > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
 > >      ylab = "Diameter",
 > >      xlab = "Recurrence")
 > > # Test whether data is normally distributecd
