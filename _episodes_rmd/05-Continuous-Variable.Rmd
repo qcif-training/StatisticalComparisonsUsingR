@@ -1,13 +1,11 @@
 ---
-title: "Continuous Variables"
+title: "Comparison Between Two Groups"
 teaching: 45
 exercises: 10
 questions:
-- "What is a continuous variable?"
-- "Do two sample groups differ for a continuous trait"
-- "What statistical tests are used with continuous data?"
+- "Do two sample groups differ for a continuous trait?"
 objectives:
-- "Tests for use with continous variables"
+- "Tests for use with comparison of two groups of continuous data"
 - "Summarising continuous data graphically"
 - "Selecting and using relevant statistical tests"
 keypoints:
@@ -109,26 +107,24 @@ Null hypothesis: There is no difference in height between the groups
 _Step one - visualise the data_
 We will start by reviewing the data using a boxplot to see if there is an 
 indication of difference between the groups
-```{r}
+```{r eval=FALSE}
 plot(gallstones$Height ~ gallstones$Gender, 
      col=c('red','blue'),
      ylab = 'Height',
      xlab = 'Gender')
 ```
+![RStudio layout](../fig/05-fig2.png)
 
 Visually there certainly appears to be a difference. But is it statistically
 significant?
 
-_Step two - is the data normally distributed_
-```{r}
+_Step two - is the data normally distributed?_
+```{r eval = FALSE}
 par(mfrow=c(1,2))
 hist(gallstones$Height[which(gallstones$Gender == 'F')], main = "Histogram of heights of females", xlab = "")
 hist(gallstones$Height[which(gallstones$Gender == 'M')], main = "Histogram of heights of males", xlab = "")
 ```
-
-```{r echo = FALSE}
-par(mfrow = c(1,1))
-```
+![RStudio layout](../fig/05-fig3.png)
 
 This doesn't look very normally-distributed, but we do have relatively few data
 points. A more convincing way to determine this would be with the Shapiro-Wilks
@@ -141,7 +137,16 @@ Neither test gives a significant p-value, so in the absence of sufficient
 evidence to accept the alternative hypothesis of non-normality, we treat the
 data as if it were normal; that is, we use a T-test 
 
-_Step three - carrying out a T-test_
+_Step three - are variances equal?_
+```{r}
+by(gallstones$Height, gallstones$Gender, sd)
+```
+
+The standard deviations of the two groups (and hence the variances) don't seem 
+to be equal, so we should use a Welch's two-sample T-test. This is the default
+option for the `t.test` function anyway
+
+_Step four - carry out a T-test_
 ```{r}
 t.test(gallstones$Height ~ gallstones$Gender)
 ```
@@ -149,3 +154,61 @@ t.test(gallstones$Height ~ gallstones$Gender)
 **Conclusion**: the p-value is significant so we can accept the alternative 
 hypothesis and conclude that there is a difference in the mean height of males
 and females in our dataset.
+
+> ## Challenge 2
+>
+> Using the gallstones dataset, test whether the gallstone diameter ("Diam") is
+> different between patients who suffer a recurrence and those who do not.
+
+> > ## Solution to Challenge 2
+> > 
+> > ```{r}
+> > # Visualise data
+> > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue")
+> >      ylab = "Diameter",
+> >      xlab = "Recurrence")
+> > # Test whether data is normally distributecd
+> > by(gallstones$Diam, gallstones$Rec, shapiro.test)
+> > ```
+> > Data is not normal for the recurrence group, and data is not paired - hence
+> > Mann-Whitney test
+> > ```{r}
+> > # Use wilcox.test function which defaults to Mann-Whitney analysis
+> > wilcox.test(gallstones$Diam ~ gallstones$Rec, exact=FALSE)
+> > ```
+> > The p-value is not significant, so we reject the alternative hypothesis that
+> > there is a difference in gallstone size between the two groups.
+> {: .solution}
+{: .challenge}
+
+## Group descriptions
+
+If there is a significant difference between the two groups (or even if there
+isn't) it is often useful to generate some summary statistics for each group. 
+We can do this with the `by` command, which we've used already in this section, 
+combined with summary functions
+
+```{r}
+# For normally distributed data, report the mean and standard deviation
+by(gallstones$Height, gallstones$Gender, mean)
+by(gallstones$Height, gallstones$Gender, sd)
+```
+
+```{r}
+# For non-normally distributed data, report the median and inter-quartile range
+by(gallstones$Diam, gallstones$Rec, median)
+by(gallstones$Diam, gallstones$Rec, IQR)
+```
+
+## Paired samples
+If data is paired, that is, it is the same samples under two different 
+conditions, we can take advantage of that to carry out statistical tests with 
+greater discriminatory power. That is because by using paired samples, we remove
+a lot of the noise that can otherwise obscure our results. Paired data must have
+the same number of results in each group, there must be a one-to-one relationship
+between the groups (every sample that appears in one group must appear in the 
+other), and the data must be the same sample order in each group.
+
+Otherwise, paired sample analysis is performed in a similar way to unpaired 
+analysis. The main difference is to add the `paired = TRUE` argument to the 
+`t.test` or `wilcox.test` function.
