@@ -1,5 +1,5 @@
 ---
 title: About
 ---
-{% include carpentries.html %}
+{% comment %}{% include carpentries.html %}{% endcomment %}
 {% include links.md %}
