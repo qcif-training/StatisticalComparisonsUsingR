@@ -149,7 +149,7 @@ variables
 ![RStudio layout](../fig/03-fig4.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
+> Pearson's *__r__* can be squared, *__r<sup>2</sup>__*, to derive a coefficient of 
 > determination. This is the portion of variability in one of the variables that 
 > can be accounted for by the variability in the second one
 > For example, if the Pearson's correlation coefficient between two variables X 
