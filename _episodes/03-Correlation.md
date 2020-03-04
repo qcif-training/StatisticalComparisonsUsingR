@@ -94,8 +94,8 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > ## Challenge 2
 > 
 > As well as height and weight, the gallstones dataset contains a number of 
-> other continuous variables, including include age and BMI. Plot any two of 
-> these to see if they show signs of correlation
+> other continuous variables, including age and BMI. Plot any two of these to 
+> see if they show signs of correlation
 > > ## Solution to challenge 2
 > > 
 > > Using Weight and BMI as an example:
