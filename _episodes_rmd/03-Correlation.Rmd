@@ -159,8 +159,16 @@ variables
 From our plot, we have already established that Height and Weight seem to be 
 correlated, so we will calculate the correlation value for these variables.
 
-```{r}
+```{r eval=FALSE}
 # First, test if the variables are normally distributed
+hist(gallstones$Height)
+```
+![RStudio layout](../fig/03-fig5.png)
+```{r eval=FALSE}
+hist(gallstones$Weight)
+```
+![RStudio layout](../fig/03-fig6.png)
+```{r}
 shapiro.test(gallstones$Height)
 shapiro.test(gallstones$Weight)
 ```

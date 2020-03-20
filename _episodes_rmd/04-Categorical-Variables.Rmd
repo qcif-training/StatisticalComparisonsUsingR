@@ -80,7 +80,9 @@ gallstones[,7:12] <- data.frame(apply(gallstones[,7:12], 2, as.factor))
 levels(gallstones$Obese) <- c("NonObese", "Obese")
 levels(gallstones$Treatment) <- c("Untreated", "Treated")
 levels(gallstones$Rec) <- c("NoRecurrence", "Recurrence")
-# etc for Smoking.Status, Alcohol.Consumption, Mult
+levels(gallstones$Smoking.Status)<-c("NonSmoker","Smoker")
+levels(gallstones$Alcohol.Consumption)<-c("NonAlcohol","Previous","Alcohol")
+levels(gallstones$Mult)<-c("Single","Multiple")
 str(gallstones)
 ```
 
@@ -103,9 +105,10 @@ barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 ```
 ![RStudio layout](../fig/04-fig1.png)
 ```{r eval=FALSE}
-# ggplot can be used for higher quality figures
+# ggplot can be used for higher quality figures, and to plot proportions rather
+# than counts
 ggplot(gallstones, aes(Obese, fill=Rec)) + 
-  geom_bar(position="dodge") +
+  geom_bar(position="fill") +
   theme(axis.text=element_text(size=18),
         legend.text=element_text(size=18),
         legend.title=element_text(size=18),

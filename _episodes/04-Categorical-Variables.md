@@ -79,7 +79,9 @@ gallstones[,7:12] <- data.frame(apply(gallstones[,7:12], 2, as.factor))
 levels(gallstones$Obese) <- c("NonObese", "Obese")
 levels(gallstones$Treatment) <- c("Untreated", "Treated")
 levels(gallstones$Rec) <- c("NoRecurrence", "Recurrence")
-# etc for Smoking.Status, Alcohol.Consumption, Mult
+levels(gallstones$Smoking.Status)<-c("NonSmoker","Smoker")
+levels(gallstones$Alcohol.Consumption)<-c("NonAlcohol","Previous","Alcohol")
+levels(gallstones$Mult)<-c("Single","Multiple")
 str(gallstones)
 ```
 
@@ -92,11 +94,11 @@ str(gallstones)
 ##  $ Weight             : int  65 69 59 47 53 48 46 55 51 54 ...
 ##  $ BMI                : num  30.1 30.3 24.2 19.3 21.8 ...
 ##  $ Obese              : Factor w/ 2 levels "NonObese","Obese": 2 2 1 1 1 1 1 1 1 1 ...
-##  $ Smoking.Status     : Factor w/ 2 levels "1","2": 2 2 2 2 2 1 2 2 2 1 ...
-##  $ Alcohol.Consumption: Factor w/ 3 levels "1","2","3": 1 2 1 3 2 3 2 3 3 3 ...
+##  $ Smoking.Status     : Factor w/ 2 levels "NonSmoker","Smoker": 2 2 2 2 2 1 2 2 2 1 ...
+##  $ Alcohol.Consumption: Factor w/ 3 levels "NonAlcohol","Previous",..: 1 2 1 3 2 3 2 3 3 3 ...
 ##  $ Treatment          : Factor w/ 2 levels "Untreated","Treated": 2 1 1 2 1 2 1 2 1 2 ...
 ##  $ Rec                : Factor w/ 2 levels "NoRecurrence",..: 2 2 1 1 2 1 2 1 2 1 ...
-##  $ Mult               : Factor w/ 2 levels "0","1": 2 2 1 1 1 1 2 1 1 2 ...
+##  $ Mult               : Factor w/ 2 levels "Single","Multiple": 2 2 1 1 1 1 2 1 1 2 ...
 ##  $ Diam               : int  6 7 20 15 18 19 14 18 15 5 ...
 ##  $ Dis                : int  8 6 20 2 14 8 8 4 15 3 ...
 ~~~
@@ -132,9 +134,10 @@ barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 ![RStudio layout](../fig/04-fig1.png)
 
 ```r
-# ggplot can be used for higher quality figures
+# ggplot can be used for higher quality figures, and to plot proportions rather
+# than counts
 ggplot(gallstones, aes(Obese, fill=Rec)) + 
-  geom_bar(position="dodge") +
+  geom_bar(position="fill") +
   theme(axis.text=element_text(size=18),
         legend.text=element_text(size=18),
         legend.title=element_text(size=18),
@@ -266,7 +269,7 @@ significant, so we reject our alternative hypothesis - there is no evidence of
 different recurrence rates between obese and non-obese patients. The apparently
 higher rate of recurrence in obese patients is no more than might be expected by
 random chance in a sample group of this size. It is possible however that we
-have made a type II error and incorrectly rejected H~1~ - we should have 
+have made a type II error and incorrectly rejected H<sub>1</sub> - we should have 
 consulted a statistician before gathering the data to check whether the sample 
 size provided sufficient statistical power to detect a relationship.
 
@@ -292,6 +295,7 @@ size provided sufficient statistical power to detect a relationship.
 > and perform the appropriate statistical test.
 > > ## Solution to Challenge 3
 > > 
+> > 
 > > ```r
 > > # Create the initial counts table
 > > counts <- table(gallstones$Rec, gallstones$Treatment)
@@ -299,7 +303,6 @@ size provided sufficient statistical power to detect a relationship.
 > > 
 > > # Plot using barplot
 > > barplot(counts, beside = TRUE, legend = rownames(counts), col = c('red','blue'))
-> >
 > > # Or plot using ggplot
 > > ggplot(gallstones, aes(Treatment, fill=Rec)) + 
 > >   geom_bar(position="dodge") +
@@ -312,7 +315,7 @@ size provided sufficient statistical power to detect a relationship.
 > > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
-> > CrossTable(gallstones$Rec,gallstones$Treatment,format="SPSS",prop.chisq=F,expected=T)
+> > CrossTable(data$Rec,data$Treatment,format="SPSS",prop.chisq=F,expected=T)
 > > 
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec)

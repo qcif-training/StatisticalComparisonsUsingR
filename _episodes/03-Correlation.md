@@ -163,28 +163,40 @@ correlated, so we will calculate the correlation value for these variables.
 
 ```r
 # First, test if the variables are normally distributed
+hist(gallstones$Height)
+```
+![RStudio layout](../fig/03-fig5.png)
+
+```r
+hist(gallstones$Weight)
+```
+![RStudio layout](../fig/03-fig6.png)
+
+```r
 shapiro.test(gallstones$Height)
 ```
 
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Height
 ## W = 0.89975, p-value = 0.002901
-```
+~~~
+{: .output}
 
 ```r
 shapiro.test(gallstones$Weight)
 ```
 
-```
+~~~
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
 ## data:  gallstones$Weight
 ## W = 0.94652, p-value = 0.07454
-```
+~~~
+{: .output}
 
 The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
 the alternative hypothesis that Height is not normally distributed. Therefore we 
@@ -195,7 +207,7 @@ should use Spearman's test for this analysis.
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ```
 
-```
+~~~
 ## 
 ## 	Spearman's rank correlation rho
 ## 
@@ -205,7 +217,8 @@ cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ## sample estimates:
 ##       rho 
 ## 0.6151261
-```
+~~~
+{: .output}
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
 weight, and the p-value indicates that we can be highly confident that the 

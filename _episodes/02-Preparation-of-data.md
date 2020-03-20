@@ -51,8 +51,8 @@ just the first part of the file.
 > > * BMI – patient’s body mass index (weight/height in m<sup>2</sup>)
 > > * Obese – is the patient obese (BMI>30): 0=no, 1=yes;
 > > * Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker; 
-> > * Alcohol.Consumption – does the patient drink alcohol: 0=no, 1=low consumption,
-> > 2=moderate/high consumption; 
+> > * Alcohol.Consumption – does the patient drink alcohol: 0=no, 1=previously,
+> > 2=currently; 
 > > * Treatment – did the patient receive the ursodeoxycholic acid treatment: 
 > > 0=untreated, 1=treated; 
 > > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
