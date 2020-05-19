@@ -17,30 +17,80 @@ keypoints:
 output: html_document
 ---
 
+Episode topics
+Decision tree – ANOVA, Kruskal-Wallis, Friedman
+ANOVA one-way: like T-test but with 3 or more groups
+Post-hoc testing
+Correction of multiple testing effects
+ANOVA two-way: like T-test but with 2 or more categories
+Interaction effects and analysis
+Learning outcomes
+Identify situations needing multiple sample tests
+Choose the correct test for the type of data
+Perform one and two-way ANOVA testing
+Recognise interaction effects in multiple-category testing
+Interpret test results and apply post hoc testing
+
+
+
+
+
+
 
 
 ## Comparison of multiple groups
 
 The T-test, Mann-Whitney Test and others discussed earlier are designed to 
-identify differences in the means or medians of two groups. 
+identify differences in the means or medians of two groups. When working with 
+data that is in three or more groups, where we are testing if there is a 
+difference between any one of those groups with the others, we need to use other
+tests. As with two-sample testing, the appropriate test is determined in large
+part by whether the data in each group is normally distributed, and whether the
+data is paired, as outlined in the figure below.
 
+![RStudio layout](../fig/06-fig1.png)
 
+> ## Challenge 1
+>
+> Based on what you have learned previously in this workshop, how can we best
+> determine whether the data in each sample is normally distributed
+> > ## Solution to Challenge 1
+> > 
+> > We can use the `shapiro.test` function to test for normality - or rather, to 
+> > test the alternative hypothesis that the data is not normally distributed. 
+> > Use the `by` function to test all categories in one command: 
+> > 
+> > ```r
+> > by(data$measurement, data$category, shapiro.test)
+> > ```
+> > Remember, as with the two sample tests, if any one group is not normally
+> > distributed, the whole analysis must be performed with the relevant 
+> > non-parametric test
+> {: .solution}
 
-ANOVA Testing
+## ANOVA Testing - One-way
 
-Hypothesis
+The one-way ANOVA compares whether there is a difference in the mean values of 
+three or more groups. It requires one continuous (and normally distributed) 
+measurement variable, and one categorical variable (with three or more 
+categories). 
+
+Assumptions for the one-way ANOVA are:
+* Independant samples
+* Normal distribution in each group
+* Homogeneity of variances
+
+The null hypothesis for one-way ANOVA is that the means of all groups are equal;
+the null hypothesis is that at least one of the means is different from the 
+others.
+
 H~0~: µ~1~ = µ~2~ = µ~3~ = ... = µ~k~
-H~1~: At least one mean of the population is different from the others
+H~1~: µ~1~ ≠ µ~2~ OR µ~1~ ≠ µ~3~ OR µ~2~ ≠ µ~3~ ....
 
-
-| against | H~1~: µ~1~ ≠ µ~2~ (two-sided)
- | or | 
-H~0~: µ~1~ <= µ~2~ | against | H~1~: µ~1~ > µ~2~ (greater)
- | or | 
-H~0~: µ~1~ >= µ~2~ | against | H~1~: µ~1~ < µ~2~ (less)
-
-
-
+The ANOVA extension of the t-test is called the **F-test**, and is based around 
+decomposing the total variation in the sample into the variability (sum of 
+squares) within groups
+and between groups
 
 
 
@@ -274,7 +324,7 @@ and females in our dataset.
 > >      xlab = "Recurrence")
 > > ```
 > > 
-> > ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+> > ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
 > > 
 > > ```r
 > > # Test whether data is normally distributecd
