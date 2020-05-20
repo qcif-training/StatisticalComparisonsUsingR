@@ -85,15 +85,72 @@ The null hypothesis for one-way ANOVA is that the means of all groups are equal;
 the null hypothesis is that at least one of the means is different from the 
 others.
 
-H~0~: µ~1~ = µ~2~ = µ~3~ = ... = µ~k~
+H~0~: µ~1~ = µ~2~ = µ~3~ = ... = µ~k~  
 H~1~: µ~1~ ≠ µ~2~ OR µ~1~ ≠ µ~3~ OR µ~2~ ≠ µ~3~ ....
 
 The ANOVA extension of the t-test is called the **F-test**, and is based around 
 decomposing the total variation in the sample into the variability (sum of 
-squares) within groups
-and between groups
+squares) within groups and between groups
+
+<table border = 2 cellpadding = 10 align=center>
+<tr><td>&nbsp;</td><td>**df**</td><td>**Sum squares**</td>
+<td>**Mean squares**</td><td>**F-statistic**</td><td>**P-value**</td></tr>
+<tr><td>**Factor**</td><td>_m-1_</td><td>_SS(Between)_</td>
+<td>_MSB = SSB/(m-1)_</td><td>_MSB/MSE_</td><td>_p_</td></tr>
+<tr><td>**Error**</td><td>_n-m_</td><td>_SS(Error)_</td>
+<td>_MSE = SSE/(n-m)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+
+m = number of groups  
+n = number of samples  
+_SS(Between)_ = variability between groups
+_SS(Error)_ = variability within the groups
 
 
+## ANOVA one-way example
+
+In our example dataset, the alcohol consumption field has three categories. We 
+will test if there is any effect on weight associated with the alcohol 
+consumption category.
+
+### Variables of interest
+* Alcohol consumption: Categorical (1, 2 or 3)
+* Weight: Continuous
+
+There are two variables - one categorical with more than two levels and one 
+continuous. The data are not paired - all the measurements are from different 
+patients. So based on the decision tree, the appropriate test is either one-way
+ANOVA or Kruskal-Wallis test. The choice between these is made depending on 
+whether the data is normally distributed or not
+
+```r
+by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
+```
+
+```
+## gallstones$Alcohol.Consumption: 1
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  dd[x, ]
+## W = 0.79876, p-value = 0.01976
+## 
+## ------------------------------------------------------------ 
+## gallstones$Alcohol.Consumption: 2
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  dd[x, ]
+## W = 0.95864, p-value = 0.7703
+## 
+## ------------------------------------------------------------ 
+## gallstones$Alcohol.Consumption: 3
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  dd[x, ]
+## W = 0.94549, p-value = 0.3588
+```
 
 
 
@@ -325,7 +382,7 @@ and females in our dataset.
 > >      xlab = "Recurrence")
 > > ```
 > > 
-> > ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+> > ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
 > > 
 > > ```r
 > > # Test whether data is normally distributecd
