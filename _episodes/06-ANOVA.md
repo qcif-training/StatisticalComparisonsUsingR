@@ -67,6 +67,7 @@ data is paired, as outlined in the figure below.
 > > distributed, the whole analysis must be performed with the relevant 
 > > non-parametric test
 > {: .solution}
+{: .challenge}
 
 ## ANOVA Testing - One-way
 
