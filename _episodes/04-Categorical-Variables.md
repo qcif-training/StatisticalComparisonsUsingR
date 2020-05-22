@@ -69,11 +69,11 @@ set of values. This makes it idea for working with categories, so we will
 convert those columns to factors.
 
 
-```r
+```{r}
 # Either convert the columns one at a time
 gallstones$Obese <- as.factor(gallstones$Obese) # and repeat for other five
 # Or all together: variables Obese to Mult (columns 7-12) need to be categorical
-gallstones[,7:12] <- data.frame(apply(gallstones[,7:12], 2, as.factor))
+gallstones[,7:12] <- data.frame(lapply(gallstones[,7:12], as.factor))
 
 # While we're at it, convert the levels to meaningful category names
 levels(gallstones$Obese) <- c("NonObese", "Obese")
@@ -85,10 +85,11 @@ levels(gallstones$Mult)<-c("Single","Multiple")
 str(gallstones)
 ```
 
+
 ~~~
 ## 'data.frame':	37 obs. of  14 variables:
-##  $ Patient_ID         : Factor w/ 37 levels "P1","P10","P11",..: 18 21 9 20 33 34 35 19 28 30 ...
-##  $ Gender             : Factor w/ 2 levels "F","M": 1 1 2 1 1 1 1 1 1 1 ...
+##  $ Patient_ID         : chr  "P25" "P28" "P17" "P27" ...
+##  $ Gender             : chr  "F" "F" "M" "F" ...
 ##  $ Age                : int  64 81 77 80 86 69 75 77 73 88 ...
 ##  $ Height             : int  147 151 156 156 156 157 157 160 160 160 ...
 ##  $ Weight             : int  65 69 59 47 53 48 46 55 51 54 ...
@@ -153,7 +154,7 @@ rate of recurrence, so we will test whether that is statistically significant
 ## Statistical tests for categorical variables
 
 To carry out a statistical test, we need a null and alternative hypothesis. In 
-most cases, the null hypothesis H<sub>0</sub> is that the proportion of samples in each 
+most cases, the null hypothesis H~0~ is that the proportion of samples in each 
 category is the same in both groups. 
 
 Our question: Is there a relationship between obesity and gallstone recurrence?
@@ -185,6 +186,7 @@ library(gmodels)
 CrossTable(gallstones$Rec, gallstones$Obese, 
            format = "SPSS", expected = T, prop.chisq = F)
 ```
+
 
 ~~~
 ## 
@@ -269,7 +271,7 @@ significant, so we reject our alternative hypothesis - there is no evidence of
 different recurrence rates between obese and non-obese patients. The apparently
 higher rate of recurrence in obese patients is no more than might be expected by
 random chance in a sample group of this size. It is possible however that we
-have made a type II error and incorrectly rejected H<sub>1</sub> - we should have 
+have made a type II error and incorrectly rejected H~1~ - we should have 
 consulted a statistician before gathering the data to check whether the sample 
 size provided sufficient statistical power to detect a relationship.
 

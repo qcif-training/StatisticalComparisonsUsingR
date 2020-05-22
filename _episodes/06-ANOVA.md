@@ -85,27 +85,14 @@ The null hypothesis for one-way ANOVA is that the means of all groups are equal;
 the null hypothesis is that at least one of the means is different from the 
 others.
 
-H~0~: µ~1~ = µ~2~ = µ~3~ = ... = µ~k~  
-H~1~: µ~1~ ≠ µ~2~ OR µ~1~ ≠ µ~3~ OR µ~2~ ≠ µ~3~ ....
+H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> = µ<sub>3</sub> = ... = µ<sub>k</sub>  
+H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> OR µ<sub>1</sub> ≠ µ~3~ OR µ<sub>2</sub> ≠ µ<sub>3</sub> ....
 
 The ANOVA extension of the t-test is called the **F-test**, and is based around 
 decomposing the total variation in the sample into the variability (sum of 
 squares) within groups and between groups
 
-<table border = 2 cellpadding = 10 align=center>
-<tr><td>&nbsp;</td><td>**df**</td><td>**Sum squares**</td>
-<td>**Mean squares**</td><td>**F-statistic**</td><td>**P-value**</td></tr>
-<tr><td>**Factor**</td><td>_m-1_</td><td>_SS(Between)_</td>
-<td>_MSB = SSB/(m-1)_</td><td>_MSB/MSE_</td><td>_p_</td></tr>
-<tr><td>**Error**</td><td>_n-m_</td><td>_SS(Error)_</td>
-<td>_MSE = SSE/(n-m)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-</table>
-
-m = number of groups  
-n = number of samples  
-_SS(Between)_ = variability between groups
-_SS(Error)_ = variability within the groups
-
+![RStudio layout](../fig/06-fig2.png)
 
 ## ANOVA one-way example
 
@@ -127,7 +114,7 @@ whether the data is normally distributed or not
 by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ```
 
-```
+~~~
 ## gallstones$Alcohol.Consumption: 1
 ## 
 ## 	Shapiro-Wilk normality test
@@ -150,350 +137,156 @@ by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ## 
 ## data:  dd[x, ]
 ## W = 0.94549, p-value = 0.3588
-```
+~~~
+{: .output}
 
+The Shapiro test for group 1 gives a significant p-value, indicating that we 
+should reject the null hypothesis that the data is normally distributed. This 
+would indicate that the Kruskal-Wallis test is the appropriate one for this 
+analysis
 
-
-
-
-
-
-
-
-
-
-
-
-## Comparison of two sample groups
-
-Earlier we discussed continuous data, and how to investigate relationships 
-(correlations) between two continuous variables. In this section, we will learn 
-how to identify whether a single continuous trait differs between two sample 
-groups - a two sample test. Specifically, we will investigate whether there is a
-statistically-significant difference between the distribution of that variable 
-between the two groups. As an example, we will test whether male patients in our
-gallstones study are taller than female patients.
-
-> ## Discussion
->
-> See if you can identify other examples where you might use a two sample groups
-> comparison. Do you have any in your own research?
-{: .discussion}
-
-### Choosing the relevant test
-
-As with testing for categorical variables, there are a range of different 
-statistical analyses for two sample group comparisons; the appropriate one to 
-use is determined by the nature of the dataset. There are two primary questions
-we need to ask to identify the relevant test: are the two datasets 
-normally-distributed, and are the data paired? The figure below summarises the 
-choice of statistical test used for each of these cases.
-
-![RStudio layout](../fig/05-fig1.png)
-
-The first step is to determine whether the continuous variable in each group is
-normally distributed. We've already learned about the `shapiro.test` function to 
-test for normality, and can use that again in this situation.
-
-The second decision is to identify whether the data is paired or not. Paired 
-data is when the two groups are the same test samples but measured under 
-different conditions (for example, a group of patients tested before and after 
-treatment), unpaired is when the two groups are independent (for example, two 
-separate groups of patients, one group treated and one untreated). 
-
-There are a few further subtleties beyond this which we will come to in a 
-moment, but these are the two major determining factors in choosing the correct
-test.
-
-
-> ## Challenge 1
->
-> In our gallstones dataset, assume that BMI is normally distributed for
-> patients with a recurrence of gallstones and not normal for those with no 
-> recurrence. Which test would we use to investigate whether those two groups
-> (with and without recurrence) had different BMIs?
-> > ## Solution to Challenge 1
-> > 
-> > One data set is normally distributed, the other is not, so we choose the 
-> > option for non-normally distributed data - the branch to the right (we can 
-> > only answer yes to the first question if both datasets are normal). The data
-> > is not paired - the patients with recurrence are a different group to those
-> > without. In this case we would use the Mann-Whitney test.
-> {: .solution}
-{: .challenge}
-
-## Two sample Student's T-test
-
-If data is normally distributed for **both** groups, we will generally use the 
-Student's T-test. This compares the means of two groups measured on the same 
-continuous variable. Tests can be two-sided (testing whether the groups are not
-equal) or one-sided (testing either whether the second group is greater than or
-less that the first). As we discussed in the introduction, generally a two-sided
-test is preferred unless there is a specific reason why a single-sided one is
-justified.
-
-H~0~: µ~1~ = µ~2~ | against | H~1~: µ~1~ ≠ µ~2~ (two-sided)
- | or | 
-H~0~: µ~1~ <= µ~2~ | against | H~1~: µ~1~ > µ~2~ (greater)
- | or | 
-H~0~: µ~1~ >= µ~2~ | against | H~1~: µ~1~ < µ~2~ (less)
-
-If **equal variance**: Student's T-test  
-If **unequal variance**: Welch's two-sample T-test  
-If **data are paired**: Student's paired T-test  
-
-> ## Tip
-> The R `t.test` function combines all three of these tests, and defaults to 
-> Welch's two-sample T-test. To perform a standard T-test, use the parameter 
-> setting `var.equal = TRUE`, and for a paired T-test, use `paired = TRUE`. 
-{: .callout}
-
-## Two sample Mann-Whitney test
-
-Unless **both** groups are normally distributed, use the Mann-Whitney test. This
-is a non-parametric test analogous to the unpaired T-test, used when the 
-_dependent_ variable is non-normally distributed
-
-The Mann-Whitney test compares the medians of the two groups rather than the 
-means, by considering the data as rank order values rather than absolute values.
-
-> ## Tip
-> The `wilcox.test` function in R defaults to unpaired data - effectively 
-> returning the Mann-Whitney test instead. Carry out a paired Wilcox test with 
-> the `paired = TRUE` argument
-{: .callout}
-
-## Two sample test example
-
-Is there a difference in height between females and males in the gallstones 
-dataset? 
-
-Height: Continuous variable  
-Gender: Categorical variable with two levels  
-Null hypothesis: There is no difference in height between the groups  
-
-_Step one - visualise the data_
-We will start by reviewing the data using a boxplot to see if there is an 
-indication of difference between the groups
 
 ```r
-plot(gallstones$Height ~ gallstones$Gender, 
-     col=c('red','blue'),
-     ylab = 'Height',
-     xlab = 'Gender')
+kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
-![RStudio layout](../fig/05-fig2.png)
 
-Visually there certainly appears to be a difference. But is it statistically
-significant?
-
-_Step two - is the data normally distributed?_
+~~~
+## 
+## 	Kruskal-Wallis rank sum test
+## 
+## data:  gallstones$Weight by gallstones$Alcohol.Consumption
+## Kruskal-Wallis chi-squared = 0.89142, df = 2, p-value = 0.6404
+~~~
+{: .output}
 
 ```r
-par(mfrow=c(1,2))
-hist(gallstones$Height[which(gallstones$Gender == 'F')], main = "Histogram of heights of females", xlab = "")
-hist(gallstones$Height[which(gallstones$Gender == 'M')], main = "Histogram of heights of males", xlab = "")
+plot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
-![RStudio layout](../fig/05-fig3.png)
 
-This doesn't look very normally-distributed, but we do have relatively few data
-points. A more convincing way to determine this would be with the Shapiro-Wilks
-test
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+
+We can see that with a p-value of 0.64, we reject the alternative hypothesis and
+concluded that in this data set, there is no evidence for a difference in 
+patient weight associated with their level of alcohol consumption. This is 
+consistent with the plot, which doesn't show any clear differences between the
+three categories.
+
+For comparison and practice, let's also perform an ANOVA
 
 ```r
-by(gallstones$Height, gallstones$Gender, shapiro.test)
+result <- aov(gallstones$Weight~gallstones$Alcohol.Consumption)
+summary(result)
 ```
 
-```
-## gallstones$Gender: F
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  dd[x, ]
-## W = 0.94142, p-value = 0.2324
-## 
-## ------------------------------------------------------------ 
-## gallstones$Gender: M
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  dd[x, ]
-## W = 0.88703, p-value = 0.05001
-```
+~~~
+##                                Df Sum Sq Mean Sq F value Pr(>F)
+## gallstones$Alcohol.Consumption  2    369   184.4   0.685  0.511
+## Residuals                      34   9151   269.1
+~~~
+{: .output}
 
-Neither test gives a significant p-value, so in the absence of sufficient 
-evidence to accept the alternative hypothesis of non-normality, we treat the
-data as if it were normal; that is, we use a T-test 
+Like the Kruskal-Wallis test, this ANOVA also gives a non-significant p-value, 
+but remember, it is not the appropriate test for non-normally distributed data
+so would not be a valid test anyway.
 
-_Step three - are variances equal?_
+### _Post-Hoc_ testing
+The one-way ANOVA and Kruskal-Wallis tests only identify that one (or more) of 
+the groups has a significant difference to the others. To go further, we would
+want to identify which group(s) were different. For this we would use a 
+**_Post-hoc_ test**, either Tukeys' HSD for ANOVA or Dunn's test (in the 
+PMCMRplus package) for Kruskal-Wallis. This performs a multiple-testing 
+corrected pairwise comparison between each combination of groups to highlight 
+which (if any) are different.
+
 
 ```r
-by(gallstones$Height, gallstones$Gender, sd)
+# Dunn's test, since we used Kruskal-Wallis for the initial analysis
+library(PMCMRplus)
+kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumption), 
+                   p.adjust.method="bonferroni")
 ```
 
-```
-## gallstones$Gender: F
-## [1] 5.518799
-## ------------------------------------------------------------ 
-## gallstones$Gender: M
-## [1] 9.993331
-```
+~~~
+## Warning in kwAllPairsDunnTest.default(x = gallstones$Weight, g =
+## as.integer(gallstones$Alcohol.Consumption), : Ties are present. z-quantiles were
+## corrected for ties.
 
-The standard deviations of the two groups (and hence the variances) don't seem 
-to be equal, so we should use a Welch's two-sample T-test. This is the default
-option for the `t.test` function anyway
-
-_Step four - carry out a T-test_
-
-```r
-t.test(gallstones$Height ~ gallstones$Gender)
-```
-
-```
 ## 
-## 	Welch Two Sample t-test
+## 	Pairwise comparisons using Dunn's all-pairs test
+
+## data: gallstones$Weight and as.integer(gallstones$Alcohol.Consumption)
+
+##   1 2
+## 2 1 -
+## 3 1 1
+
 ## 
-## data:  gallstones$Height by gallstones$Gender
-## t = -3.3996, df = 21.894, p-value = 0.002587
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -15.181960  -3.675183
-## sample estimates:
-## mean in group F mean in group M 
-##        160.5714        170.0000
-```
+## P value adjustment method: bonferroni
 
-**Conclusion**: the p-value is significant so we can accept the alternative 
-hypothesis and conclude that there is a difference in the mean height of males
-and females in our dataset.
+## alternative hypothesis: two.sided
+~~~
+{: .output}
 
+The row and column headers show the group identifiers, and the values in the 
+table are the p-values. In this case, the p-values are all 1 - there is not
+evidence for even a suggestion of differences between the groups!
 
 > ## Challenge 2
-> 
-> Using the gallstones dataset, test whether the gallstone diameter ("Diam") is
-> different between patients who suffer a recurrence and those who do not.
-> > ## Solution to Challenge 2
+>
+> For a more interesting analysis, try creating a dummy dataset with the weight 
+> of patients doubled for just one category of Alcohol.Consumption and then 
+> repeat the Kruskal-Wallis and Dunn's tests. Does this show a significant 
+> difference as you might expect?
 > > 
 > > 
 > > ```r
-> > # Visualise data
-> > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
-> >      ylab = "Diameter",
-> >      xlab = "Recurrence")
+> > # Create a copy of the gallstones data frame so as not to break things later
+> > dummy_data <- gallstones
+> > # Double the weight for Alcohol.Consumption = 3
+> > ac_three <- which(gallstones$Weight == 3)
+> > dummy_data[ac_three, "Weight"] <- dummy_data[ac_three, "Weight"] * 2
+> > # Then do the testing
+> > kruskal.test(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
+> > kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
+> >                    p.adjust.method="bonferroni")
 > > ```
-> > 
-> > ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
-> > 
-> > ```r
-> > # Test whether data is normally distributecd
-> > by(gallstones$Diam, gallstones$Rec, shapiro.test)
-> > ```
-> > 
-> > ```
-> > ## gallstones$Rec: 0
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.91314, p-value = 0.06335
-> > ## 
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: 1
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.87505, p-value = 0.03252
-> > ```
-> > Data is not normal for the recurrence group, and data is not paired - hence
-> > Mann-Whitney test
-> > 
-> > ```r
-> > # Use wilcox.test function which defaults to Mann-Whitney analysis
-> > wilcox.test(gallstones$Diam ~ gallstones$Rec, exact=FALSE)
-> > ```
-> > 
-> > ```
-> > ## 
-> > ## 	Wilcoxon rank sum test with continuity correction
-> > ## 
-> > ## data:  gallstones$Diam by gallstones$Rec
-> > ## W = 201.5, p-value = 0.3103
-> > ## alternative hypothesis: true location shift is not equal to 0
-> > ```
-> > The p-value is not significant, so we reject the alternative hypothesis that
-> > there is a difference in gallstone size between the two groups.
 > {: .solution}
 {: .challenge}
 
-## Group descriptions
-
-If there is a significant difference between the two groups (or even if there
-isn't) it is often useful to generate some summary statistics for each group. 
-We can do this with the `by` command, which we've used already in this section, 
-combined with summary functions
-
+If there is a significant p-value with a one-way ANOVA, use the Tukey HSD test
 
 ```r
-# For normally distributed data, report the mean and standard deviation
-by(gallstones$Height, gallstones$Gender, mean)
+TukeyHSD(result)
 ```
 
-```
-## gallstones$Gender: F
-## [1] 160.5714
-## ------------------------------------------------------------ 
-## gallstones$Gender: M
-## [1] 170
-```
+~~~
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = gallstones$Weight ~ gallstones$Alcohol.Consumption)
+## 
+## $`gallstones$Alcohol.Consumption`
+##           diff       lwr      upr     p adj
+## 2-1 -0.2777778 -18.74892 18.19336 0.9992516
+## 3-1  6.1666667 -10.24537 22.57870 0.6311298
+## 3-2  6.4444444  -9.41109 22.29998 0.5844049
+~~~
+{: .output}
 
-```r
-by(gallstones$Height, gallstones$Gender, sd)
-```
+The layout here is different to the Dunn's test with one row per comparison
+rather than a grid format, but the principle is the same, with the p-value
+reported for each pairwise comparison
 
-```
-## gallstones$Gender: F
-## [1] 5.518799
-## ------------------------------------------------------------ 
-## gallstones$Gender: M
-## [1] 9.993331
-```
+> ## Challenge 3
+>
+> Try using the dummmy dataset from challenge 2 for an ANOVA and Tukey's test
+> > 
+> > 
+> > ```r
+> > dummy_result <- aov(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
+> > summary(dummy_result)
+> > TukeyHSD(dummy_result)
+> > ```
+> {: .solution}
+{: .challenge}
 
-
-```r
-# For non-normally distributed data, report the median and inter-quartile range
-by(gallstones$Diam, gallstones$Rec, median)
-```
-
-```
-## gallstones$Rec: 0
-## [1] 10
-## ------------------------------------------------------------ 
-## gallstones$Rec: 1
-## [1] 8.5
-```
-
-```r
-by(gallstones$Diam, gallstones$Rec, IQR)
-```
-
-```
-## gallstones$Rec: 0
-## [1] 12
-## ------------------------------------------------------------ 
-## gallstones$Rec: 1
-## [1] 9
-```
-
-## Paired samples
-If data is paired, that is, it is the same samples under two different 
-conditions, we can take advantage of that to carry out statistical tests with 
-greater discriminatory power. That is because by using paired samples, we remove
-a lot of the noise that can otherwise obscure our results. Paired data must have
-the same number of results in each group, there must be a one-to-one relationship
-between the groups (every sample that appears in one group must appear in the 
-other), and the data must be the same sample order in each group.
-
-Otherwise, paired sample analysis is performed in a similar way to unpaired 
-analysis. The main difference is to add the `paired = TRUE` argument to the 
-`t.test` or `wilcox.test` function.

@@ -74,7 +74,7 @@ convert those columns to factors.
 # Either convert the columns one at a time
 gallstones$Obese <- as.factor(gallstones$Obese) # and repeat for other five
 # Or all together: variables Obese to Mult (columns 7-12) need to be categorical
-gallstones[,7:12] <- data.frame(apply(gallstones[,7:12], 2, as.factor))
+gallstones[,7:12] <- data.frame(lapply(gallstones[,7:12], as.factor))
 
 # While we're at it, convert the levels to meaningful category names
 levels(gallstones$Obese) <- c("NonObese", "Obese")
