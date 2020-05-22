@@ -85,8 +85,9 @@ The null hypothesis for one-way ANOVA is that the means of all groups are equal;
 the null hypothesis is that at least one of the means is different from the 
 others.
 
-H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> = µ<sub>3</sub> = ... = µ<sub>k</sub>  
-H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> OR µ<sub>1</sub> ≠ µ~3~ OR µ<sub>2</sub> ≠ µ<sub>3</sub> ....
+H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> = µ<sub>3</sub> = ... = µ<sub>k<sub>  
+H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> OR µ<sub>1</sub> ≠ µ<sub>3</sub> OR 
+µ<sub>2</sub> ≠ µ<sub>3</sub> ....
 
 The ANOVA extension of the t-test is called the **F-test**, and is based around 
 decomposing the total variation in the sample into the variability (sum of 
@@ -163,7 +164,7 @@ kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 plot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+![RStudio layout](../fig/06-fig3.png)
 
 We can see that with a p-value of 0.64, we reject the alternative hypothesis and
 concluded that in this data set, there is no evidence for a difference in 
@@ -206,7 +207,7 @@ kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumpt
                    p.adjust.method="bonferroni")
 ```
 
-~~~
+```
 ## Warning in kwAllPairsDunnTest.default(x = gallstones$Weight, g =
 ## as.integer(gallstones$Alcohol.Consumption), : Ties are present. z-quantiles were
 ## corrected for ties.

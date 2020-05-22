@@ -124,8 +124,13 @@ analysis
 
 ```{r}
 kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
+```
+```{r eval=FALSE}
 plot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
+
+![RStudio layout](../fig/06-fig3.png)
+
 We can see that with a p-value of 0.64, we reject the alternative hypothesis and
 concluded that in this data set, there is no evidence for a difference in 
 patient weight associated with their level of alcohol consumption. This is 
