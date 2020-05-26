@@ -213,9 +213,34 @@ kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumpt
 ~~~
 {: .output}
 
-The row and column headers show the group identifiers, and the values in the 
-table are the p-values. In this case, the p-values are all 1 - there is not
-evidence for even a suggestion of differences between the groups!
+The row and column headers in the table just over halfway through the output
+show the group identifiers, and the values in the table are the p-values. In 
+this case, the p-values are all 1 - there is not evidence for even the slightest 
+differences between the groups!
+
+If there is a significant p-value with a one-way ANOVA, use the Tukey HSD test
+
+```r
+TukeyHSD(result)
+```
+
+~~~
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+##
+## Fit: aov(formula = gallstones$Weight ~ gallstones$Alcohol.Consumption)
+##
+## $`gallstones$Alcohol.Consumption`
+##           diff       lwr      upr     p adj
+## 2-1 -0.2777778 -18.74892 18.19336 0.9992516
+## 3-1  6.1666667 -10.24537 22.57870 0.6311298
+## 3-2  6.4444444  -9.41109 22.29998 0.5844049
+~~~
+{: .output}
+
+The layout here is different to the Dunn's test with one row per comparison
+rather than a grid format, but the principle is the same, with the p-value
+reported for each pairwise comparison
 
 > ## Challenge 2
 >
@@ -232,7 +257,7 @@ evidence for even a suggestion of differences between the groups!
 > > dummy_data <- gallstones
 > > # Double the weight for Alcohol.Consumption category 3
 > > ac_three <- which(gallstones$Weight == 3)
-> > dummy_data[ac_three, "Weight"] <- dummy_data[ac_three, "Weight"] * 2
+> > dummy_data[ac_three, "Weight"] <- 2 * dummy_data[ac_three, "Weight"]
 > > # Then do the testing
 > > kruskal.test(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
 > > kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
@@ -240,30 +265,6 @@ evidence for even a suggestion of differences between the groups!
 > > ```
 > {: .solution}
 {: .challenge}
-
-If there is a significant p-value with a one-way ANOVA, use the Tukey HSD test
-
-```r
-TukeyHSD(result)
-```
-
-~~~
-##   Tukey multiple comparisons of means
-##     95% family-wise confidence level
-## 
-## Fit: aov(formula = gallstones$Weight ~ gallstones$Alcohol.Consumption)
-## 
-## $`gallstones$Alcohol.Consumption`
-##           diff       lwr      upr     p adj
-## 2-1 -0.2777778 -18.74892 18.19336 0.9992516
-## 3-1  6.1666667 -10.24537 22.57870 0.6311298
-## 3-2  6.4444444  -9.41109 22.29998 0.5844049
-~~~
-{: .output}
-
-The layout here is different to the Dunn's test with one row per comparison
-rather than a grid format, but the principle is the same, with the p-value
-reported for each pairwise comparison
 
 > ## Challenge 3
 >
@@ -365,6 +366,7 @@ Two-way ANOVA tests for two things:
 **Main effects** - each factor independently
 * Are patients happier on placebo or Prozac
 * Do males and females differ in happiness score
+
 **Interaction effects** - the effects of one factor are different depending on 
 the level (category) of the other factor
 * Treatment x Gender: Males may be happier on Prozac than placebo, but females 
@@ -429,7 +431,7 @@ anova(result_2)
 
 ### Interpretation of two-way ANOVA output
 #### Treatment
-The final column Pr(>F) is the p-value - at 7x10<sup>-5</sup> this
+The final column Pr(>F) is the p-value; at 7x10<sup>-5</sup> this
 is well within the cutoff for statistical significance. Therefore we conclude
 that treatment with Prozac has a significant effect on happiness. From our plots
 it appears that Prozac is associated with higher happiness scores, but this 
