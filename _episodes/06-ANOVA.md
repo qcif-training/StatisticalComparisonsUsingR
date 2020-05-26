@@ -238,7 +238,7 @@ evidence for even a suggestion of differences between the groups!
 > of patients doubled for just one category of Alcohol.Consumption and then 
 > repeat the Kruskal-Wallis and Dunn's tests. Does this show a significant 
 > difference as you might expect?
-> > 
+> > ## Solution to Challenge 2
 > > 
 > > ```r
 > > # Create a copy of the gallstones data frame so as not to break things later
@@ -281,7 +281,7 @@ reported for each pairwise comparison
 > ## Challenge 3
 >
 > Try using the dummmy dataset from challenge 2 for an ANOVA and Tukey's test
-> > 
+> > ## Solution to Challenge 3
 > > 
 > > ```r
 > > dummy_result <- aov(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
