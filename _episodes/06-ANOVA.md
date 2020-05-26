@@ -207,7 +207,7 @@ kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumpt
                    p.adjust.method="bonferroni")
 ```
 
-```
+~~~
 ## Warning in kwAllPairsDunnTest.default(x = gallstones$Weight, g =
 ## as.integer(gallstones$Alcohol.Consumption), : Ties are present. z-quantiles were
 ## corrected for ties.
