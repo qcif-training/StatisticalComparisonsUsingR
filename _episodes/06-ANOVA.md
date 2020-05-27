@@ -530,3 +530,38 @@ Smaller distances means that removing the observation has little affect on the
 regression results. Distances larger than 2 are suspicious and suggest the 
 presence of a possible outlier.
 
+## Paired data with more than two samples
+
+The two-way ANOVA and Kruskal-Wallis test are both intended for use with 
+independent sets of data, as outlined in the decision tree at the start of this
+section. As with several other tests we have explored in this course, there are 
+alternatives that should be used when data points are paired - in other words,
+where there are multiple measurements on the same subject. These are the 
+**Repeated measures ANOVA** and the **Friedman test**, for normally distrbuted 
+and non-normally distributed data respectively.
+
+Typical study designs where you might use paired data analysis approaches 
+include:
+
+* Studies that investigate changes in mean scores over three or more time points
+* Studies that investigate differences in mean scores under three or more
+different conditions.
+
+These more advanced tests are beyond the scope of this workshop, but some are
+covered in our **Longitudinal and Mixed Model Analysis** course.
+
+> ## Challenge 4
+> Can you think of a modification to our Happiness trial example which would 
+> mean it should be analysed using a paired data technique?
+>
+> > ## Solution to Challenge 2
+> > One option would be that if, rather than testing on 24 individuals assigned
+> > randomly to placebo/treatment groups, the trial was instead carried out with
+> > 12 people and happiness scores recorded before and after treatment with 
+> > Prozac. Or perhaps a stricter design - 24 individuals treated with either 
+> > Prozac or placebo, with happiness scores recorded before and after 
+> > treatment.
+> {: .solution}
+{: .challenge}
+
+
