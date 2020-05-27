@@ -338,7 +338,7 @@ happiness
 
 This corresponds to this design:
 
-![RStudio layout](../fig/06-fig4.png)
+![RStudio layout](../fig/06-fig4.png){: .align-left}
 
 As usual, an early step in studying our data is to visualise it
 
