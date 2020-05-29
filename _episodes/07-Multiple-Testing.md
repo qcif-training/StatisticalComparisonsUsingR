@@ -5,7 +5,7 @@ title: "Multiple testing, summary, and final exercises"
 teaching: 10
 exercises: 45
 questions:
-- "How do we interpret p-values when mutiple comparisons are carried out"
+- "How do we interpret p-values when mutiple comparisons are carried out?"
 objectives:
 - "Recognise the impact of multiple testing on the meaning of p-values"
 - "Adjust p-values to compensate for the effects of multiple testing" 
@@ -18,7 +18,7 @@ output: html_document
 
 
 ## Multiple testing
-In ANOVA, if H<sub>0</sub> is rejected, we carry out a __post hoc__ test to 
+In ANOVA, if H<sub>0</sub> is rejected, we carry out a _post hoc_ test to 
 identify which group(s) are significantly different from the other ones. If 
 there are three groups (A, B and C), that means we are performing 3 comparisons:
 1. A vs B
