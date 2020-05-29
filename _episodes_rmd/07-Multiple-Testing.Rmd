@@ -1,12 +1,15 @@
 ---
-title: "Multiple testing"
-teaching: 45
-exercises: 10
+title: "Multiple testing, summary, and final exercises"
+teaching: 10
+exercises: 45
 questions:
-- "TBA"
+- "How do we interpret p-values when mutiple comparisons are carried out"
+objectives:
+- "Recognise the impact of multiple testing on the meaning of p-values"
+- "Adjust p-values to compensate for the effects of multiple testing" 
 keypoints:
-- "TBA"
-
+- "Understand the impact of multiple testing on p-values"
+- "Use `p.adjust` to correct multiple-testing p-values"
 output: html_document
 ---
 
@@ -93,7 +96,7 @@ a given experimental design
 |Compare means or medians of ≥ three sample groups (unpaired data) |ANOVA |Kruskal-Wallis ANOVA |
 |Compare means or medians of ≥ three sample groups (paired data) |Repeated measures ANOVA |Friedman test |
 |Compare two sample proportions of categorical data (unpaired data/≤5 in one group) |  |Fisher exact test |
-|Compare > three sample proportions of categorical data |  |Chi-square test |
+|Compare ≥ three sample proportions of categorical data |  |Chi-square test |
 |Compare two sample proportions of categorical data (paired data) |  |McNemar’s test |
 
 ## Summary of R functions
@@ -118,13 +121,12 @@ a given experimental design
 > with single stones?
 > > ## Solution to Challenge 2
 > > 
-> > ```{r}
+> > The variables of interest are multiple stones (categorical, 2 groups)
+> > and recurrence (categorical, 2 groups). The appropriate test is therefore
+> > either Chi-square or Fisher's Exact, depending on the expected count for 
+> > each category
+> > ```r
 > > #create the frequency table
-> > table(gallstones$Rec,gallstones$Mult)
-> > 
-> > # Rename the levels of the variables to make it more readable
-> > levels(gallstones$Rec)<-c("NoRecurrence","Recurrence")
-> > levels(gallstones$Mult)<-c("Single","Multiple")
 > > table(gallstones$Rec,gallstones$Mult)
 > > 
 > > # Complete Cross-table
@@ -146,6 +148,9 @@ a given experimental design
 > > # Chi-square test performed because more than 5 expected counts in each cell
 > > chisq.test(gallstones$Rec,gallstones$Mult)
 > > ```
+> > ### Conclusion
+> > With a p-value of 0.1295, there is no evidence for a significant association
+> > between gallstone recurrence and the presence of multiple stones
 > {: .solution}
 {: .challenge}
 
@@ -154,7 +159,11 @@ a given experimental design
 > Is the patient's age associated with gallstone recurrence?
 > > ## Solution to Challenge 3
 > > 
-> > ```{r}
+> > The variables of interest are gallstone recurrence (categorical, 2 groups)
+> > and age (continuous). The appropriate test is therefore either the t-test
+> > or Mann-Whitney test, depending on whether the data is normally distributed
+> > or not
+> > ```r
 > > # Test normality in both groups
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="NoRecurrence")])
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="Recurrence")])
@@ -179,6 +188,9 @@ a given experimental design
 > > by(gallstones$Age,gallstones$Rec,mean)
 > > by(gallstones$Age,gallstones$Rec,sd)
 > > ```
+> > ### Conclusion
+> > With a p-value of 0.7707, there is no evidence for a significant association
+> > between gallstone recurrence and the age of patients
 > {: .solution}
 {: .challenge}
 
@@ -187,7 +199,11 @@ a given experimental design
 > Does alcohol consumption influence the time to gallstone dissolution?
 > > ## Solution to Challenge 4
 > > 
-> > ```{r}
+> > The variables of interest are alcohol consumption (categorical, 3 groups)
+> > and dissolution time (continuous). The appropriate test is therefore either
+> > ANOVA or Kruskal-Wallis, depending on whether the data is normally 
+> > distributed or not
+> > ```r
 > > # Test normality in each groups
 > > by(gallstones$Dis,gallstones$Alcohol.Consumption,shapiro.test)
 > > 
@@ -201,6 +217,9 @@ a given experimental design
 > > # Visualisation
 > > plot(gallstones$Dis~gallstones$Alcohol.Consumption,col=2:4)
 > > ```
+> > ### Conclusion
+> > With a p-value of 0.2389, there is no evidence for a significant association
+> > between alcohol consumption and dissolution time
 > {: .solution}
 {: .challenge}
 
@@ -209,7 +228,10 @@ a given experimental design
 > Is there any effect of treatment and/or gender on the time to dissolution?
 > > ## Solution to Challenge 5
 > > 
-> > ```{r}
+> > The variables of interest are gender (categorical, 2 groups), treatment 
+> > (categorical, two groups) and dissolution time (continuous). The appropriate
+> > test is therefore a two-way ANOVA
+> > ```r
 > > # Visualisation
 > > par(mfrow=c(1,2))
 > > plot(Dis~Treatment+Gender, data=gallstones)
@@ -231,6 +253,11 @@ a given experimental design
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > plot(result)
 > > ```
+> > ### Conclusion
+> > With a p-value of <0.0016, there is evidence for a significant of treatment 
+> > on dissolution time. There is no evidence for a difference between genders
+> > for dissolution time, nor evidence for an interaction between treatment and 
+> > gender (both males and females have a similar response).
 > {: .solution}
 {: .challenge}
 
