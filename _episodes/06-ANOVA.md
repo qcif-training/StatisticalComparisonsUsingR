@@ -554,7 +554,7 @@ covered in our **Longitudinal and Mixed Model Analysis** course.
 > Can you think of a modification to our Happiness trial example which would 
 > mean it should be analysed using a paired data technique?
 >
-> > ## Solution to Challenge 2
+> > ## Solution to Challenge 4
 > > One option would be that if, rather than testing on 24 individuals assigned
 > > randomly to placebo/treatment groups, the trial was instead carried out with
 > > 12 people and happiness scores recorded before and after treatment with 
