@@ -17,7 +17,7 @@ output: html_document
 ## Multiple testing
 In ANOVA, if H<sub>0</sub> is rejected, we carry out a __post hoc__ test to 
 identify which group(s) are significantly different from the other ones. If 
-there are three groups, that means we are performing 3 comparisons:
+there are three groups (A, B and C), that means we are performing 3 comparisons:
 1. A vs B
 2. A vs C
 3. B vs C
@@ -25,8 +25,8 @@ there are three groups, that means we are performing 3 comparisons:
 Each time we perform a t-test, we chose a significance threshold under which we
 reject the null hypothesis. A significance level of 0.05 for example means a 5%
 chance of making a type I error - incorrectly rejecting H<sub>0</sub>. When 
-performing multiple tests, this probability of error accumulates, so the more 
-tests performed, the higher likelihood of a type I error.
+performing multiple tests, that probability of error applies for each individual
+comparison, so the more tests performed, the higher likelihood of a type I error.
 
 In our example three-way comparison with signficance threshold of 0.05:
 * Prob(making no mistake) = 0.95 x 0.95 x 0.95 = 0.857
@@ -34,7 +34,6 @@ In our example three-way comparison with signficance threshold of 0.05:
 
 So rather than a 5% chance of a type I error, we instead have a much higher 
 14.3% chance, which is clearly not acceptable.
-
 
 > ## Challenge 1
 >
@@ -64,22 +63,25 @@ on a vector of p-values.
 # Note, most of these *individually* meet the significance threshold of <0.05
 pval <- c(0.02, 0.01, 0.05, 0.04, 0.1, 0.6, 0.5, 0.03, 0.005, 0.0005)
 # False Discovery Rate correction - only three tests remain signficant
-p.adjust(pval, method = 'fdr')
+# And round to 3 decimal places for neater display
+round(p.adjust(pval, method = 'fdr'),3)
 ```
 
-```
-##  [1] 0.05000000 0.03333333 0.07142857 0.06666667 0.12500000 0.60000000
-##  [7] 0.55555556 0.06000000 0.02500000 0.00500000
-```
+~~~
+##  [1] 0.050 0.033 0.071 0.067 0.125 0.600 0.556 0.060 0.025 0.005
+~~~
+{: .output}
 
 ```r
 # Bonferroni correction - now only one remains significant
+# For some reason, bonferroni defaults to 3 decimal places anyway
 p.adjust(pval, method = 'bonferroni')
 ```
 
-```
+~~~
 ##  [1] 0.200 0.100 0.500 0.400 1.000 1.000 1.000 0.300 0.050 0.005
-```
+~~~
+{: .output}
 
 ## Summary of relevant statistical tests
 This table can be used as a reference to select the appropriate test to use from
@@ -121,53 +123,92 @@ a given experimental design
 > > 
 > > ```r
 > > #create the frequency table
-> > table(data$Rec,data$Mult)
+> > table(gallstones$Rec,gallstones$Mult)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Rec: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ##               
+> > ##                Single Multiple
+> > ##   NoRecurrence     13        8
+> > ##   Recurrence        5       11
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # Rename the levels of the variables to make it more readable
-> > levels(data$Rec)<-c("NoRecurrence","Recurrence")
+> > levels(gallstones$Rec)<-c("NoRecurrence","Recurrence")
+> > levels(gallstones$Mult)<-c("Single","Multiple")
+> > table(gallstones$Rec,gallstones$Mult)
 > > ```
 > > 
-> > ```
-> > ## Error in `*tmp*`$Rec: object of type 'closure' is not subsettable
-> > ```
-> > 
-> > ```r
-> > levels(data$Mult)<-c("Single","Multiple")
-> > ```
-> > 
-> > ```
-> > ## Error in `*tmp*`$Mult: object of type 'closure' is not subsettable
-> > ```
-> > 
-> > ```r
-> > table(data$Rec,data$Mult)
-> > ```
-> > 
-> > ```
-> > ## Error in data$Rec: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ##               
+> > ##                Single Multiple
+> > ##   NoRecurrence     13        8
+> > ##   Recurrence        5       11
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # Complete Cross-table
 > > library(gmodels)
-> > CrossTable(data$Rec,data$Mult,format="SPSS",prop.chisq=F,expected=T)
+> > CrossTable(gallstones$Rec,gallstones$Mult,format="SPSS",prop.chisq=F,expected=T)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Rec: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## 
+> > ##    Cell Contents
+> > ## |-------------------------|
+> > ## |                   Count |
+> > ## |         Expected Values |
+> > ## |             Row Percent |
+> > ## |          Column Percent |
+> > ## |           Total Percent |
+> > ## |-------------------------|
+> > ## 
+> > ## Total Observations in Table:  37 
+> > ## 
+> > ##                | gallstones$Mult 
+> > ## gallstones$Rec |   Single  | Multiple  | Row Total | 
+> > ## ---------------|-----------|-----------|-----------|
+> > ##   NoRecurrence |       13  |        8  |       21  | 
+> > ##                |   10.216  |   10.784  |           | 
+> > ##                |   61.905% |   38.095% |   56.757% | 
+> > ##                |   72.222% |   42.105% |           | 
+> > ##                |   35.135% |   21.622% |           | 
+> > ## ---------------|-----------|-----------|-----------|
+> > ##     Recurrence |        5  |       11  |       16  | 
+> > ##                |    7.784  |    8.216  |           | 
+> > ##                |   31.250% |   68.750% |   43.243% | 
+> > ##                |   27.778% |   57.895% |           | 
+> > ##                |   13.514% |   29.730% |           | 
+> > ## ---------------|-----------|-----------|-----------|
+> > ##   Column Total |       18  |       19  |       37  | 
+> > ##                |   48.649% |   51.351% |           | 
+> > ## ---------------|-----------|-----------|-----------|
+> > ## 
+> > ##  
+> > ## Statistics for All Table Factors
+> > ## 
+> > ## 
+> > ## Pearson's Chi-squared test 
+> > ## ------------------------------------------------------------
+> > ## Chi^2 =  3.415944     d.f. =  1     p =  0.06456946 
+> > ## 
+> > ## Pearson's Chi-squared test with Yates' continuity correction 
+> > ## ------------------------------------------------------------
+> > ## Chi^2 =  2.299057     d.f. =  1     p =  0.1294526 
+> > ## 
+> > ##  
+> > ##        Minimum expected frequency: 7.783784
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # Visualisation
 > > 
 > > library(ggplot2)
-> > ggplot(data, aes(Rec, fill=Mult)) + 
+> > ggplot(gallstones, aes(Rec, fill=Mult)) + 
 > >   geom_bar(position="dodge")+
 > >   theme(axis.text=element_text(size=18),
 > >         legend.text=element_text(size=18),
@@ -177,19 +218,21 @@ a given experimental design
 > >   ggtitle("Recurrence vs. Mult") 
 > > ```
 > > 
-> > ```
-> > ## Error:   You're passing a function as global data.
-> > ##   Have you misspelled the `data` argument in `ggplot()`
-> > ```
+> > ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 > > 
 > > ```r
 > > # Chi-square test performed because more than 5 expected counts in each cell
-> > chisq.test(data$Rec,data$Mult)
+> > chisq.test(gallstones$Rec,gallstones$Mult)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Rec: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## 
+> > ## 	Pearson's Chi-squared test with Yates' continuity correction
+> > ## 
+> > ## data:  gallstones$Rec and gallstones$Mult
+> > ## X-squared = 2.2991, df = 1, p-value = 0.1295
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -201,90 +244,152 @@ a given experimental design
 > > 
 > > ```r
 > > # Test normality in both groups
-> > shapiro.test(data$Age[which(data$Rec=="NoRecurrence")])
+> > shapiro.test(gallstones$Age[which(gallstones$Rec=="NoRecurrence")])
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  gallstones$Age[which(gallstones$Rec == "NoRecurrence")]
+> > ## W = 0.81456, p-value = 0.001105
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
-> > shapiro.test(data$Age[which(data$Rec=="Recurrence")])
+> > shapiro.test(gallstones$Age[which(gallstones$Rec=="Recurrence")])
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  gallstones$Age[which(gallstones$Rec == "Recurrence")]
+> > ## W = 0.89371, p-value = 0.06377
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # Other option
-> > by(data$Age,data$Rec,shapiro.test)
+> > by(gallstones$Age,gallstones$Rec,shapiro.test)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## gallstones$Rec: NoRecurrence
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.81456, p-value = 0.001105
+> > ## 
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Rec: Recurrence
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.89371, p-value = 0.06377
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # We have to perform a Mann-Whitney test 
-> > wilcox.test(data$Age~data$Rec)
+> > wilcox.test(gallstones$Age~gallstones$Rec)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## Warning in wilcox.test.default(x = c(77L, 80L, 69L, 77L, 88L, 48L, 81L, : cannot
+> > ## compute exact p-value with ties
+> > 
+> > ## 
+> > ## 	Wilcoxon rank sum test with continuity correction
+> > ## 
+> > ## data:  gallstones$Age by gallstones$Rec
+> > ## W = 158, p-value = 0.7707
+> > ## alternative hypothesis: true location shift is not equal to 0
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # We can compare with a T-test
-> > t.test(data$Age~data$Rec)
+> > t.test(gallstones$Age~gallstones$Rec)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## 
+> > ## 	Welch Two Sample t-test
+> > ## 
+> > ## data:  gallstones$Age by gallstones$Rec
+> > ## t = -0.83993, df = 34.353, p-value = 0.4068
+> > ## alternative hypothesis: true difference in means is not equal to 0
+> > ## 95 percent confidence interval:
+> > ##  -15.027653   6.235986
+> > ## sample estimates:
+> > ## mean in group NoRecurrence   mean in group Recurrence 
+> > ##                   70.66667                   75.06250
+> > ~~~
+> > {: .output}
 > > 
 > > ```r
 > > # Boxplots to visualise
-> > plot(data$Age~data$Rec,col=c("red","blue"),ylab="Age",
+> > plot(gallstones$Age~gallstones$Rec,col=c("red","blue"),ylab="Age",
 > >      xlab="Recurrence",cex.lab=1.3)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 > > 
 > > ```r
 > > # Statistical descriptions
-> > by(data$Age,data$Rec,median)
+> > by(gallstones$Age,gallstones$Rec,median)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
-> > 
-> > ```r
-> > by(data$Age,data$Rec,IQR)
-> > ```
-> > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## gallstones$Rec: NoRecurrence
+> > ## [1] 77
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Rec: Recurrence
+> > ## [1] 78
+> > > > ~~~
+> > {: .output}
 > > 
 > > ```r
-> > by(data$Age,data$Rec,mean)
+> > by(gallstones$Age,gallstones$Rec,IQR)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > ~~~
+> > ## gallstones$Rec: NoRecurrence
+> > ## [1] 12
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Rec: Recurrence
+> > ## [1] 19.5
+> > > > ~~~
+> > {: .output}
 > > 
 > > ```r
-> > by(data$Age,data$Rec,sd)
+> > by(gallstones$Age,gallstones$Rec,mean)
 > > ```
 > > 
+> > ~~~
+> > ## gallstones$Rec: NoRecurrence
+> > ## [1] 70.66667
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Rec: Recurrence
+> > ## [1] 75.0625
+> > > > ~~~
+> > {: .output}
+> > 
+> > ```r
+> > by(gallstones$Age,gallstones$Rec,sd)
 > > ```
-> > ## Error in data$Age: object of type 'closure' is not subsettable
-> > ```
+> > 
+> > ~~~
+> > ## gallstones$Rec: NoRecurrence
+> > ## [1] 19.17637
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Rec: Recurrence
+> > ## [1] 12.57229
+> > > > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -296,47 +401,65 @@ a given experimental design
 > > 
 > > ```r
 > > # Test normality in each groups
-> > by(data$Dis,data$Alcohol.Consumption,shapiro.test)
+> > by(gallstones$Dis,gallstones$Alcohol.Consumption,shapiro.test)
 > > ```
 > > 
 > > ```
-> > ## Error in data$Dis: object of type 'closure' is not subsettable
+> > ## gallstones$Alcohol.Consumption: NonAlcohol
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.6915, p-value = 0.001129
+> > ## 
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Alcohol.Consumption: Previous
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.898, p-value = 0.2083
+> > ## 
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Alcohol.Consumption: Alcohol
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.8225, p-value = 0.003216
 > > ```
 > > 
 > > ```r
 > > # If distribution normal in each group
-> > result<-aov(data$Dis~data$Alcohol.Consumption)
-> > ```
-> > 
-> > ```
-> > ## Error in data$Dis: object of type 'closure' is not subsettable
-> > ```
-> > 
-> > ```r
+> > result<-aov(gallstones$Dis~gallstones$Alcohol.Consumption)
 > > summary(result)
 > > ```
 > > 
 > > ```
-> > ## Error in summary(result): object 'result' not found
+> > ##                                Df Sum Sq Mean Sq F value Pr(>F)
+> > ## gallstones$Alcohol.Consumption  2  262.2  131.12   1.955  0.157
+> > ## Residuals                      34 2279.9   67.06
 > > ```
 > > 
 > > ```r
 > > # If distribution not normal
-> > kruskal.test(data$Dis~data$Alcohol.Consumption)
+> > kruskal.test(gallstones$Dis~gallstones$Alcohol.Consumption)
 > > ```
 > > 
 > > ```
-> > ## Error in data$Dis: object of type 'closure' is not subsettable
+> > ## 
+> > ## 	Kruskal-Wallis rank sum test
+> > ## 
+> > ## data:  gallstones$Dis by gallstones$Alcohol.Consumption
+> > ## Kruskal-Wallis chi-squared = 2.8637, df = 2, p-value = 0.2389
 > > ```
 > > 
 > > ```r
 > > # Visualisation
-> > plot(data$Dis~data$Alcohol.Consumption,col=2:4)
+> > plot(gallstones$Dis~gallstones$Alcohol.Consumption,col=2:4)
 > > ```
 > > 
-> > ```
-> > ## Error in data$Dis: object of type 'closure' is not subsettable
-> > ```
+> > ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 > {: .solution}
 {: .challenge}
 
@@ -349,74 +472,58 @@ a given experimental design
 > > ```r
 > > # Visualisation
 > > par(mfrow=c(1,2))
-> > plot(Dis~Treatment+Gender, data=data)
+> > plot(Dis~Treatment+Gender, data=gallstones)
 > > ```
 > > 
-> > ```
-> > ## Error in as.data.frame.default(data, optional = TRUE): cannot coerce class '"function"' to a data.frame
-> > ```
+> > ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 > > 
 > > ```r
 > > # Interaction plot to visualise
-> > interaction.plot(data$Treatment, data$Gender, data$Dis,
+> > interaction.plot(gallstones$Treatment, gallstones$Gender, gallstones$Dis,
 > >                  col=2:3,lwd=3,cex.axis=1.5,cex.lab=1.5)
-> > ```
 > > 
-> > ```
-> > ## Error in data$Treatment: object of type 'closure' is not subsettable
-> > ```
-> > 
-> > ```r
 > > # anova 2 way with aov function
-> > result<-aov(Dis~Treatment+Gender+Treatment*Gender,data=data)
-> > ```
-> > 
-> > ```
-> > ## Error in as.data.frame.default(data, optional = TRUE): cannot coerce class '"function"' to a data.frame
-> > ```
-> > 
-> > ```r
+> > result<-aov(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > summary(result)
 > > ```
 > > 
 > > ```
-> > ## Error in summary(result): object 'result' not found
+> > ##                  Df Sum Sq Mean Sq F value  Pr(>F)   
+> > ## Treatment         1  670.8   670.8  11.896 0.00156 **
+> > ## Gender            1    6.5     6.5   0.115 0.73693   
+> > ## Treatment:Gender  1    3.8     3.8   0.068 0.79588   
+> > ## Residuals        33 1861.0    56.4                   
+> > ## ---
+> > ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > > ```
 > > 
 > > ```r
 > > # anova 2 way with lm function
-> > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=data)
-> > ```
-> > 
-> > ```
-> > ## Error in as.data.frame.default(data, optional = TRUE): cannot coerce class '"function"' to a data.frame
-> > ```
-> > 
-> > ```r
+> > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > anova(result)
 > > ```
 > > 
 > > ```
-> > ## Error in anova(result): object 'result' not found
+> > ## Analysis of Variance Table
+> > ## 
+> > ## Response: Dis
+> > ##                  Df  Sum Sq Mean Sq F value   Pr(>F)   
+> > ## Treatment         1  670.83  670.83 11.8956 0.001557 **
+> > ## Gender            1    6.47    6.47  0.1148 0.736926   
+> > ## Treatment:Gender  1    3.84    3.84  0.0680 0.795883   
+> > ## Residuals        33 1860.97   56.39                    
+> > ## ---
+> > ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > > ```
 > > 
 > > ```r
 > > # Checking the assumptions of anova
 > > 
-> > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=data)
-> > ```
-> > 
-> > ```
-> > ## Error in as.data.frame.default(data, optional = TRUE): cannot coerce class '"function"' to a data.frame
-> > ```
-> > 
-> > ```r
+> > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > plot(result)
 > > ```
 > > 
-> > ```
-> > ## Error in plot(result): object 'result' not found
-> > ```
+> > ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png)![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-3.png)![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-4.png)
 > {: .solution}
 {: .challenge}
 
