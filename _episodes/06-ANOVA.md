@@ -73,7 +73,8 @@ the null hypothesis is that at least one of the means is different from the
 others.
 
 H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> = µ<sub>3</sub> = ... = µ<sub>k</sub>  
-H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> OR µ<sub>1</sub> ≠ µ<sub>3</sub> OR µ<sub>2</sub> ≠ µ<sub>3</sub> ....
+H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> OR µ<sub>1</sub> ≠ µ<sub>3</sub> OR 
+µ<sub>2</sub> ≠ µ<sub>3</sub> ....
 
 The ANOVA extension of the t-test is called the **F-test**, and is based around 
 decomposing the total variation in the sample into the variability (sum of 
@@ -102,7 +103,7 @@ by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ```
 
 ~~~
-## gallstones$Alcohol.Consumption: 1
+## gallstones$Alcohol.Consumption: NonAlcohol
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
@@ -110,7 +111,7 @@ by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ## W = 0.79876, p-value = 0.01976
 ## 
 ## ------------------------------------------------------------ 
-## gallstones$Alcohol.Consumption: 2
+## gallstones$Alcohol.Consumption: Previous
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
@@ -118,7 +119,7 @@ by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ## W = 0.95864, p-value = 0.7703
 ## 
 ## ------------------------------------------------------------ 
-## gallstones$Alcohol.Consumption: 3
+## gallstones$Alcohol.Consumption: Alcohol
 ## 
 ## 	Shapiro-Wilk normality test
 ## 
@@ -185,6 +186,7 @@ PMCMRplus package) for Kruskal-Wallis. This performs a multiple-testing
 corrected pairwise comparison between each combination of groups to highlight 
 which (if any) are different.
 
+
 ```r
 # Dunn's test, since we used Kruskal-Wallis for the initial analysis
 library(PMCMRplus)
@@ -213,10 +215,10 @@ kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumpt
 ~~~
 {: .output}
 
-The row and column headers in the table just over halfway through the output
+The row and column headers in the table just below halfway through the output
 show the group identifiers, and the values in the table are the p-values. In 
 this case, the p-values are all 1 - there is not evidence for even the slightest 
-differences between the groups!
+difference between the groups!
 
 If there is a significant p-value with a one-way ANOVA, use the Tukey HSD test
 
@@ -227,14 +229,14 @@ TukeyHSD(result)
 ~~~
 ##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
-##
+## 
 ## Fit: aov(formula = gallstones$Weight ~ gallstones$Alcohol.Consumption)
-##
+## 
 ## $`gallstones$Alcohol.Consumption`
-##           diff       lwr      upr     p adj
-## 2-1 -0.2777778 -18.74892 18.19336 0.9992516
-## 3-1  6.1666667 -10.24537 22.57870 0.6311298
-## 3-2  6.4444444  -9.41109 22.29998 0.5844049
+##                           diff       lwr      upr     p adj
+## Previous-NonAlcohol -0.2777778 -18.74892 18.19336 0.9992516
+## Alcohol-NonAlcohol   6.1666667 -10.24537 22.57870 0.6311298
+## Alcohol-Previous     6.4444444  -9.41109 22.29998 0.5844049
 ~~~
 {: .output}
 
@@ -269,7 +271,8 @@ reported for each pairwise comparison
 > ## Challenge 3
 >
 > Try using the dummmy dataset from challenge 2 for an ANOVA and Tukey's test
-> > ## Solution to Challenge 3
+> > ## Solution to Challenge 2
+> >
 > >
 > > 
 > > ```r
@@ -301,8 +304,7 @@ female patients respond differently.
 Read the data in from the file "happiness.csv"
 
 ```r
-# To ensure compatibility between R version 3 and version 4, we need to specify
-# the stringsAsfactors flag for read.csv
+# As before, we need to specify the stringsAsfactors flag for read.csv
 happiness <- read.csv("data/happiness.csv", stringsAsFactors = TRUE)
 happiness
 ```
@@ -446,14 +448,14 @@ levels between males and females.
 This has a significant p-value, indicating that there is an 
 interaction between gender and treatment. The plots suggest that is because 
 Prozac increases happiness in men more than in women, but again this should be 
-confirmed with _post hoc_ testing
-
+confirmed with _post hoc_ testing.
 
 ```r
 # For ANOVA performed with `aov()`, used TukeyHSD for post hoc testing
 result <- aov(Score~Treatment+Gender+Treatment*Gender, data=happiness)
 TukeyHSD(result)
-```
+~~~
+{: .output}
 
 ~~~
 ##   Tukey multiple comparisons of means
@@ -494,6 +496,7 @@ assumptions. This includes making QQ-plots and residual plots
 ```r
 plot(result)
 ```
+
 ![RStudio layout](../fig/06-fig9.png)
 ![RStudio layout](../fig/06-fig10.png)
 ![RStudio layout](../fig/06-fig11.png)
@@ -563,5 +566,4 @@ covered in our **Longitudinal and Mixed Model Analysis** course.
 > > treatment.
 > {: .solution}
 {: .challenge}
-
 

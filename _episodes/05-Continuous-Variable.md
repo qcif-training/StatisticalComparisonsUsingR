@@ -239,8 +239,30 @@ and females in our dataset.
 > > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
 > >      ylab = "Diameter",
 > >      xlab = "Recurrence")
+> > ```
+> > 
+> > ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+> > 
+> > ```r
 > > # Test whether data is normally distributecd
 > > by(gallstones$Diam, gallstones$Rec, shapiro.test)
+> > ```
+> > 
+> > ```
+> > ## gallstones$Rec: NoRecurrence
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.91314, p-value = 0.06335
+> > ## 
+> > ## ------------------------------------------------------------ 
+> > ## gallstones$Rec: Recurrence
+> > ## 
+> > ## 	Shapiro-Wilk normality test
+> > ## 
+> > ## data:  dd[x, ]
+> > ## W = 0.87505, p-value = 0.03252
 > > ```
 > > Data is not normal for the recurrence group, and data is not paired - hence
 > > Mann-Whitney test
@@ -248,6 +270,15 @@ and females in our dataset.
 > > ```r
 > > # Use wilcox.test function which defaults to Mann-Whitney analysis
 > > wilcox.test(gallstones$Diam ~ gallstones$Rec, exact=FALSE)
+> > ```
+> > 
+> > ```
+> > ## 
+> > ## 	Wilcoxon rank sum test with continuity correction
+> > ## 
+> > ## data:  gallstones$Diam by gallstones$Rec
+> > ## W = 201.5, p-value = 0.3103
+> > ## alternative hypothesis: true location shift is not equal to 0
 > > ```
 > > The p-value is not significant, so we reject the alternative hypothesis that
 > > there is a difference in gallstone size between the two groups.
@@ -260,7 +291,6 @@ If there is a significant difference between the two groups (or even if there
 isn't) it is often useful to generate some summary statistics for each group. 
 We can do this with the `by` command, which we've used already in this section, 
 combined with summary functions
-
 
 ```r
 # For normally distributed data, report the mean and standard deviation
@@ -289,17 +319,16 @@ by(gallstones$Height, gallstones$Gender, sd)
 ~~~
 {: .output}
 
-
 ```r
 # For non-normally distributed data, report the median and inter-quartile range
 by(gallstones$Diam, gallstones$Rec, median)
 ```
 
 ~~~
-## gallstones$Rec: 0
+## gallstones$Rec: NoRecurrence
 ## [1] 10
 ## ------------------------------------------------------------ 
-## gallstones$Rec: 1
+## gallstones$Rec: Recurrence
 ## [1] 8.5
 ~~~
 {: .output}
@@ -309,10 +338,10 @@ by(gallstones$Diam, gallstones$Rec, IQR)
 ```
 
 ~~~
-## gallstones$Rec: 0
+## gallstones$Rec: NoRecurrence
 ## [1] 12
 ## ------------------------------------------------------------ 
-## gallstones$Rec: 1
+## gallstones$Rec: Recurrence
 ## [1] 9
 ~~~
 {: .output}

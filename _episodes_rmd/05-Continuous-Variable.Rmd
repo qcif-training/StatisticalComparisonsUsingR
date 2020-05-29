@@ -18,7 +18,15 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-gallstones <- read.csv("data/gallstones.csv")
+gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
+gallstones[,7:12] <- data.frame(lapply(gallstones[,7:12], as.factor))
+levels(gallstones$Obese) <- c("NonObese", "Obese")
+levels(gallstones$Treatment) <- c("Untreated", "Treated")
+levels(gallstones$Rec) <- c("NoRecurrence", "Recurrence")
+levels(gallstones$Smoking.Status)<-c("NonSmoker","Smoker")
+levels(gallstones$Alcohol.Consumption)<-c("NonAlcohol","Previous","Alcohol")
+levels(gallstones$Mult)<-c("Single","Multiple")
+library(gmodels)
 library(ggplot2)
 ```
 

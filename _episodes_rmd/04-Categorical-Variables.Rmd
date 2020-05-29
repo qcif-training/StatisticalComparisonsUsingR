@@ -19,7 +19,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-gallstones <- read.csv("data/gallstones.csv")
+gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
+gallstones$Patient_ID <- as.character(gallstones$Patient_ID)
 library(ggplot2)
 ```
 

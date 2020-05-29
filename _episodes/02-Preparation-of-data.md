@@ -78,11 +78,11 @@ formats of CSV (comma separated value) and TSV (tab separated value) files.
 {: .callout}
 
 
-The default settings of `read.csv` are compatible with this datafile, so when
-running the command, all we need to specify is the target filename
+The default settings of `read.csv` differ between R versions, so when running
+the command, we need to specify the stringsAsFactors parameter
 
 ```r
-gallstones <- read.csv("data/gallstones.csv")
+gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
 ```
 
 Now the file is uploaded, you can find out more about this dataset using the `str`
