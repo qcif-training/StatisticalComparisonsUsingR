@@ -3,9 +3,9 @@ title: "Multiple testing"
 teaching: 45
 exercises: 10
 questions:
-- ""
+- "TBA"
 keypoints:
-- ""
+- "TBA"
 
 output: html_document
 ---
@@ -30,11 +30,8 @@ happiness <- read.csv("data/happiness.csv", stringsAsFactors = TRUE)
 In ANOVA, if H<sub>0</sub> is rejected, we carry out a __post hoc__ test to 
 identify which group(s) are significantly different from the other ones. If 
 there are three groups, that means we are performing 3 comparisons:
-
 1. A vs B
-
 2. A vs C
-
 3. B vs C
 
 Each time we perform a t-test, we chose a significance threshold under which we
@@ -49,6 +46,7 @@ In our example three-way comparison with signficance threshold of 0.05:
 
 So rather than a 5% chance of a type I error, we instead have a much higher 
 14.3% chance, which is clearly not acceptable.
+
 
 > ## Challenge 1
 >
@@ -74,7 +72,7 @@ In R, the `p.adjust` function can be used to perform multiple-testing correction
 on a vector of p-values. 
 ```{r}
 # Create a vector of multiple p-values to be tested
-# Note, most of these individually meet the significance threshold of <0.05
+# Note, most of these *individually* meet the significance threshold of <0.05
 pval <- c(0.02, 0.01, 0.05, 0.04, 0.1, 0.6, 0.5, 0.03, 0.005, 0.0005)
 # False Discovery Rate correction - only three tests remain signficant
 p.adjust(pval, method = 'fdr')
@@ -85,27 +83,29 @@ p.adjust(pval, method = 'bonferroni')
 ## Summary of relevant statistical tests
 This table can be used as a reference to select the appropriate test to use from
 a given experimental design
-|Analysis required|Normally distributed data|Non-normally distributed data|
-|Compare mean or median of one sample group against a known value|One sample t-test|Wilcoxon Rank Sum test|
-|Compare means or medians of two sample groups (unpaired data)|Unpaired t-test|Mann-Whitney test|
-|Compare means or medians of two sample groups (paired data)|Paired t-test|Wilcoxon Matched Pairs test|
-|Compare means or medians of ≥ three sample groups (unpaired data)|ANOVA|Kruskal-Wallis ANOVA|
-|Compare means or medians of ≥ three sample groups (paired data)|Repeated measures ANOVA|Friedman test|
-|Compare two sample proportions of categorical data (unpaired data/≤5 in one group)| |Fisher exact test|
-|Compare > three sample proportions of categorical data| |Chi-square test|
-|Compare two sample proportions of categorical data (paired data)| |McNemar’s test|
+
+|Analysis required |Normally distributed data |Non-normally distributed data |
+|-----|-----|-----|
+|Compare mean or median of one sample group against a known value |One sample t-test |Wilcoxon Rank Sum test |
+|Compare means or medians of two sample groups (unpaired data) |Unpaired t-test |Mann-Whitney test |
+|Compare means or medians of two sample groups (paired data) |Paired t-test |Wilcoxon Matched Pairs test |
+|Compare means or medians of ≥ three sample groups (unpaired data) |ANOVA |Kruskal-Wallis ANOVA |
+|Compare means or medians of ≥ three sample groups (paired data) |Repeated measures ANOVA |Friedman test |
+|Compare two sample proportions of categorical data (unpaired data/≤5 in one group) |  |Fisher exact test |
+|Compare > three sample proportions of categorical data |  |Chi-square test |
+|Compare two sample proportions of categorical data (paired data) |  |McNemar’s test |
 
 ## Summary of R functions
 
-* Check for normality: `Shapiro.test(var)`
-* Correlation (normally distributed) `cor.test(var1,var2,method=“Pearson”)`
-* Correlation (Non-normally distributed) `cor.test(var1,var2,method=“Spearman”)`
+* Check for normality: `shapiro.test(var)`
+* Correlation (normally distributed) `cor.test(var1,var2,method="pearson")`
+* Correlation (Non-normally distributed) `cor.test(var1,var2,method="spearman")`
 * Chi-square `chisq.test(table(var1,var2))`
 * Fisher’s exact (≤5 counts) `fisher.test(table(var1,var2))`
 * Unpaired t-test `t.test(var1~var2)`
-* Paired t-test `t.test(var1~var2,paired=T)`
+* Paired t-test `t.test(var1~var2,paired=TRUE)`
 * Wilcoxon Rank Sum test `wilcox.test(var1~var2)`
-* Wilcoxon Matched Pairs Test `wilcox.test(var1~var2,paired=T)`
+* Wilcoxon Matched Pairs Test `wilcox.test(var1~var2,paired=TRUE)`
 * Compare >2 groups for one factor
 * ANOVA `aov(outcome~factor1)`
 * Kruskal-Wallis ANOVA `kruskal.test(outcome~factor1)`
@@ -144,7 +144,7 @@ a given experimental design
 > > 
 > > # Chi-square test performed because more than 5 expected counts in each cell
 > > chisq.test(data$Rec,data$Mult)
-> > 
+> > ```
 > {: .solution}
 {: .challenge}
 
@@ -153,6 +153,7 @@ a given experimental design
 > Is the patient's age associated with gallstone recurrence?
 > > ## Solution to Challenge 3
 > > 
+> > ```{r}
 > > # Test normality in both groups
 > > shapiro.test(data$Age[which(data$Rec=="NoRecurrence")])
 > > shapiro.test(data$Age[which(data$Rec=="Recurrence")])
@@ -176,6 +177,7 @@ a given experimental design
 > > 
 > > by(data$Age,data$Rec,mean)
 > > by(data$Age,data$Rec,sd)
+> > ```
 > {: .solution}
 {: .challenge}
 
@@ -184,6 +186,7 @@ a given experimental design
 > Does alcohol consumption influence the time to gallstone dissolution?
 > > ## Solution to Challenge 4
 > > 
+> > ```{r}
 > > # Test normality in each groups
 > > by(data$Dis,data$Alcohol.Consumption,shapiro.test)
 > > 
@@ -196,6 +199,7 @@ a given experimental design
 > > 
 > > # Visualisation
 > > plot(data$Dis~data$Alcohol.Consumption,col=2:4)
+> > ```
 > {: .solution}
 {: .challenge}
 
@@ -204,6 +208,7 @@ a given experimental design
 > Is there any effect of treatment and/or gender on the time to dissolution?
 > > ## Solution to Challenge 5
 > > 
+> > ```{r}
 > > # Visualisation
 > > par(mfrow=c(1,2))
 > > plot(Dis~Treatment+Gender, data=data)
@@ -224,6 +229,7 @@ a given experimental design
 > > 
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=data)
 > > plot(result)
+> > ```
 > {: .solution}
 {: .challenge}
 
