@@ -8,7 +8,6 @@ questions:
 - "TBA"
 keypoints:
 - "TBA"
-
 output: html_document
 ---
 
@@ -120,6 +119,10 @@ a given experimental design
 > with single stones?
 > > ## Solution to Challenge 2
 > > 
+> > The variables of interest are multiple stones (categorical, 2 groups)
+> > and recurrence (categorical, 2 groups). The appropriate test is therefore
+> > either Chi-square or Fisher's Exact, depending on the expected count for 
+> > each category
 > > ```r
 > > #create the frequency table
 > > table(gallstones$Rec,gallstones$Mult)
@@ -148,6 +151,9 @@ a given experimental design
 > > # Chi-square test performed because more than 5 expected counts in each cell
 > > chisq.test(gallstones$Rec,gallstones$Mult)
 > > ```
+> > ### Conclusion
+> > With a p-value of 0.1295, there is no evidence for a significant association
+> > between gallstone recurrence and the presence of multiple stones
 > {: .solution}
 {: .challenge}
 
@@ -156,6 +162,10 @@ a given experimental design
 > Is the patient's age associated with gallstone recurrence?
 > > ## Solution to Challenge 3
 > > 
+> > The variables of interest are gallstone recurrence (categorical, 2 groups)
+> > and age (continuous). The appropriate test is therefore either the t-test
+> > or Mann-Whitney test, depending on whether the data is normally distributed
+> > or not
 > > ```r
 > > # Test normality in both groups
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="NoRecurrence")])
@@ -181,6 +191,9 @@ a given experimental design
 > > by(gallstones$Age,gallstones$Rec,mean)
 > > by(gallstones$Age,gallstones$Rec,sd)
 > > ```
+> > ### Conclusion
+> > With a p-value of 0.7707, there is no evidence for a significant association
+> > between gallstone recurrence and the age of patients
 > {: .solution}
 {: .challenge}
 
@@ -189,6 +202,10 @@ a given experimental design
 > Does alcohol consumption influence the time to gallstone dissolution?
 > > ## Solution to Challenge 4
 > > 
+> > The variables of interest are alcohol consumption (categorical, 3 groups)
+> > and dissolution time (continuous). The appropriate test is therefore either
+> > ANOVA or Kruskal-Wallis, depending on whether the data is normally 
+> > distributed or not
 > > ```r
 > > # Test normality in each groups
 > > by(gallstones$Dis,gallstones$Alcohol.Consumption,shapiro.test)
@@ -203,6 +220,9 @@ a given experimental design
 > > # Visualisation
 > > plot(gallstones$Dis~gallstones$Alcohol.Consumption,col=2:4)
 > > ```
+> > ### Conclusion
+> > With a p-value of 0.2389, there is no evidence for a significant association
+> > between alcohol consumption and dissolution time
 > {: .solution}
 {: .challenge}
 
@@ -211,6 +231,9 @@ a given experimental design
 > Is there any effect of treatment and/or gender on the time to dissolution?
 > > ## Solution to Challenge 5
 > > 
+> > The variables of interest are gender (categorical, 2 groups), treatment 
+> > (categorical, two groups) and dissolution time (continuous). The appropriate
+> > test is therefore a two-way ANOVA
 > > ```r
 > > # Visualisation
 > > par(mfrow=c(1,2))
@@ -233,6 +256,11 @@ a given experimental design
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > plot(result)
 > > ```
+> > ### Conclusion
+> > With a p-value of <0.0016, there is evidence for a significant of treatment 
+> > on dissolution time. There is no evidence for a difference between genders
+> > for dissolution time, nor evidence for an interaction between treatment and 
+> > gender (both males and females have a similar response).
 > {: .solution}
 {: .challenge}
 
