@@ -120,91 +120,19 @@ a given experimental design
 > with single stones?
 > > ## Solution to Challenge 2
 > > 
-> > 
 > > ```r
 > > #create the frequency table
 > > table(gallstones$Rec,gallstones$Mult)
-> > ```
 > > 
-> > ~~~
-> > ##               
-> > ##                Single Multiple
-> > ##   NoRecurrence     13        8
-> > ##   Recurrence        5       11
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # Rename the levels of the variables to make it more readable
 > > levels(gallstones$Rec)<-c("NoRecurrence","Recurrence")
 > > levels(gallstones$Mult)<-c("Single","Multiple")
 > > table(gallstones$Rec,gallstones$Mult)
-> > ```
 > > 
-> > ~~~
-> > ##               
-> > ##                Single Multiple
-> > ##   NoRecurrence     13        8
-> > ##   Recurrence        5       11
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # Complete Cross-table
 > > library(gmodels)
 > > CrossTable(gallstones$Rec,gallstones$Mult,format="SPSS",prop.chisq=F,expected=T)
-> > ```
 > > 
-> > ~~~
-> > ## 
-> > ##    Cell Contents
-> > ## |-------------------------|
-> > ## |                   Count |
-> > ## |         Expected Values |
-> > ## |             Row Percent |
-> > ## |          Column Percent |
-> > ## |           Total Percent |
-> > ## |-------------------------|
-> > ## 
-> > ## Total Observations in Table:  37 
-> > ## 
-> > ##                | gallstones$Mult 
-> > ## gallstones$Rec |   Single  | Multiple  | Row Total | 
-> > ## ---------------|-----------|-----------|-----------|
-> > ##   NoRecurrence |       13  |        8  |       21  | 
-> > ##                |   10.216  |   10.784  |           | 
-> > ##                |   61.905% |   38.095% |   56.757% | 
-> > ##                |   72.222% |   42.105% |           | 
-> > ##                |   35.135% |   21.622% |           | 
-> > ## ---------------|-----------|-----------|-----------|
-> > ##     Recurrence |        5  |       11  |       16  | 
-> > ##                |    7.784  |    8.216  |           | 
-> > ##                |   31.250% |   68.750% |   43.243% | 
-> > ##                |   27.778% |   57.895% |           | 
-> > ##                |   13.514% |   29.730% |           | 
-> > ## ---------------|-----------|-----------|-----------|
-> > ##   Column Total |       18  |       19  |       37  | 
-> > ##                |   48.649% |   51.351% |           | 
-> > ## ---------------|-----------|-----------|-----------|
-> > ## 
-> > ##  
-> > ## Statistics for All Table Factors
-> > ## 
-> > ## 
-> > ## Pearson's Chi-squared test 
-> > ## ------------------------------------------------------------
-> > ## Chi^2 =  3.415944     d.f. =  1     p =  0.06456946 
-> > ## 
-> > ## Pearson's Chi-squared test with Yates' continuity correction 
-> > ## ------------------------------------------------------------
-> > ## Chi^2 =  2.299057     d.f. =  1     p =  0.1294526 
-> > ## 
-> > ##  
-> > ##        Minimum expected frequency: 7.783784
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # Visualisation
 > > 
 > > library(ggplot2)
@@ -216,23 +144,10 @@ a given experimental design
 > >         axis.title=element_text(size=18),
 > >         plot.title = element_text(size=22, face="bold"))+
 > >   ggtitle("Recurrence vs. Mult") 
-> > ```
 > > 
-> > ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
-> > 
-> > ```r
 > > # Chi-square test performed because more than 5 expected counts in each cell
 > > chisq.test(gallstones$Rec,gallstones$Mult)
 > > ```
-> > 
-> > ~~~
-> > ## 
-> > ## 	Pearson's Chi-squared test with Yates' continuity correction
-> > ## 
-> > ## data:  gallstones$Rec and gallstones$Mult
-> > ## X-squared = 2.2991, df = 1, p-value = 0.1295
-> > ~~~
-> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -241,155 +156,31 @@ a given experimental design
 > Is the patient's age associated with gallstone recurrence?
 > > ## Solution to Challenge 3
 > > 
-> > 
 > > ```r
 > > # Test normality in both groups
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="NoRecurrence")])
-> > ```
-> > 
-> > ~~~
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  gallstones$Age[which(gallstones$Rec == "NoRecurrence")]
-> > ## W = 0.81456, p-value = 0.001105
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="Recurrence")])
-> > ```
 > > 
-> > ~~~
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  gallstones$Age[which(gallstones$Rec == "Recurrence")]
-> > ## W = 0.89371, p-value = 0.06377
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # Other option
 > > by(gallstones$Age,gallstones$Rec,shapiro.test)
-> > ```
 > > 
-> > ~~~
-> > ## gallstones$Rec: NoRecurrence
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.81456, p-value = 0.001105
-> > ## 
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: Recurrence
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.89371, p-value = 0.06377
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # We have to perform a Mann-Whitney test 
 > > wilcox.test(gallstones$Age~gallstones$Rec)
-> > ```
 > > 
-> > ~~~
-> > ## Warning in wilcox.test.default(x = c(77L, 80L, 69L, 77L, 88L, 48L, 81L, : cannot
-> > ## compute exact p-value with ties
-> > 
-> > ## 
-> > ## 	Wilcoxon rank sum test with continuity correction
-> > ## 
-> > ## data:  gallstones$Age by gallstones$Rec
-> > ## W = 158, p-value = 0.7707
-> > ## alternative hypothesis: true location shift is not equal to 0
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # We can compare with a T-test
 > > t.test(gallstones$Age~gallstones$Rec)
-> > ```
 > > 
-> > ~~~
-> > ## 
-> > ## 	Welch Two Sample t-test
-> > ## 
-> > ## data:  gallstones$Age by gallstones$Rec
-> > ## t = -0.83993, df = 34.353, p-value = 0.4068
-> > ## alternative hypothesis: true difference in means is not equal to 0
-> > ## 95 percent confidence interval:
-> > ##  -15.027653   6.235986
-> > ## sample estimates:
-> > ## mean in group NoRecurrence   mean in group Recurrence 
-> > ##                   70.66667                   75.06250
-> > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > # Boxplots to visualise
 > > plot(gallstones$Age~gallstones$Rec,col=c("red","blue"),ylab="Age",
 > >      xlab="Recurrence",cex.lab=1.3)
-> > ```
 > > 
-> > ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
-> > 
-> > ```r
 > > # Statistical descriptions
 > > by(gallstones$Age,gallstones$Rec,median)
-> > ```
-> > 
-> > ~~~
-> > ## gallstones$Rec: NoRecurrence
-> > ## [1] 77
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: Recurrence
-> > ## [1] 78
-> > > > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > by(gallstones$Age,gallstones$Rec,IQR)
-> > ```
 > > 
-> > ~~~
-> > ## gallstones$Rec: NoRecurrence
-> > ## [1] 12
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: Recurrence
-> > ## [1] 19.5
-> > > > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > by(gallstones$Age,gallstones$Rec,mean)
-> > ```
-> > 
-> > ~~~
-> > ## gallstones$Rec: NoRecurrence
-> > ## [1] 70.66667
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: Recurrence
-> > ## [1] 75.0625
-> > > > ~~~
-> > {: .output}
-> > 
-> > ```r
 > > by(gallstones$Age,gallstones$Rec,sd)
 > > ```
-> > 
-> > ~~~
-> > ## gallstones$Rec: NoRecurrence
-> > ## [1] 19.17637
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: Recurrence
-> > ## [1] 12.57229
-> > > > ~~~
-> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -398,68 +189,20 @@ a given experimental design
 > Does alcohol consumption influence the time to gallstone dissolution?
 > > ## Solution to Challenge 4
 > > 
-> > 
 > > ```r
 > > # Test normality in each groups
 > > by(gallstones$Dis,gallstones$Alcohol.Consumption,shapiro.test)
-> > ```
 > > 
-> > ```
-> > ## gallstones$Alcohol.Consumption: NonAlcohol
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.6915, p-value = 0.001129
-> > ## 
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Alcohol.Consumption: Previous
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.898, p-value = 0.2083
-> > ## 
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Alcohol.Consumption: Alcohol
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.8225, p-value = 0.003216
-> > ```
-> > 
-> > ```r
 > > # If distribution normal in each group
 > > result<-aov(gallstones$Dis~gallstones$Alcohol.Consumption)
 > > summary(result)
-> > ```
 > > 
-> > ```
-> > ##                                Df Sum Sq Mean Sq F value Pr(>F)
-> > ## gallstones$Alcohol.Consumption  2  262.2  131.12   1.955  0.157
-> > ## Residuals                      34 2279.9   67.06
-> > ```
-> > 
-> > ```r
 > > # If distribution not normal
 > > kruskal.test(gallstones$Dis~gallstones$Alcohol.Consumption)
-> > ```
 > > 
-> > ```
-> > ## 
-> > ## 	Kruskal-Wallis rank sum test
-> > ## 
-> > ## data:  gallstones$Dis by gallstones$Alcohol.Consumption
-> > ## Kruskal-Wallis chi-squared = 2.8637, df = 2, p-value = 0.2389
-> > ```
-> > 
-> > ```r
 > > # Visualisation
 > > plot(gallstones$Dis~gallstones$Alcohol.Consumption,col=2:4)
 > > ```
-> > 
-> > ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 > {: .solution}
 {: .challenge}
 
@@ -468,16 +211,11 @@ a given experimental design
 > Is there any effect of treatment and/or gender on the time to dissolution?
 > > ## Solution to Challenge 5
 > > 
-> > 
 > > ```r
 > > # Visualisation
 > > par(mfrow=c(1,2))
 > > plot(Dis~Treatment+Gender, data=gallstones)
-> > ```
 > > 
-> > ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
-> > 
-> > ```r
 > > # Interaction plot to visualise
 > > interaction.plot(gallstones$Treatment, gallstones$Gender, gallstones$Dis,
 > >                  col=2:3,lwd=3,cex.axis=1.5,cex.lab=1.5)
@@ -485,45 +223,16 @@ a given experimental design
 > > # anova 2 way with aov function
 > > result<-aov(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > summary(result)
-> > ```
 > > 
-> > ```
-> > ##                  Df Sum Sq Mean Sq F value  Pr(>F)   
-> > ## Treatment         1  670.8   670.8  11.896 0.00156 **
-> > ## Gender            1    6.5     6.5   0.115 0.73693   
-> > ## Treatment:Gender  1    3.8     3.8   0.068 0.79588   
-> > ## Residuals        33 1861.0    56.4                   
-> > ## ---
-> > ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> > ```
-> > 
-> > ```r
 > > # anova 2 way with lm function
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > anova(result)
-> > ```
 > > 
-> > ```
-> > ## Analysis of Variance Table
-> > ## 
-> > ## Response: Dis
-> > ##                  Df  Sum Sq Mean Sq F value   Pr(>F)   
-> > ## Treatment         1  670.83  670.83 11.8956 0.001557 **
-> > ## Gender            1    6.47    6.47  0.1148 0.736926   
-> > ## Treatment:Gender  1    3.84    3.84  0.0680 0.795883   
-> > ## Residuals        33 1860.97   56.39                    
-> > ## ---
-> > ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> > ```
-> > 
-> > ```r
 > > # Checking the assumptions of anova
 > > 
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > plot(result)
 > > ```
-> > 
-> > ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png)![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-3.png)![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-4.png)
 > {: .solution}
 {: .challenge}
 
