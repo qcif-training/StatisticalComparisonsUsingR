@@ -34,12 +34,20 @@ open and may even crash your computer. Such large files may have documentation
 explaining their format, or you may need to use the `head` function to look at 
 just the first part of the file.
 
+Today we will be working with a datafile based on a study into the effects of
+treatment with the drug ursodeoxycholic acid on gallstones. This is based on a 
+real study ([Hood et al, 1993](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1375471/))
+but we will just use a subset of the data and with dummy demographic data
+substituted for real patient information.
+
 > ## Challenge 1
 > 
 > Use RStudio “Files” window, your text editor of choice, or a spreadsheet 
 > program to open and review the data file _gallstones.csv_ (do not overwrite 
-> the file by saving afterwards). Briefly discuss with your neighbour the 
-> meaning of the headers and the nature of the data in each field.
+> the file by saving afterwards). Consider the meaning of the headers and what
+> the nature of the data in each column might be; perhaps discuss with your 
+> neighbour if you are in an in-person session. How many patient records are 
+> there in the dataset?
 > > ## Solution to challenge 1
 > > 
 > > The field contents are as follows:
@@ -60,6 +68,8 @@ just the first part of the file.
 > > stones; 
 > > * Diam – gallstone diameter in mm; 
 > > * Dis – time in days for gallstone dissolution
+> > 
+> > There are a total of 37 patient records in this file
 > {: .solution}
 {: .challenge}
 
