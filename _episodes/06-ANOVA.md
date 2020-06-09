@@ -69,7 +69,7 @@ Assumptions for the one-way ANOVA are:
 * Homogeneity of variances
 
 The null hypothesis for one-way ANOVA is that the means of all groups are equal;
-the null hypothesis is that at least one of the means is different from the 
+the alternative hypothesis is that at least one of the means is different from the 
 others.
 
 H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> = µ<sub>3</sub> = ... = µ<sub>k</sub>  
@@ -147,6 +147,7 @@ kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ~~~
 {: .output}
 
+
 ```r
 plot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
@@ -172,6 +173,7 @@ summary(result)
 ## Residuals                      34   9151   269.1
 ~~~
 {: .output}
+
 
 Like the Kruskal-Wallis test, this ANOVA also gives a non-significant p-value, 
 but remember, it is not the appropriate test for non-normally distributed data
@@ -340,7 +342,7 @@ happiness
 
 This corresponds to this design:
 
-![RStudio layout](../fig/06-fig4.png){: .align-left}
+![RStudio layout](../fig/06-fig4.png)
 
 As usual, an early step in studying our data is to visualise it
 
@@ -450,12 +452,12 @@ interaction between gender and treatment. The plots suggest that is because
 Prozac increases happiness in men more than in women, but again this should be 
 confirmed with _post hoc_ testing.
 
+
 ```r
 # For ANOVA performed with `aov()`, used TukeyHSD for post hoc testing
 result <- aov(Score~Treatment+Gender+Treatment*Gender, data=happiness)
 TukeyHSD(result)
-~~~
-{: .output}
+```
 
 ~~~
 ##   Tukey multiple comparisons of means
@@ -484,13 +486,13 @@ TukeyHSD(result)
 
 The $Treatment section of this output supports our conclusion from the two-way
 ANOVA that Prozac increases happiness score, by an average of 1.6 happiness 
-units (95% CI: 0.94-2.3). The $Treatment:Gender section indicates that Prozac 
+units (95% CI: 0.95-2.3). The $Treatment:Gender section indicates that Prozac 
 has no effect on happiness in females (or at least, not a statistically 
 signficant effect), but in males it increases happiness by approximatey 3.0 
 units.
 
 ### Checking assumptions
-After fitting an ANOVA model it is important to alwasy check the relevant model
+After fitting an ANOVA model it is important to always check the relevant model
 assumptions. This includes making QQ-plots and residual plots
 
 ```r
@@ -518,6 +520,9 @@ residuals are considered to be normally distributed.
 
 2. If some points are far from the line have a deeper look to see if they are 
 outliers.
+
+In this case, it appears that there is a deviation from normality because many
+of the points do not fall on the straight line.
  
 #### Scale location plot
 Square root of the standardized residuals (sort of a square root of relative 
@@ -540,7 +545,7 @@ independent sets of data, as outlined in the decision tree at the start of this
 section. As with several other tests we have explored in this course, there are 
 alternatives that should be used when data points are paired - in other words,
 where there are multiple measurements on the same subject. These are the 
-**Repeated measures ANOVA** and the **Friedman test**, for normally distrbuted 
+**Repeated measures ANOVA** and the **Friedman test**, for normally distributed 
 and non-normally distributed data respectively.
 
 Typical study designs where you might use paired data analysis approaches 

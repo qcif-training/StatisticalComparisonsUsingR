@@ -42,8 +42,9 @@ As with testing for categorical variables, there are a range of different
 statistical analyses for two sample group comparisons; the appropriate one to 
 use is determined by the nature of the dataset. There are two primary questions
 we need to ask to identify the relevant test: are the two datasets 
-normally-distributed, and are the data paired? The figure below summarises the 
-choice of statistical test used for each of these cases.
+normally-distributed, and are the data paired (that is, are there repeated
+measurements on the same samples)? The figure below summarises the choice of
+statistical test used for each of these cases.
 
 ![RStudio layout](../fig/05-fig1.png)
 
@@ -88,11 +89,14 @@ less that the first). As we discussed in the introduction, generally a two-sided
 test is preferred unless there is a specific reason why a single-sided one is
 justified.
 
-H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> | against | H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> (two-sided)
+H<sub>0</sub>: µ<sub>1</sub> = µ<sub>2</sub> | against | H<sub>1</sub>: 
+µ<sub>1</sub> ≠ µ<sub>2</sub> (two-sided)
  | or | 
-H<sub>0</sub>: µ<sub>1</sub> <= µ<sub>2</sub> | against | H<sub>1</sub>: µ<sub>1</sub> > µ<sub>2</sub> (greater)
+H<sub>0</sub>: µ<sub>1</sub> <= µ<sub>2</sub> | against | H<sub>1</sub>: 
+µ<sub>1</sub> > µ<sub>2</sub> (greater)
  | or | 
-H<sub>0</sub>: µ<sub>1</sub> >= µ<sub>2</sub> | against | H<sub>1</sub>: µ<sub>1</sub> < µ<sub>2</sub> (less)
+H<sub>0</sub>: µ<sub>1</sub> >= µ<sub>2</sub> | against | H<sub>1</sub>: 
+µ<sub>1</sub> < µ<sub>2</sub> (less)
 
 If **equal variance**: Student's T-test  
 If **unequal variance**: Welch's two-sample T-test  
@@ -128,7 +132,7 @@ Height: Continuous variable
 Gender: Categorical variable with two levels  
 Null hypothesis: There is no difference in height between the groups  
 
-_Step one - visualise the data_
+_Step one - visualise the data_  
 We will start by reviewing the data using a boxplot to see if there is an 
 indication of difference between the groups
 
@@ -143,7 +147,7 @@ plot(gallstones$Height ~ gallstones$Gender,
 Visually there certainly appears to be a difference. But is it statistically
 significant?
 
-_Step two - is the data normally distributed?_
+_Step two - is the data normally distributed?_  
 
 ```r
 par(mfrow=c(1,2))
@@ -182,7 +186,7 @@ Neither test gives a significant p-value, so in the absence of sufficient
 evidence to accept the alternative hypothesis of non-normality, we treat the
 data as if it were normal; that is, we use a T-test 
 
-_Step three - are variances equal?_
+_Step three - are variances equal?_  
 
 ```r
 by(gallstones$Height, gallstones$Gender, sd)
@@ -201,7 +205,7 @@ The standard deviations of the two groups (and hence the variances) don't seem
 to be equal, so we should use a Welch's two-sample T-test. This is the default
 option for the `t.test` function anyway
 
-_Step four - carry out a T-test_
+_Step four - carry out a T-test_  
 
 ```r
 t.test(gallstones$Height ~ gallstones$Gender)
@@ -239,30 +243,8 @@ and females in our dataset.
 > > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
 > >      ylab = "Diameter",
 > >      xlab = "Recurrence")
-> > ```
-> > 
-> > ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
-> > 
-> > ```r
 > > # Test whether data is normally distributecd
 > > by(gallstones$Diam, gallstones$Rec, shapiro.test)
-> > ```
-> > 
-> > ```
-> > ## gallstones$Rec: NoRecurrence
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.91314, p-value = 0.06335
-> > ## 
-> > ## ------------------------------------------------------------ 
-> > ## gallstones$Rec: Recurrence
-> > ## 
-> > ## 	Shapiro-Wilk normality test
-> > ## 
-> > ## data:  dd[x, ]
-> > ## W = 0.87505, p-value = 0.03252
 > > ```
 > > Data is not normal for the recurrence group, and data is not paired - hence
 > > Mann-Whitney test
@@ -271,17 +253,9 @@ and females in our dataset.
 > > # Use wilcox.test function which defaults to Mann-Whitney analysis
 > > wilcox.test(gallstones$Diam ~ gallstones$Rec, exact=FALSE)
 > > ```
-> > 
-> > ```
-> > ## 
-> > ## 	Wilcoxon rank sum test with continuity correction
-> > ## 
-> > ## data:  gallstones$Diam by gallstones$Rec
-> > ## W = 201.5, p-value = 0.3103
-> > ## alternative hypothesis: true location shift is not equal to 0
-> > ```
-> > The p-value is not significant, so we reject the alternative hypothesis that
-> > there is a difference in gallstone size between the two groups.
+> > The p-value is not significant, so we do not have sufficient evidence to 
+> > reject the null hypothesis that there is no difference in gallstone size
+> > between the two groups.
 > {: .solution}
 {: .challenge}
 
@@ -291,6 +265,7 @@ If there is a significant difference between the two groups (or even if there
 isn't) it is often useful to generate some summary statistics for each group. 
 We can do this with the `by` command, which we've used already in this section, 
 combined with summary functions
+
 
 ```r
 # For normally distributed data, report the mean and standard deviation
@@ -319,6 +294,7 @@ by(gallstones$Height, gallstones$Gender, sd)
 ~~~
 {: .output}
 
+
 ```r
 # For non-normally distributed data, report the median and inter-quartile range
 by(gallstones$Diam, gallstones$Rec, median)
@@ -333,6 +309,7 @@ by(gallstones$Diam, gallstones$Rec, median)
 ~~~
 {: .output}
 
+
 ```r
 by(gallstones$Diam, gallstones$Rec, IQR)
 ```
@@ -345,6 +322,7 @@ by(gallstones$Diam, gallstones$Rec, IQR)
 ## [1] 9
 ~~~
 {: .output}
+
 
 ## Paired samples
 If data is paired, that is, it is the same samples under two different 

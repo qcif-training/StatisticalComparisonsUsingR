@@ -30,7 +30,7 @@ assigned to one of a limited number of fixed, distinct categories. Categories
 may be emergent features of the data (for example 'received treatment' and 'did 
 not receive treatment') but others may be more arbitrary according to the needs
 of the analysis (in this dataset, the three levels of alcohol consumption relate
-to researcher-defined levels of 'low', 'moderate' and 'high').
+to 'no consumption', 'previous consumer' and 'current consumer').
 
 Because categorical data typically has no intrinsic ordering to the categories,
 we cannot study relationships between two variables by looking for correlations.
@@ -65,7 +65,7 @@ With the exception of Gender, all the categorical variables in the gallstones
 dataframe have been recorded as integer fields. This may cause confusion because
 it would be possible in principle to analyse these as continuous variables. R 
 includes the factor data type, which provides a way to store a fixed, predefined
-set of values. This makes it idea for working with categories, so we will
+set of values. This makes it ideal for working with categories, so we will
 convert those columns to factors.
 
 
@@ -114,21 +114,7 @@ the recurrence of gallstones.
 
 
 ```r
-# Summarise the data into a table.
-counts <- table(gallstones$Rec, gallstones$Obese)
-counts
-```
-
-~~~
-##               
-##                NonObese Obese
-##   NoRecurrence       17     4
-##   Recurrence          9     7
-~~~
-{: .output}
-
-```r
-# Then plot that table into a bar graph
+# Plots are generally easier to interpret than tables, so plot data first
 barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 ```
 ![RStudio layout](../fig/04-fig1.png)
@@ -138,24 +124,41 @@ barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 # than counts
 ggplot(gallstones, aes(Obese, fill=Rec)) + 
   geom_bar(position="fill") +
-  theme(axis.text=element_text(size=18),
-        legend.text=element_text(size=18),
-        legend.title=element_text(size=18),
-        axis.title=element_text(size=18),
-        plot.title = element_text(size=22, face="bold")) +
+  scale_y_continuous(labels=scales::percent) +
+  theme(axis.text=element_text(size=14),
+        legend.text=element_text(size=14),
+        legend.title=element_text(size=14),
+        axis.title=element_text(size=14),
+        plot.title = element_text(size=18, face="bold")) +
+  ylab("proportion") +
   ggtitle("Obesity vs. Recurrence") 
 ```
-
 ![RStudio layout](../fig/04-fig2.png)
 
-From these charts it certaintly looks like obesity is associated with a higher 
-rate of recurrence, so we will test whether that is statistically significant
+
+```r
+# Summarise the data into a table.
+counts <- table(gallstones$Obese, gallstones$Rec)
+counts
+```
+
+~~~
+##           
+##            NoRecurrence Recurrence
+##   NonObese           17          9
+##   Obese               4          7
+~~~
+{: .output}
+
+From the charts and table it certainly looks like obesity is associated with a
+higher rate of recurrence, so we will test whether that is statistically
+significant.
 
 ## Statistical tests for categorical variables
 
 To carry out a statistical test, we need a null and alternative hypothesis. In 
-most cases, the null hypothesis H<sub>0</sub> is that the proportion of samples in each 
-category is the same in both groups. 
+most cases, the null hypothesis H<sub>0</sub> is that the proportion of samples
+in each category is the same in both groups. 
 
 Our question: Is there a relationship between obesity and gallstone recurrence?
 
@@ -163,15 +166,23 @@ _Hypotheses_:
   H<sub>0</sub>: Gallstone recurrence is independent of obesity  
   H<sub>1</sub>: Gallstone recurrence is linked with obesity  
 
-There are three main hypothesis tests for categorical variables:
-* *Chi-square test*: used when the _expected_ count in each cell of the table is
-greater than 5
-* *Fisher's exact test*: used when the expected count of at least one cell is ≤ 5
-* *McNamar's test*: used for paired data - for example, the proportion of 
-patients showing a particular symptom before and after treatment
+> ## NOTE FOR CONTENT DEVELOPMENT
+> The manual includes several pages on the Chi-Square statistic, degrees of freedom
+> and contingency tables. How much, if any, of that is relevant? The key learning
+> is to chose the appropriate test (ChiSq, Fisher, McNemar) and to apply that test
+{: .callout} 
 
-Which test do we need? The data is not paired, so it is not McNamar's test. What
-are the expected counts for each cell?
+There are three main hypothesis tests for categorical variables:
+* *Chi-square test* `chisq.test()`: used when the _expected_ count in each cell
+of the table is greater than 5
+* *Fisher's exact test* `fisher.test()`: used when the expected count of at
+least one cell is ≤ 5
+* *McNemar test* `mcnemar.test`: used for paired data - for example, the
+proportion of patients showing a particular symptom before and after treatment
+
+Which test do we need? The data is not paired, so it is not the McNemar test.
+What are the expected counts for each cell?
+
 
 ```r
 # CrossTable from gmodels library gives expected counts, and also proportions
@@ -265,21 +276,22 @@ fisher.test(gallstones$Obese, gallstones$Rec)
 {: .output}
 
 Perhaps surprisingly given the plot data, the p-value of this test is not 
-significant, so we reject our alternative hypothesis - there is no evidence of 
-different recurrence rates between obese and non-obese patients. The apparently
-higher rate of recurrence in obese patients is no more than might be expected by
-random chance in a sample group of this size. It is possible however that we
-have made a type II error and incorrectly rejected H<sub>1</sub> - we should have 
-consulted a statistician before gathering the data to check whether the sample 
-size provided sufficient statistical power to detect a relationship.
-
+significant; this means that there is insufficient evidence to conclude that
+there is any difference in recurrence rates between obese and
+non-obese patients. The apparently higher rate of recurrence in obese patients
+is no more than might be expected by random chance in a sample group of this
+size. It is possible however that we have made a type II error and incorrectly
+failed to reject H<sub>0</sub> - we should have consulted a statistician before
+gathering the data to check whether the sample size provided sufficient
+statistical power to detect a relationship.
 
 > ## Challenge 2
 > 
 > When would you use the Chi-square test
 > 1. When one variable is categorical and the other continuous
-> 2. When there are more than five counts expected in each cell
-> 3. When the data is paired
+> 2. When there is categorical data with more than five counts expected in each 
+> cell
+> 3. When there is paired categorical data
 > 4. You can use it interchangeably with Fisher's Exact test
 > 
 > > ## Solution to Challenge 2
@@ -298,7 +310,7 @@ size provided sufficient statistical power to detect a relationship.
 > > 
 > > ```r
 > > # Create the initial counts table
-> > counts <- table(gallstones$Rec, gallstones$Treatment)
+> > counts <- table(gallstones$Treatment, gallstones$Rec)
 > > counts
 > > 
 > > # Plot using barplot

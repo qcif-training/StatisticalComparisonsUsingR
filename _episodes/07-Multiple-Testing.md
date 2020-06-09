@@ -33,7 +33,7 @@ comparison, so the more tests performed, the higher likelihood of a type I error
 
 In our example three-way comparison with signficance threshold of 0.05:
 * Prob(making no mistake) = 0.95 x 0.95 x 0.95 = 0.857
-* Prob(making a mistake = 1 - 0.857 = 0.143
+* Prob(making a mistake) = 1 - 0.857 = 0.143
 
 So rather than a 5% chance of a type I error, we instead have a much higher 
 14.3% chance, which is clearly not acceptable.
@@ -90,16 +90,19 @@ p.adjust(pval, method = 'bonferroni')
 This table can be used as a reference to select the appropriate test to use from
 a given experimental design
 
-|Analysis required |Normally distributed data |Non-normally distributed data |
+|Analysis required (continuous data) |Normally distributed data |Non-normally distributed data |
 |-----|-----|-----|
 |Compare mean or median of one sample group against a known value |One sample t-test |Wilcoxon Rank Sum test |
 |Compare means or medians of two sample groups (unpaired data) |Unpaired t-test |Mann-Whitney test |
 |Compare means or medians of two sample groups (paired data) |Paired t-test |Wilcoxon Matched Pairs test |
 |Compare means or medians of ≥ three sample groups (unpaired data) |ANOVA |Kruskal-Wallis ANOVA |
 |Compare means or medians of ≥ three sample groups (paired data) |Repeated measures ANOVA |Friedman test |
-|Compare two sample proportions of categorical data (unpaired data/≤5 in one group) |  |Fisher exact test |
-|Compare ≥ three sample proportions of categorical data |  |Chi-square test |
-|Compare two sample proportions of categorical data (paired data) |  |McNemar’s test |
+
+|Analysis required (categorical data) |Test used |
+|-----|-----|
+|Compare two sample proportions of categorical data (unpaired data, ≤5 in one group) |Fisher exact test |
+|Compare two sample proportions of categorical data (unpaired data, >5 in one group) |Chi-square test |
+|Compare two sample proportions of categorical data (paired data) |McNemar test |
 
 ## Summary of R functions
 
@@ -128,7 +131,7 @@ a given experimental design
 > > either Chi-square or Fisher's Exact, depending on the expected count for 
 > > each category
 > > ```r
-> > #create the frequency table
+> > # Create the frequency table
 > > table(gallstones$Rec,gallstones$Mult)
 > > 
 > > # Complete Cross-table
@@ -256,10 +259,54 @@ a given experimental design
 > > plot(result)
 > > ```
 > > ### Conclusion
-> > With a p-value of <0.0016, there is evidence for a significant of treatment 
-> > on dissolution time. There is no evidence for a difference between genders
-> > for dissolution time, nor evidence for an interaction between treatment and 
-> > gender (both males and females have a similar response).
+> > With a p-value of <0.0016, there is evidence for a significant effect  of
+> > treatment on dissolution time. There is no evidence for a difference between
+> > genders for dissolution time, nor evidence for an interaction between
+> > treatment and gender (both males and females have a similar response).
 > {: .solution}
 {: .challenge}
+
+## Finishing up
+It is always a good idea to conclude any R analysis with the `sessionInfo()`
+command to save with the output as a permanent record of software versions being
+used. This helps resolve issues where updated versions of tools may give 
+different analysis outcomes.
+
+```r
+sessionInfo()
+```
+
+~~~
+## R version 4.0.0 (2020-04-24)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Catalina 10.15.5
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] PMCMRplus_1.4.4         ggplot2_3.3.0           gmodels_2.18.1         
+## [4] knitr_1.28              requirements_0.0.0.9000 remotes_2.1.1          
+## 
+## loaded via a namespace (and not attached):
+##  [1] gmp_0.5-13.6       Rcpp_1.0.4.6       compiler_4.0.0     pillar_1.4.4      
+##  [5] kSamples_1.2-9     tools_4.0.0        digest_0.6.25      memoise_1.1.0     
+##  [9] evaluate_0.14      lifecycle_0.2.0    tibble_3.0.1       gtable_0.3.0      
+## [13] pkgconfig_2.0.3    rlang_0.4.6        yaml_2.2.1         mvtnorm_1.1-0     
+## [17] xfun_0.13          Rmpfr_0.8-1        withr_2.2.0        stringr_1.4.0     
+## [21] dplyr_0.8.5        SuppDists_1.1-9.5  vctrs_0.3.0        gtools_3.8.2      
+## [25] grid_4.0.0         tidyselect_1.1.0   glue_1.4.0         R6_2.4.1          
+## [29] rmarkdown_2.1      gdata_2.18.0       purrr_0.3.4        magrittr_1.5      
+## [33] scales_1.1.0       htmltools_0.4.0    ellipsis_0.3.0     MASS_7.3-51.6     
+## [37] BWStest_0.2.2      assertthat_0.2.1   colorspace_1.4-1   multcompView_0.1-8
+## [41] stringi_1.4.6      munsell_0.5.0      crayon_1.3.4
+~~~
+{: .output}
 

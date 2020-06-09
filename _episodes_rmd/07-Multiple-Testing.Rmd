@@ -45,7 +45,7 @@ comparison, so the more tests performed, the higher likelihood of a type I error
 
 In our example three-way comparison with signficance threshold of 0.05:
 * Prob(making no mistake) = 0.95 x 0.95 x 0.95 = 0.857
-* Prob(making a mistake = 1 - 0.857 = 0.143
+* Prob(making a mistake) = 1 - 0.857 = 0.143
 
 So rather than a 5% chance of a type I error, we instead have a much higher 
 14.3% chance, which is clearly not acceptable.
@@ -88,16 +88,19 @@ p.adjust(pval, method = 'bonferroni')
 This table can be used as a reference to select the appropriate test to use from
 a given experimental design
 
-|Analysis required |Normally distributed data |Non-normally distributed data |
+|Analysis required (continuous data) |Normally distributed data |Non-normally distributed data |
 |-----|-----|-----|
 |Compare mean or median of one sample group against a known value |One sample t-test |Wilcoxon Rank Sum test |
 |Compare means or medians of two sample groups (unpaired data) |Unpaired t-test |Mann-Whitney test |
 |Compare means or medians of two sample groups (paired data) |Paired t-test |Wilcoxon Matched Pairs test |
 |Compare means or medians of ≥ three sample groups (unpaired data) |ANOVA |Kruskal-Wallis ANOVA |
 |Compare means or medians of ≥ three sample groups (paired data) |Repeated measures ANOVA |Friedman test |
-|Compare two sample proportions of categorical data (unpaired data/≤5 in one group) |  |Fisher exact test |
-|Compare ≥ three sample proportions of categorical data |  |Chi-square test |
-|Compare two sample proportions of categorical data (paired data) |  |McNemar’s test |
+
+|Analysis required (categorical data) |Test used |
+|-----|-----|
+|Compare two sample proportions of categorical data (unpaired data, ≤5 in one group) |Fisher exact test |
+|Compare two sample proportions of categorical data (unpaired data, >5 in one group) |Chi-square test |
+|Compare two sample proportions of categorical data (paired data) |McNemar test |
 
 ## Summary of R functions
 
@@ -126,7 +129,7 @@ a given experimental design
 > > either Chi-square or Fisher's Exact, depending on the expected count for 
 > > each category
 > > ```r
-> > #create the frequency table
+> > # Create the frequency table
 > > table(gallstones$Rec,gallstones$Mult)
 > > 
 > > # Complete Cross-table
@@ -254,10 +257,18 @@ a given experimental design
 > > plot(result)
 > > ```
 > > ### Conclusion
-> > With a p-value of <0.0016, there is evidence for a significant of treatment 
-> > on dissolution time. There is no evidence for a difference between genders
-> > for dissolution time, nor evidence for an interaction between treatment and 
-> > gender (both males and females have a similar response).
+> > With a p-value of <0.0016, there is evidence for a significant effect  of
+> > treatment on dissolution time. There is no evidence for a difference between
+> > genders for dissolution time, nor evidence for an interaction between
+> > treatment and gender (both males and females have a similar response).
 > {: .solution}
 {: .challenge}
 
+## Finishing up
+It is always a good idea to conclude any R analysis with the `sessionInfo()`
+command to save with the output as a permanent record of software versions being
+used. This helps resolve issues where updated versions of tools may give 
+different analysis outcomes.
+```{r}
+sessionInfo()
+```

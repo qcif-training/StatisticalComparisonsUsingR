@@ -48,7 +48,7 @@ only accept if the data and analysis is sufficiently convincing.
 > ## Challenge 1
 >
 > Imagine you were testing a new medical treatment. What might be the most
-> appropriate null and alternative hypotheses:
+> appropriate null and alternative hypotheses?
 > 1. Null – the new treatment is worse than the existing treatment. Alternative
 > – the new treatment is better than the existing treatment
 > 2. Null – there is no difference between the new and old treatments.
@@ -72,7 +72,7 @@ only accept if the data and analysis is sufficiently convincing.
 When carrying out hypothesis testing, we normally use a standard framework.
 1. We establish our null and alternative hypothesis
 2. We collect data, often by measurement or experimentation on a small sample 
-group representative of the whole populations
+group representative of the whole population
 3. From the data, we calculate a test statistic – an estimation of a population
 parameter derived from the data – and a rejection region – a range of values for
 the test statistic for which we would reject H<sub>0</sub> and accept 
@@ -102,15 +102,21 @@ statistics include opinion polls and drug trials.
 {: .challenge}
 
 ## P-values and rejection of the null hypothesis
-* The null hypothesis is tested against the alternative one using a 
-distribution of a statistic
-* The P-value is the probability of making a mistake by rejecting H<sub>0</sub>
-even if it is true
+* The null hypothesis is tested against the alternative one using a distribution
+of a statistic.
+* The p-value is the probability of obtaining results as extreme as the observed
+results of a statistical hypothesis test, assuming that the null hypothesis is 
+correct.
 * The probability of rejecting H<sub>0</sub>, given the truth of H<sub>0</sub>,
 is called the significance level, denoted α (often α=0.05, but as low as 
 α=0.0000003 in some disciplines)
+* The significance level, denoted α, is the probability of rejecting 
+H<sub>0</sub> when H<sub>0</sub> is true. For instance, a significance level of
+0.05 indicates there is a 5% risk of incorrectly concluding a difference exists
+when there is no actual difference (often α=0.05, but can be as low as
+α=0.0000003 in some disciplines).
 * If the P-value < 0.05, we are 95% confident when we reject H<sub>0</sub>
-  + Conclusion: we can reject H~0~
+  + Conclusion: we can reject H<sub>0</sub>
 
 ## Confidence intervals
 A confidence interval gives more information than the results of a
@@ -125,13 +131,16 @@ we have 95% confidence that the real population mean occurs.
 > What conclusion can you make if your analysis gives a p-value of 0.994?
 > 1. You can accept the alternative hypothesis with high confidence
 > 2. You can accept the alternative hypothesis with low confidence
-> 3. You should reject the alternative hypothesis
+> 3. There is insufficient evidence to reject the null hypothesis
 > 4. You can neither accept nor reject the alternative hypothesis
 >
 > > ## Solution to challenge 3
 > > 
 > > Option 3. If the p-value is above our chosen significance level (commonly 
-> > 0.05, 0.01 or 0.001) we reject the alternative hypothesis
+> > 0.05, 0.01 or 0.001) we don't have sufficient evidence to reject the null
+> > hypothesis. Note - this does not necessarily mean that the null hypothesis
+> > is true, rather that we have don't have adequate justification to conclude 
+> > otherwise
 > {: .solution}
 {: .challenge}
 

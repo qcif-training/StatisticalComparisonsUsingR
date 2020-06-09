@@ -79,7 +79,7 @@ plot(gallstones$Height, gallstones$Weight,
 ![RStudio layout](../fig/03-fig2.png)
 
 From this graph, there appears to be a correlation between height and weight.
-We can look at this further using ggplot, which provides them `geom_smooth` 
+We can look at this further using ggplot, which provides the `geom_smooth` 
 function with which you can add a line showing the best correlation estimate
 
 ```{r eval=FALSE}
@@ -117,6 +117,8 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > > >     plot(gallstones[,data1], gallstones[,data2], xlab=data1, ylab=data2)
 > > >   }
 > > > }
+> > > # Once you've looked at the graphs, set the plot option back to just 1x1
+> > > par(mfrow=c(1,1)) 
 > > > ```
 > > {: .callout}
 > {: .solution}
@@ -130,11 +132,12 @@ or correlation between the variables. There are different tests for measuring
 correlation, depending on the distribution of those variables. Today we will 
 focus mainly on two: Pearson's correlation coefficient and Spearman's rank. 
 
-Pearson's correlation coefficient is used with two continuous variables, both of
-which are normally distributed, and which show a linear relationship. Spearman's 
-rank is for when there are two continuous variables, but at least one is not 
-normally distributed. An associated test, Shapiro-Wilk, can be used to determine
-whether the data can be treated as normally distributed or not.
+* Pearson's correlation coefficient is used with two continuous variables, both
+of which are normally distributed, and which show a linear relationship.
+* Spearman's rank is for when there are two continuous variables, but at least
+one is not normally distributed. 
+* An associated test, Shapiro-Wilk, can be used to determine whether the data
+can be treated as normally distributed or not.
 
 Both Pearson's and Spearman's tests calculate a correlation value _r_ between 
 the two variables. This value indicates the degree of association between the
@@ -146,15 +149,22 @@ variables
 |0.3 ≤ \|r\| ≤ 0.7  | Moderate relationship|
 |\|r\| = 0.7 | Strong relationship|
 
+> ## Tip
+> p-values should never be reported for correlations in publications; always
+> report the r or r^2 instead. Because of the nature of the test, the p-value
+> can be significant when the strength of the correlation is weak. It is
+> normally fine to report p-values for most other tests.
+{: .callout}
+
 ![RStudio layout](../fig/03-fig4.png)
 
 > ## Tip: Coefficient of determination
-> Pearson's *__r__* can be squared, *__r^2^__*, to derive a coefficient of 
-> determination. This is the portion of variability in one of the variables that 
-> can be accounted for by the variability in the second one
-> For example, if the Pearson's correlation coefficient between two variables X 
-> and Y is -0.7 (strong negative relationship), 49% of the variability in X is 
-> determined by the variability in Y
+> Pearson's *__r__* can be squared, *__r<sup>2</sup>__*, to derive a coefficient
+> of determination. This is the portion of variability in one of the variables
+> that can be accounted for by the variability in the second one. For example,
+> if the Pearson's correlation coefficient between two variables X and Y is -0.7
+> (strong negative relationship), 49% of the variability in X is determined by
+> the variability in Y
 {: .callout}
 
 From our plot, we have already established that Height and Weight seem to be 
@@ -174,9 +184,9 @@ shapiro.test(gallstones$Height)
 shapiro.test(gallstones$Weight)
 ```
 
-The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we accept 
-the alternative hypothesis that Height is not normally distributed. Therefore we 
-should use Spearman's test for this analysis.
+The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we reject 
+the null hypothesis and conclude that Height is not normally distributed.
+Therefore we should use Spearman's test for this analysis.
 
 ```{r}
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
