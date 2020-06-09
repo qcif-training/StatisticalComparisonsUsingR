@@ -19,7 +19,7 @@ output: html_document
 ---
 
 
-
+ 
 ## Previewing data
 
 Prior to uploading any dataset into R for analysis, it is useful to review the 
@@ -28,7 +28,7 @@ you to choose the best data structure for your dataset, and will identify the
 relevant command and settings you need when uploading the data to R. 
 
 For small files, like the one we are using today, this review can be done with a
-simple text editor, either a app on your computer or from within RStudio. For 
+simple text editor, either an app on your computer or from within RStudio. For 
 very large datasets this is not advisable - files may take a very long time to 
 open and may even crash your computer. Such large files may have documentation 
 explaining their format, or you may need to use the `head` function to look at 
@@ -72,6 +72,7 @@ data substituted for real patient information.
 > > * Diam – gallstone diameter in mm; 
 > > * Dis – time in days for gallstone dissolution
 > > 
+> > There are a total of 37 patient records in this file
 > {: .solution}
 {: .challenge}
 
@@ -90,10 +91,10 @@ dataset.
 > separated value) files.
 {: .callout}
 
-The default settings of `read.csv` differ between R versions, so when running
-the command, we need to specify the stringsAsFactors parameter
 
 ```r
+# The default settings of `read.csv` differ between R versions, so when running
+# the command, we need to specify the stringsAsFactors parameter
 gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
 ```
 
@@ -184,8 +185,8 @@ str(gallstones$Patient_ID)
 
 > ## Tip
 > Sometimes patient ID is numeric and ordered according to recruitment. In this
-> case, it could be used as a surrogate for time to check for any biases over 
-> the course of the study
+> situation, it can be used as a surrogate for time to check for any biases over 
+> the course of the study.
 {: .callout}
 
 > ## Challenge 2

@@ -99,7 +99,7 @@ a given experimental design
 |Analysis required (categorical data) |Test used |
 |-----|-----|
 |Compare two sample proportions of categorical data (unpaired data, ≤5 in one group) |Fisher exact test |
-|Compare two sample proportions of categorical data (unpaired data, >5 in one group) |Chi-square test |
+|Compare two sample proportions of categorical data (unpaired data, >5 in all groups) |Chi-square test |
 |Compare two sample proportions of categorical data (paired data) |McNemar test |
 
 ## Summary of R functions

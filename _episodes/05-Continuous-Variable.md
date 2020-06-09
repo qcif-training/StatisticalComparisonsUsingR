@@ -164,7 +164,7 @@ test
 by(gallstones$Height, gallstones$Gender, shapiro.test)
 ```
 
-~~~
+```
 ## gallstones$Gender: F
 ## 
 ## 	Shapiro-Wilk normality test
@@ -179,8 +179,7 @@ by(gallstones$Height, gallstones$Gender, shapiro.test)
 ## 
 ## data:  dd[x, ]
 ## W = 0.88703, p-value = 0.05001
-~~~
-{: .output}
+```
 
 Neither test gives a significant p-value, so in the absence of sufficient 
 evidence to accept the alternative hypothesis of non-normality, we treat the
@@ -192,14 +191,13 @@ _Step three - are variances equal?_
 by(gallstones$Height, gallstones$Gender, sd)
 ```
 
-~~~
+```
 ## gallstones$Gender: F
 ## [1] 5.518799
 ## ------------------------------------------------------------ 
 ## gallstones$Gender: M
 ## [1] 9.993331
-~~~
-{: .output}
+```
 
 The standard deviations of the two groups (and hence the variances) don't seem 
 to be equal, so we should use a Welch's two-sample T-test. This is the default
@@ -211,7 +209,7 @@ _Step four - carry out a T-test_
 t.test(gallstones$Height ~ gallstones$Gender)
 ```
 
-~~~
+```
 ## 
 ## 	Welch Two Sample t-test
 ## 
@@ -223,8 +221,7 @@ t.test(gallstones$Height ~ gallstones$Gender)
 ## sample estimates:
 ## mean in group F mean in group M 
 ##        160.5714        170.0000
-~~~
-{: .output}
+```
 
 **Conclusion**: the p-value is significant so we can accept the alternative 
 hypothesis and conclude that there is a difference in the mean height of males
@@ -272,27 +269,25 @@ combined with summary functions
 by(gallstones$Height, gallstones$Gender, mean)
 ```
 
-~~~
+```
 ## gallstones$Gender: F
 ## [1] 160.5714
 ## ------------------------------------------------------------ 
 ## gallstones$Gender: M
 ## [1] 170
-~~~
-{: .output}
+```
 
 ```r
 by(gallstones$Height, gallstones$Gender, sd)
 ```
 
-~~~
+```
 ## gallstones$Gender: F
 ## [1] 5.518799
 ## ------------------------------------------------------------ 
 ## gallstones$Gender: M
 ## [1] 9.993331
-~~~
-{: .output}
+```
 
 
 ```r
@@ -300,29 +295,25 @@ by(gallstones$Height, gallstones$Gender, sd)
 by(gallstones$Diam, gallstones$Rec, median)
 ```
 
-~~~
+```
 ## gallstones$Rec: NoRecurrence
 ## [1] 10
 ## ------------------------------------------------------------ 
 ## gallstones$Rec: Recurrence
 ## [1] 8.5
-~~~
-{: .output}
-
+```
 
 ```r
 by(gallstones$Diam, gallstones$Rec, IQR)
 ```
 
-~~~
+```
 ## gallstones$Rec: NoRecurrence
 ## [1] 12
 ## ------------------------------------------------------------ 
 ## gallstones$Rec: Recurrence
 ## [1] 9
-~~~
-{: .output}
-
+```
 
 ## Paired samples
 If data is paired, that is, it is the same samples under two different 

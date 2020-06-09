@@ -177,7 +177,7 @@ There are three main hypothesis tests for categorical variables:
 of the table is greater than 5
 * *Fisher's exact test* `fisher.test()`: used when the expected count of at
 least one cell is ≤ 5
-* *McNemar test* `mcnemar.test`: used for paired data - for example, the
+* *McNemar test* `mcnemar.test()`: used for paired data - for example, the
 proportion of patients showing a particular symptom before and after treatment
 
 Which test do we need? The data is not paired, so it is not the McNemar test.
@@ -318,11 +318,11 @@ statistical power to detect a relationship.
 > > # Or plot using ggplot
 > > ggplot(gallstones, aes(Treatment, fill=Rec)) + 
 > >   geom_bar(position="dodge") +
-> >   theme(axis.text=element_text(size=18),
-> >         legend.text=element_text(size=18),
-> >         legend.title=element_text(size=18),
-> >         axis.title=element_text(size=18),
-> >         plot.title = element_text(size=22, face="bold")) +
+> >   theme(axis.text=element_text(size=14),
+> >         legend.text=element_text(size=14),
+> >         legend.title=element_text(size=14),
+> >         axis.title=element_text(size=14),
+> >         plot.title = element_text(size=18, face="bold")) +
 > >   ggtitle("Treatment vs. Recurrence") 
 > > 
 > > # Look at expected values to select Chi-square or Fisher's Exact

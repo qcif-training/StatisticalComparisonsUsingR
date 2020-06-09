@@ -151,7 +151,7 @@ variables
 
 > ## Tip
 > p-values should never be reported for correlations in publications; always
-> report the r or r^2 instead. Because of the nature of the test, the p-value
+> report the r or r<sup>2</sup> instead. Because of the nature of the test, the p-value
 > can be significant when the strength of the correlation is weak. It is
 > normally fine to report p-values for most other tests.
 {: .callout}
@@ -169,6 +169,7 @@ variables
 
 From our plot, we have already established that Height and Weight seem to be 
 correlated, so we will calculate the correlation value for these variables.
+
 
 ```r
 # First, test if the variables are normally distributed
@@ -211,6 +212,7 @@ The p-value of the Shapiro-Wilk test for Height is less than 0.05, so we reject
 the null hypothesis and conclude that Height is not normally distributed.
 Therefore we should use Spearman's test for this analysis.
 
+
 ```r
 cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
 ```
@@ -234,12 +236,12 @@ correlation is significantly different from zero.
 
 > ## Challenge 3
 > 
-> Import the example dataset in the file "data/ep03_data.RData" using the 
+> Import the example dataset in the file "data/ep03_data.RData" using the
 > command `load("data/ep03_data.RData")`. This will load three dataframes of x
-> and y coordinates. Without plotting the data, carry out some basic statistical
-> tests (mean, standard deviation, correlation) on the three dataframes and see 
-> if you can characterise the differences between them. Then plot them and see 
-> if your interpretations were correct
+> and y coordinates: data1, data2, and data3. Without plotting the data, carry 
+> out some basic statistical tests (mean, standard deviation, correlation) on 
+> the three dataframes and see  if you can characterise the differences 
+>  between them. Then plot them and see if your interpretations were correct.
 > > 
 > > ## Solution to challenge 3
 > > 
