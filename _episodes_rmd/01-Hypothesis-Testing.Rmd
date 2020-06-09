@@ -78,7 +78,7 @@ parameter derived from the data – and a rejection region – a range of values
 the test statistic for which we would reject H<sub>0</sub> and accept 
 H<sub>1</sub>
 4. If the test statistic falls within the rejection region and we accept 
-H<sub>1</sub>, we can calculate a P-value, the probability of the observed test 
+H<sub>1</sub>, we can calculate a p-value, the probability of the observed test 
 statistic (or one more favourable to H<sub>1</sub>) occurring if H<sub>0</sub>
 were true.
 
@@ -101,7 +101,7 @@ statistics include opinion polls and drug trials.
 > {: .solution}
 {: .challenge}
 
-## P-values and rejection of the null hypothesis
+## p-values and rejection of the null hypothesis
 * The null hypothesis is tested against the alternative one using a distribution
 of a statistic.
 * The p-value is the probability of obtaining results as extreme as the observed
@@ -115,7 +115,7 @@ H<sub>0</sub> when H<sub>0</sub> is true. For instance, a significance level of
 0.05 indicates there is a 5% risk of incorrectly concluding a difference exists
 when there is no actual difference (often α=0.05, but can be as low as
 α=0.0000003 in some disciplines).
-* If the P-value < 0.05, we are 95% confident when we reject H<sub>0</sub>
+* If the p-value < 0.05, we are 95% confident when we reject H<sub>0</sub>
   + Conclusion: we can reject H<sub>0</sub>
 
 ## Confidence intervals
@@ -140,7 +140,7 @@ we have 95% confidence that the real population mean occurs.
 > > 0.05, 0.01 or 0.001) we don't have sufficient evidence to reject the null
 > > hypothesis. Note - this does not necessarily mean that the null hypothesis
 > > is true, rather that we have don't have adequate justification to conclude 
-> > otherwise
+> > otherwise.
 > {: .solution}
 {: .challenge}
 
@@ -148,7 +148,7 @@ we have 95% confidence that the real population mean occurs.
 In hypothesis testing, there are two possible causes for a false 
 conclusion: rejecting the null hypothesis when it is true (a type I 
 error), or failing to reject the null hypothesis when it is false (a type
-II error). The probability of a type 1 error is given by the P-value; it
+II error). The probability of a type 1 error is given by the p-value; it
 is possible to calculate the probability of a type II error, but we will 
 not cover that in this course.
 ![RStudio layout](../fig/01-fig1.png)
