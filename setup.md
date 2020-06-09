@@ -1,7 +1,8 @@
 ---
 title: Setup
 ---
-FIXME
 
+Prior to the workshop, please download the example datasets from https://cloudstor.aarnet.edu.au/plus/s/VlOGpIJnaFPl1qd and extract the archive to your working R directory.
 
-{% include links.md %}
+__Archive contents__
+Folder called data containing three files: ep03_data.RData, gallstones.csv, and happiness.csv
