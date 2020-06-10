@@ -69,8 +69,8 @@ data substituted for real patient information.
 > > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
 > > * Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
 > > stones; 
-> > * Diam – gallstone diameter in mm; 
-> > * Dis – time in days for gallstone dissolution
+> > * Diam – original gallstone diameter in mm; 
+> > * Dis – time in months for gallstone dissolution
 > > 
 > > There are a total of 37 patient records in this file
 > {: .solution}
