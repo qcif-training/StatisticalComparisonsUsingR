@@ -112,9 +112,23 @@ simple count table, or graphically by expressing that table as a bar graph. For
 this example, we will test whether there is a relationship between obesity and 
 the recurrence of gallstones.
 
+```r
+# Summarise the data into a table.
+counts <- table(gallstones$Obese, gallstones$Rec)
+counts
+```
+
+~~~
+##           
+##            NoRecurrence Recurrence
+##   NonObese           17          9
+##   Obese               4          7
+~~~
+{: .output}
 
 ```r
-# Plots are generally easier to interpret than tables, so plot data first
+# Plots are generally easier to interpret than tables, so review data as a 
+# bar graph
 barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 ```
 ![RStudio layout](../fig/04-fig1.png)
@@ -135,20 +149,6 @@ ggplot(gallstones, aes(Obese, fill=Rec)) +
 ```
 ![RStudio layout](../fig/04-fig2.png)
 
-
-```r
-# Summarise the data into a table.
-counts <- table(gallstones$Obese, gallstones$Rec)
-counts
-```
-
-~~~
-##           
-##            NoRecurrence Recurrence
-##   NonObese           17          9
-##   Obese               4          7
-~~~
-{: .output}
 
 From the charts and table it certainly looks like obesity is associated with a
 higher rate of recurrence, so we will test whether that is statistically
@@ -304,11 +304,12 @@ statistical power to detect a relationship.
 > > 
 > > ```r
 > > # Create the initial counts table
-> > counts <- table(gallstones$Treatment, gallstones$Rec)
-> > counts
+> > counts2 <- table(gallstones$Treatment, gallstones$Rec)
+> > counts2
 > > 
 > > # Plot using barplot
-> > barplot(counts, beside = TRUE, legend = rownames(counts), col = c('red','blue'))
+> > barplot(counts2, beside = TRUE, legend = rownames(counts2), 
+            col = c('red','blue'))
 > > # Or plot using ggplot
 > > ggplot(gallstones, aes(Treatment, fill=Rec)) + 
 > >   geom_bar(position="dodge") +
@@ -321,7 +322,7 @@ statistical power to detect a relationship.
 > > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
-> > CrossTable(data$Rec,data$Treatment,format="SPSS",prop.chisq=F,expected=T)
+> > CrossTable(gallstones$Rec,data$Treatment,format="SPSS",prop.chisq=F,expected=T)
 > > 
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec)

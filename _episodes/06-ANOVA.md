@@ -350,6 +350,7 @@ As usual, an early step in studying our data is to visualise it
 # First, plot just using each of the factors independently
 par(mfrow=c(1,2))
 plot(Score ~ Treatment + Gender, data = happiness)
+par(mfrow=c(1,1))
 ```
 
 ![RStudio layout](../fig/06-fig5.png)

@@ -136,8 +136,9 @@ focus mainly on two: Pearson's correlation coefficient and Spearman's rank.
 of which are normally distributed, and which show a linear relationship.
 * Spearman's rank is for when there are two continuous variables, but at least
 one is not normally distributed. 
-* An associated test, Shapiro-Wilk, can be used to determine whether the data
-can be treated as normally distributed or not.
+* Kendall's Tau is for when there are two ranked categorical variables.
+* An associated test, Shapiro-Wilk, can be used to determine whether continuous
+variables can be treated as normally distributed or not.
 
 Both Pearson's and Spearman's tests calculate a correlation value _r_ between 
 the two variables. This value indicates the degree of association between the

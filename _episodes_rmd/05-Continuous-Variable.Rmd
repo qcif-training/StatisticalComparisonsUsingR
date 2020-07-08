@@ -161,6 +161,7 @@ _Step two - is the data normally distributed?_
 par(mfrow=c(1,2))
 hist(gallstones$Height[which(gallstones$Gender == 'F')], main = "Histogram of heights of females", xlab = "")
 hist(gallstones$Height[which(gallstones$Gender == 'M')], main = "Histogram of heights of males", xlab = "")
+par(mfrow=c(1,1))
 ```
 ![RStudio layout](../fig/05-fig3.png)
 
@@ -177,16 +178,24 @@ data as if it were normal; that is, we use a T-test
 
 _Step three - are variances equal?_  
 ```{r}
+# A quick and dirty test - how similar are the standard deviations?
 by(gallstones$Height, gallstones$Gender, sd)
+# Or properly test for equality of variance using Levene's test
+install.packages("DescTools")
+library(DescTools)
+LeveneTest(gallstones$Height ~ gallstones$Gender)
 ```
 
-The standard deviations of the two groups (and hence the variances) don't seem 
-to be equal, so we should use a Welch's two-sample T-test. This is the default
-option for the `t.test` function anyway
+Although the standard deviations of the two groups (and hence the variances) 
+seem to be quite different, Levene's test gives a non-significant p-value of 0.7.
+This means that we shouldn't reject the null hypothesis of equal variance, and
+so we should perform a Student's T-test. If the variances had been different, 
+then we would have used Welch's two-sample T-test instead.
 
 _Step four - carry out a T-test_  
 ```{r}
-t.test(gallstones$Height ~ gallstones$Gender)
+# Specify equal variance using the var.equal = TRUE argument.
+t.test(gallstones$Height ~ gallstones$Gender, var.equal = TRUE)
 ```
 
 **Conclusion**: the p-value is significant so we can accept the alternative 
@@ -212,7 +221,7 @@ and females in our dataset.
 > > Mann-Whitney test
 > > ```{r eval = FALSE}
 > > # Use wilcox.test function which defaults to Mann-Whitney analysis
-> > wilcox.test(gallstones$Diam ~ gallstones$Rec, exact=FALSE)
+> > wilcox.test(gallstones$Diam ~ gallstones$Rec)
 > > ```
 > > The p-value is not significant, so we do not have sufficient evidence to 
 > > reject the null hypothesis that there is no difference in gallstone size

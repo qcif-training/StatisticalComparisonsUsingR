@@ -14,7 +14,7 @@ objectives:
 - "Recognise the different types of hypothesis testing errors"
 keypoints:
 - "Select appropriate and testable null and alternative hypotheses"
-- "Interpret p-values and statistical significants correctly"
+- "Interpret p-values and statistical significance correctly"
 output: html_document
 ---
 
