@@ -215,7 +215,7 @@ Therefore we should use Spearman's test for this analysis.
 
 
 ```r
-cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
+cor.test(gallstones$Height, gallstones$Weight, method="spearman")
 ```
 
 ~~~

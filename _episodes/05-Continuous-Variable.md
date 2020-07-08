@@ -221,7 +221,7 @@ LeveneTest(gallstones$Height ~ gallstones$Gender)
 {: .output}
 
 Although the standard deviations of the two groups (and hence the variances) 
-seem to be quite different, Levene's test gives a non-significant p-value of 0.7.
+seem to be quite different, Levene's test gives a non-significant p-value of 0.07.
 This means that we shouldn't reject the null hypothesis of equal variance, and
 so we should perform a Student's T-test. If the variances had been different, 
 then we would have used Welch's two-sample T-test instead.
@@ -230,6 +230,8 @@ _Step four - carry out a T-test_
 
 ```r
 # Specify equal variance using the var.equal = TRUE argument.
+# var.equal would be set to FALSE if the p-value of the Levene's test was less 
+# than 0.05, and the `t.test` function would then run a Welch's two-sample test.
 t.test(gallstones$Height ~ gallstones$Gender, var.equal = TRUE)
 ```
 

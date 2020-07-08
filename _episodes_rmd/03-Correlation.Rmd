@@ -190,7 +190,7 @@ the null hypothesis and conclude that Height is not normally distributed.
 Therefore we should use Spearman's test for this analysis.
 
 ```{r}
-cor.test(gallstones$Height, gallstones$Weight, method="spearman", exact=FALSE)
+cor.test(gallstones$Height, gallstones$Weight, method="spearman")
 ```
 
 The *rho* value of 0.615 shows a moderate relationship between height and 
