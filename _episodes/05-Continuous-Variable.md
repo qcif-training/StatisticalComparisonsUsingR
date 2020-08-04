@@ -264,7 +264,7 @@ and females in our dataset.
 > > 
 > > ```r
 > > # Visualise data
-> > plot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
+> > boxplot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
 > >      ylab = "Diameter",
 > >      xlab = "Recurrence")
 > > # Test whether data is normally distributecd

@@ -205,15 +205,15 @@ kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumpt
 ## 	Pairwise comparisons using Dunn's all-pairs test
 
 ## data: gallstones$Weight and as.integer(gallstones$Alcohol.Consumption)
-
-##   1 2
-## 2 1 -
-## 3 1 1
-
-## 
-## P value adjustment method: bonferroni
-
 ## alternative hypothesis: two.sided
+## P value adjustment method: bonferroni
+## H0
+##            z value Pr(>|z|)  
+## 2 - 1 == 0   0.056        1  
+## 3 - 1 == 0   0.792        1  
+## 3 - 2 == 0   0.755        1  
+## ---
+## Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ~~~
 {: .output}
 
@@ -264,8 +264,9 @@ reported for each pairwise comparison
 > > dummy_data[ac_three, "Weight"] <- 2 * dummy_data[ac_three, "Weight"]
 > > # Then do the testing
 > > kruskal.test(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
-> > kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
+> > dunn.tab <- kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
 > >                    p.adjust.method="bonferroni")
+> > summary(dunn.tab)
 > > ```
 > {: .solution}
 {: .challenge}

@@ -152,8 +152,9 @@ which (if any) are different.
 ```{r}
 # Dunn's test, since we used Kruskal-Wallis for the initial analysis
 library(PMCMRplus)
-kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumption), 
+dunn.tab <- kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumption), 
                    p.adjust.method="bonferroni")
+summary(dunn.tab)
 ```
 
 The row and column headers in the table just below halfway through the output
@@ -187,8 +188,9 @@ reported for each pairwise comparison
 > > dummy_data[ac_three, "Weight"] <- 2 * dummy_data[ac_three, "Weight"]
 > > # Then do the testing
 > > kruskal.test(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
-> > kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
+> > dunn.tab <- kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
 > >                    p.adjust.method="bonferroni")
+> > summary(dunn.tab)
 > > ```
 > {: .solution}
 {: .challenge}

@@ -211,7 +211,8 @@ statistical power to detect a relationship.
 > >         col = c('red','blue'))
 > > # Or plot using ggplot
 > > ggplot(gallstones, aes(Treatment, fill=Rec)) + 
-> >   geom_bar(position="dodge") +
+> >   geom_bar(position="fill") +
+> >   scale_y_continuous(labels=scales::percent) +
 > >   theme(axis.text=element_text(size=14),
 > >         legend.text=element_text(size=14),
 > >         legend.title=element_text(size=14),
@@ -221,10 +222,10 @@ statistical power to detect a relationship.
 > > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
-> > CrossTable(gallstones$Rec,data$Treatment,format="SPSS",prop.chisq=F,expected=T)
+> > CrossTable(gallstones$Treatment,data$Rec,format="SPSS",prop.chisq=F,expected=T)
 > > 
 > > # All expected values are greater than 5
-> > chisq.test(gallstones$Treatment, gallstones$Rec)
+> > chisq.test(gallstones$Treatment, gallstones$Rec, correct=FALSE)
 > > ```
 > > Again, despite the barplot suggesting an association, the p-value is 
 > > non-significant, so we reject the alternative hypothesis that treatment has
