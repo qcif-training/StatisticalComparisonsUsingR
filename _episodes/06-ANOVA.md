@@ -218,7 +218,7 @@ kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumpt
 {: .output}
 
 The output shows a pairwise comparison and associated p-value for each combination
-of the groups being tested - groups 2 and 1 first, then group 3 and 1, and finally 
+of the groups being tested - groups 2 and 1 first, then groups 3 and 1, and finally 
 groups 3 and 2. In this example, the p-values are all 1 - there is not evidence for 
 even the slightest difference between the groups!
 
