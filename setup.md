@@ -20,5 +20,4 @@ The following packages are required during the workshop and must be installed be
 * gmodels
 * PMCMRplus
 
-To install packages, use the command <pre>install.packages("PACKAGE_NAME")</pre> (package name is case sensitive). To install all three packages in a single command run `install.packages(c("ggplot2", "gmodels", "PMCMRplus"))`.  
-If you are prompted to build packages from source, select "No".
+To install packages, use the command <pre>install.packages("PACKAGE_NAME")</pre> (package name is case sensitive). To install all three packages in a single command run `install.packages(c("ggplot2", "gmodels", "PMCMRplus"))`. If you are prompted to build packages from source, select "No".
