@@ -12,11 +12,10 @@ Prior to the workshop, you must download the example datafiles and test importin
 
 
 __Install Packages__
-The following packages are required during the workshop and must be installed beforehand
+The following packages are required during the workshop and must be installed beforehand:
 * ggplot2
 * gmodels
 * PMCMRplus
 
-To install packages, use the command `install.packages("PACKAGE_NAME")`. 
-
-To install all three packages in a single command run `install.packages(c("ggplot2", "gmodels", "PMCMRplus"))`. If you are prompted to build packages from source, select "No".
+To install packages, use the command `install.packages("PACKAGE_NAME")` (package name is case sensitive). To install all three packages in a single command run `install.packages(c("ggplot2", "gmodels", "PMCMRplus"))`.  
+If you are prompted to build packages from source, select "No".
