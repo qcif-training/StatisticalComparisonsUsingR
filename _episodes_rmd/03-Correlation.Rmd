@@ -244,6 +244,8 @@ correlation is significantly different from zero.
 > > Still no obvious correlation, but we can confirm that mathematically
 > > ```{r eval=FALSE}
 > > # Test data for normality
+> > hist(gallstones$Diam)
+> > hist(gallstones$Dis)
 > > shapiro.test(gallstones$Diam)
 > > shapiro.test(gallstones$Dis)
 > > # Neither appears to be normally distributed, so use Spearman's correlation

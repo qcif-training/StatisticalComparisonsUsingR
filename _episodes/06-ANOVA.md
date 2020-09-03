@@ -273,7 +273,7 @@ p-value reported for each pairwise comparison.
 > ## Challenge 3
 >
 > Try using the dummmy dataset from challenge 2 for an ANOVA and Tukey's test
-> > ## Solution to Challenge 2
+> > ## Solution to Challenge 3
 > >
 > >
 > > 
@@ -308,7 +308,7 @@ Read the data in from the file "happiness.csv"
 ```r
 # As before, we need to specify the stringsAsfactors flag for read.csv
 happiness <- read.csv("data/happiness.csv", stringsAsFactors = TRUE)
-happiness
+head(happiness)
 ```
 
 ~~~
@@ -319,24 +319,45 @@ happiness
 ## 4        4   3.0   Male   Placebo
 ## 5        5   4.0   Male   Placebo
 ## 6        6   3.0   Male   Placebo
-## 7        7   4.0 Female   Placebo
-## 8        8   5.0 Female   Placebo
-## 9        9   4.0 Female   Placebo
-## 10      10   6.0 Female   Placebo
-## 11      11   6.0 Female   Placebo
-## 12      12   4.5 Female   Placebo
-## 13      13   7.0   Male    Prozac
-## 14      14   7.0   Male    Prozac
-## 15      15   6.0   Male    Prozac
-## 16      16   5.0   Male    Prozac
-## 17      17   6.0   Male    Prozac
-## 18      18   6.0   Male    Prozac
-## 19      19   5.0 Female    Prozac
-## 20      20   5.0 Female    Prozac
-## 21      21   5.0 Female    Prozac
-## 22      22   4.0 Female    Prozac
-## 23      23   6.0 Female    Prozac
-## 24      24   6.0 Female    Prozac
+~~~
+{: .output}
+
+```r
+str(happiness)
+```
+
+~~~
+## 'data.frame':	24 obs. of  4 variables:
+##  $ Patient  : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Score    : num  3 4 2 3 4 3 4 5 4 6 ...
+##  $ Gender   : Factor w/ 2 levels "Female","Male": 2 2 2 2 2 2 1 1 1 1 ...
+##  $ Treatment: Factor w/ 2 levels "Placebo","Prozac": 1 1 1 1 1 1 1 1 1 1 ...
+~~~
+{: .output}
+
+```r
+summary(happiness)
+```
+
+~~~
+##     Patient          Score          Gender     Treatment 
+##  Min.   : 1.00   Min.   :2.000   Female:12   Placebo:12  
+##  1st Qu.: 6.75   1st Qu.:4.000   Male  :12   Prozac :12  
+##  Median :12.50   Median :5.000                           
+##  Mean   :12.50   Mean   :4.854                           
+##  3rd Qu.:18.25   3rd Qu.:6.000                           
+##  Max.   :24.00   Max.   :7.000                           
+~~~
+{: .output}
+
+```r
+table(happiness$Gender, happiness$Treatment)
+```
+
+~~~
+##          Placebo Prozac
+##   Female       6      6
+##   Male         6      6
 ~~~
 {: .output}
 

@@ -285,6 +285,8 @@ correlation is significantly different from zero.
 > > 
 > > ```r
 > > # Test data for normality
+> > hist(gallstones$Diam)
+> > hist(gallstones$Dis)
 > > shapiro.test(gallstones$Diam)
 > > shapiro.test(gallstones$Dis)
 > > # Neither appears to be normally distributed, so use Spearman's correlation

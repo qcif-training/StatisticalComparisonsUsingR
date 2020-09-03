@@ -197,7 +197,7 @@ p-value reported for each pairwise comparison
 > ## Challenge 3
 >
 > Try using the dummmy dataset from challenge 2 for an ANOVA and Tukey's test
-> > ## Solution to Challenge 2
+> > ## Solution to Challenge 3
 > >
 > >
 > > ```{r eval = FALSE}
@@ -230,7 +230,10 @@ Read the data in from the file "happiness.csv"
 ```{r}
 # As before, we need to specify the stringsAsfactors flag for read.csv
 happiness <- read.csv("data/happiness.csv", stringsAsFactors = TRUE)
-happiness
+head(happiness)
+str(happiness)
+summary(happiness)
+table(happiness$Gender, happiness$Treatment)
 ```
 
 This corresponds to this design:

@@ -205,7 +205,6 @@ by(gallstones$Height, gallstones$Gender, sd)
 
 ```r
 # Or properly test for equality of variance using Levene's test
-install.packages("DescTools")
 library(DescTools)
 LeveneTest(gallstones$Height ~ gallstones$Gender)
 ```
@@ -268,6 +267,7 @@ and females in our dataset.
 > >      ylab = "Diameter",
 > >      xlab = "Recurrence")
 > > # Test whether data is normally distributecd
+> > by(gallstones$Diam, gallstones$Rec, hist)
 > > by(gallstones$Diam, gallstones$Rec, shapiro.test)
 > > ```
 > > Data is not normal for the recurrence group, and data is not paired - hence

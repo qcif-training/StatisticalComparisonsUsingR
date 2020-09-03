@@ -222,7 +222,7 @@ statistical power to detect a relationship.
 > > 
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
-> > CrossTable(gallstones$Treatment,data$Rec,format="SPSS",prop.chisq=F,expected=T)
+> > CrossTable(gallstones$Treatment,gallstones$Rec,format="SPSS",prop.chisq=F,expected=T)
 > > 
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec, correct=FALSE)
