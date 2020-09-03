@@ -97,9 +97,10 @@ dataset.
 gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
 ```
 
-Now the file is uploaded, you can find out more about this dataset using the `str`
-and `summary` functions.
+Now the file is uploaded, you can find out more about this dataset using the 
+`head`, `str` and `summary` functions.
 ```{r}
+head(gallstones)
 str(gallstones)
 summary(gallstones)
 ```

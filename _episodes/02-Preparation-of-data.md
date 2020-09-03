@@ -98,8 +98,23 @@ dataset.
 gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
 ```
 
-Now the file is uploaded, you can find out more about this dataset using the `str`
-and `summary` functions.
+Now the file is uploaded, you can find out more about this dataset using the
+`head`, `str`, and `summary` functions.
+
+```r
+head(gallstones)
+```
+
+~~~
+##   Patient_ID Gender Age Height Weight      BMI Obese Smoking.Status Alcohol.Consumption Treatment Rec Mult Diam Dis
+## 1        P25      F  64    147     65 30.08006     1              2                   1         1   1    1    6   8
+## 2        P28      F  81    151     69 30.26183     1              2                   2         0   1    1    7   6
+## 3        P17      M  77    156     59 24.24392     0              2                   1         0   0    0   20  20
+## 4        P27      F  80    156     47 19.31295     0              2                   3         1   0    0   15   2
+## 5         P5      F  86    156     53 21.77844     0              2                   2         0   1    0   18  14
+## 6         P6      F  69    157     48 19.47341     0              1                   3         1   0    0   19   8
+~~~
+{: .output}
 
 ```r
 str(gallstones)
