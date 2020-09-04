@@ -11,7 +11,8 @@ Prior to the workshop, you must download the example datafiles and test importin
 
 3) Open RStudio and set your working directory to **the same location where you saved the downloaded file** - not the data directory itself. The easiest way to do this is click on the Files tab (normally in the bottom right pane) and navigate to the folder that way, then use the function "Set as working directory" from the More (cog icon) menu just at the top of the file window.  
 
-4) Read in the workshop data by typing the command `gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)` in the RStudio console pane (usually bottom left). This should complete without any warnings. If you get a message starting `Error in file(file, "rt") : cannot open the connection` you have not set your working directory to the correct location - recheck where you saved and extracted the workshop datafile and repeat step 3. N.B. The 'stringsAsFactors' argument is required because of a change made between R versions 3.6 and 4.0 - this option means that you will generate the same structure dataframe whichever version of R you are using.
+4) Read in the workshop data by typing the command `gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)` in the RStudio console pane (usually bottom left). This should complete without any warnings. If you get a message starting `Error in file(file, "rt") : cannot open the connection` you have not set your working directory to the correct location - recheck where you saved and extracted the workshop datafile and repeat step 3.  
+N.B. The 'stringsAsFactors' argument is required because of a change made between R versions 3.6 and 4.0 - this option means that you will generate the same structure dataframe whichever version of R you are using.
 
 
 __Install Packages__

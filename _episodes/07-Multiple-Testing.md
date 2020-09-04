@@ -141,8 +141,9 @@ a given experimental design
 > > # Visualisation
 > > 
 > > library(ggplot2)
-> > ggplot(gallstones, aes(Rec, fill=Mult)) + 
-> >   geom_bar(position="dodge")+
+> > ggplot(gallstones, aes(Rec, fill=Mult)) +
+> >   geom_bar(position="fill") +
+> >   scale_y_continuous(labels=scales::percent) +
 > >   theme(axis.text=element_text(size=18),
 > >         legend.text=element_text(size=18),
 > >         legend.title=element_text(size=18),
