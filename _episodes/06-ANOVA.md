@@ -379,7 +379,7 @@ par(mfrow=c(1,1))
 ```r
 # Then using ggplot to separate out the four different combinations of factor
 ggplot(data = happiness, aes(x = Treatment, y = Score, fill = Gender)) +
-  geom_boxplot(postion = position_dodge())
+  geom_boxplot(position = position_dodge())
 ```
 
 ![RStudio layout](../fig/06-fig6.png)
