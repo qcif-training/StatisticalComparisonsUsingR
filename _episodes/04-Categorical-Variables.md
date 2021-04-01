@@ -25,36 +25,36 @@ output: html_document
 
 Having looked at the gallstones dataset, you will have noticed that many of the
 columns contain just two or three distinct values - for example, M and F, or 1,
-2, and 3. These are examples of __categorical__ data - where samples are 
-assigned to one of a limited number of fixed, distinct categories. Categories 
-may be emergent features of the data (for example 'received treatment' and 'did 
+2, and 3. These are examples of __categorical__ data - where samples are
+assigned to one of a limited number of fixed, distinct categories. Categories
+may be emergent features of the data (for example 'received treatment' and 'did
 not receive treatment') but others may be more arbitrary according to the needs
 of the analysis (in this dataset, the three levels of alcohol consumption relate
 to 'no consumption', 'previous consumer' and 'current consumer').
 
 Because categorical data typically has no intrinsic ordering to the categories,
 we cannot study relationships between two variables by looking for correlations.
-Instead, statistical analysis of categorical data is based around count 
+Instead, statistical analysis of categorical data is based around count
 frequencies - are the numbers of samples in each category what would be expected
 from random distribution, or do certain categories occur together more often
 than would happen just by chance?
 
 ## Ordinal data
 
-An intermediate between categorical data and continuous data is __ordinal__ 
-data. Unlike categorical data, ordinal data does have natural order to the 
-categories, but samples are still assigned to one of a fixed number of 
-categories. For example, it is common on survey forms to see an ordinal age 
+An intermediate between categorical data and continuous data is __ordinal__
+data. Unlike categorical data, ordinal data does have natural order to the
+categories, but samples are still assigned to one of a fixed number of
+categories. For example, it is common on survey forms to see an ordinal age
 field: under 15, 15-25, 26-40, etc. Ordinal data is outside the scope of today's
 workshop - talk to a statistician if you need more advice.
 
 > ## Challenge 1
 >
-> Look again at the gallstones dataset. How many categorical fields does it 
+> Look again at the gallstones dataset. How many categorical fields does it
 > contain?
 > > ## Solution to Challenge 1
-> > 
-> > There are seven categorical fields in this dataset: Gender, Obese, 
+> >
+> > There are seven categorical fields in this dataset: Gender, Obese,
 > > Smoking.Status, Alcohol.Consumption, Treatment, Rec, and Mult
 > {: .solution}
 {: .challenge}
@@ -63,7 +63,7 @@ workshop - talk to a statistician if you need more advice.
 
 With the exception of Gender, all the categorical variables in the gallstones
 dataframe have been recorded as integer fields. This may cause confusion because
-it would be possible in principle to analyse these as continuous variables. R 
+it would be possible in principle to analyse these as continuous variables. R
 includes the factor data type, which provides a way to store a fixed, predefined
 set of values. This makes it ideal for working with categories, so we will
 convert those columns to factors.
@@ -107,36 +107,67 @@ str(gallstones)
 ## Visualising categorical data
 
 As with continuous data, it can often be useful to visualise categorical data
-before starting on more complex analysis. We can do this numerically with a 
+before starting on more complex analysis. We can do this numerically with a
 simple count table, or graphically by expressing that table as a bar graph. For
-this example, we will test whether there is a relationship between obesity and 
+this example, we will test whether there is a relationship between obesity and
 the recurrence of gallstones.
+
 
 ```r
 # Summarise the data into a table.
-counts <- table(gallstones$Obese, gallstones$Rec)
+counts <- table(gallstones$Rec, gallstones$Obese)
 counts
 ```
 
 ~~~
-##           
-##            NoRecurrence Recurrence
-##   NonObese           17          9
-##   Obese               4          7
+##
+##                NonObese Obese
+##   NoRecurrence       17     4
+##   Recurrence          9     7
 ~~~
 {: .output}
 
 ```r
-# Plots are generally easier to interpret than tables, so review data as a 
+addmargins(counts)
+```
+
+~~~
+##
+##                NonObese Obese Sum
+##   NoRecurrence       17     4  21
+##   Recurrence          9     7  16
+##   Sum                26    11  37
+~~~
+{: .output}
+
+```r
+# Displaying as proportions may be easier to interpret than counts
+round(prop.table(table(gallstones$Rec, gallstones$Obese), margin = 2)*100,2)
+```
+
+~~~
+##
+##                NonObese Obese
+##   NoRecurrence    65.38 36.36
+##   Recurrence      34.62 63.64
+~~~
+{: .output}
+
+Obese patients had a 63.6% chance of recurrence, non-obese patients only 34.6%
+
+
+```r
+# Plots are generally easier to interpret than tables, so review data as a
 # bar graph
 barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 ```
 ![RStudio layout](../fig/04-fig1.png)
 
+
 ```r
 # ggplot can be used for higher quality figures, and to plot proportions rather
 # than counts
-ggplot(gallstones, aes(Obese, fill=Rec)) + 
+ggplot(gallstones, aes(Obese, fill=Rec)) +
   geom_bar(position="fill") +
   scale_y_continuous(labels=scales::percent) +
   theme(axis.text=element_text(size=14),
@@ -145,10 +176,9 @@ ggplot(gallstones, aes(Obese, fill=Rec)) +
         axis.title=element_text(size=14),
         plot.title = element_text(size=18, face="bold")) +
   ylab("proportion") +
-  ggtitle("Obesity vs. Recurrence") 
+  ggtitle("Obesity vs. Recurrence")
 ```
 ![RStudio layout](../fig/04-fig2.png)
-
 
 From the charts and table it certainly looks like obesity is associated with a
 higher rate of recurrence, so we will test whether that is statistically
@@ -156,15 +186,15 @@ significant.
 
 ## Statistical tests for categorical variables
 
-To carry out a statistical test, we need a null and alternative hypothesis. In 
+To carry out a statistical test, we need a null and alternative hypothesis. In
 most cases, the null hypothesis H<sub>0</sub> is that the proportion of samples
-in each category is the same in both groups. 
+in each category is the same in both groups.
 
 Our question: Is there a relationship between obesity and gallstone recurrence?
 
-_Hypotheses_:  
-  H<sub>0</sub>: Gallstone recurrence is independent of obesity  
-  H<sub>1</sub>: Gallstone recurrence is linked with obesity  
+_Hypotheses_:
+  H<sub>0</sub>: Gallstone recurrence is independent of obesity
+  H<sub>1</sub>: Gallstone recurrence is linked with obesity
 
 There are three main hypothesis tests for categorical variables:
 * *Chi-square test* `chisq.test()`: used when the _expected_ count in each cell
@@ -181,7 +211,7 @@ What are the expected counts for each cell?
 ```r
 # CrossTable from gmodels library gives expected counts, and also proportions
 library(gmodels)
-CrossTable(gallstones$Rec, gallstones$Obese, 
+CrossTable(gallstones$Rec, gallstones$Obese,
            format = "SPSS", expected = T, prop.chisq = F)
 ```
 
@@ -192,7 +222,7 @@ CrossTable(gallstones$Rec, gallstones$Obese,
 ## Warning in chisq.test(t, correct = FALSE, ...): Chi-squared approximation may be
 ## incorrect
 
-## 
+##
 ##    Cell Contents
 ## |-------------------------|
 ## |                   Count |
@@ -201,51 +231,51 @@ CrossTable(gallstones$Rec, gallstones$Obese,
 ## |          Column Percent |
 ## |           Total Percent |
 ## |-------------------------|
-## 
-## Total Observations in Table:  37 
-## 
-##                | gallstones$Obese 
-## gallstones$Rec | NonObese  |    Obese  | Row Total | 
+##
+## Total Observations in Table:  37
+##
+##                | gallstones$Obese
+## gallstones$Rec | NonObese  |    Obese  | Row Total |
 ## ---------------|-----------|-----------|-----------|
-##   NoRecurrence |       17  |        4  |       21  | 
-##                |   14.757  |    6.243  |           | 
-##                |   80.952% |   19.048% |   56.757% | 
-##                |   65.385% |   36.364% |           | 
-##                |   45.946% |   10.811% |           | 
+##   NoRecurrence |       17  |        4  |       21  |
+##                |   14.757  |    6.243  |           |
+##                |   80.952% |   19.048% |   56.757% |
+##                |   65.385% |   36.364% |           |
+##                |   45.946% |   10.811% |           |
 ## ---------------|-----------|-----------|-----------|
-##     Recurrence |        9  |        7  |       16  | 
-##                |   11.243  |    4.757  |           | 
-##                |   56.250% |   43.750% |   43.243% | 
-##                |   34.615% |   63.636% |           | 
-##                |   24.324% |   18.919% |           | 
+##     Recurrence |        9  |        7  |       16  |
+##                |   11.243  |    4.757  |           |
+##                |   56.250% |   43.750% |   43.243% |
+##                |   34.615% |   63.636% |           |
+##                |   24.324% |   18.919% |           |
 ## ---------------|-----------|-----------|-----------|
-##   Column Total |       26  |       11  |       37  | 
-##                |   70.270% |   29.730% |           | 
+##   Column Total |       26  |       11  |       37  |
+##                |   70.270% |   29.730% |           |
 ## ---------------|-----------|-----------|-----------|
-## 
-##  
+##
+##
 ## Statistics for All Table Factors
-## 
-## 
-## Pearson's Chi-squared test 
+##
+##
+## Pearson's Chi-squared test
 ## ------------------------------------------------------------
-## Chi^2 =  2.652483     d.f. =  1     p =  0.1033883 
-## 
-## Pearson's Chi-squared test with Yates' continuity correction 
+## Chi^2 =  2.652483     d.f. =  1     p =  0.1033883
+##
+## Pearson's Chi-squared test with Yates' continuity correction
 ## ------------------------------------------------------------
-## Chi^2 =  1.601828     d.f. =  1     p =  0.2056444 
-## 
-##  
-##        Minimum expected frequency: 4.756757 
+## Chi^2 =  1.601828     d.f. =  1     p =  0.2056444
+##
+##
+##        Minimum expected frequency: 4.756757
 ## Cells with Expected Frequency < 5: 1 of 4 (25%)
 ~~~
 {: .output}
 
-This is slightly complicated output, but we are most interested in the "Expected 
-Values" and "Column Percent" figures - the second and fourth line of each box. 
-These show: 
+This is slightly complicated output, but we are most interested in the "Expected
+Values" and "Column Percent" figures - the second and fourth line of each box.
+These show:
 1. The expected number of obese patients suffering recurrence is 4.757 (<5)
-2. The recurrence rate in non-obese patients is 34.6%, whereas in obese patients 
+2. The recurrence rate in non-obese patients is 34.6%, whereas in obese patients
 it is 63.6%
 
 Because one expected value is less than 5, we should use Fisher's Exact test
@@ -255,21 +285,21 @@ fisher.test(gallstones$Obese, gallstones$Rec)
 ```
 
 ~~~
-## 
+##
 ## 	Fisher's Exact Test for Count Data
-## 
+##
 ## data:  gallstones$Obese and gallstones$Rec
 ## p-value = 0.1514
 ## alternative hypothesis: true odds ratio is not equal to 1
 ## 95 percent confidence interval:
 ##   0.6147706 19.2655239
 ## sample estimates:
-## odds ratio 
+## odds ratio
 ##   3.193654
 ~~~
 {: .output}
 
-Perhaps surprisingly given the plot data, the p-value of this test is not 
+Perhaps surprisingly given the plot data, the p-value of this test is not
 significant; this means that there is insufficient evidence to conclude that
 there is any difference in recurrence rates between obese and
 non-obese patients. The apparently higher rate of recurrence in obese patients
@@ -280,38 +310,38 @@ gathering the data to check whether the sample size provided sufficient
 statistical power to detect a relationship.
 
 > ## Challenge 2
-> 
+>
 > When would you use the Chi-square test
 > 1. When one variable is categorical and the other continuous
-> 2. When there is categorical data with more than five counts expected in each 
+> 2. When there is categorical data with more than five counts expected in each
 > cell
 > 3. When there is paired categorical data
 > 4. You can use it interchangeably with Fisher's Exact test
-> 
+>
 > > ## Solution to Challenge 2
-> > 
+> >
 > > Answer: 2
 > {: .solution}
 {: .challenge}
 
 > ## Challenge 3
-> Repeat the analysis to test whether recurrence is affected by treatment. 
-> 
-> Prepare simple and proportion/expected tables, prepare a bar chart, identify 
+> Repeat the analysis to test whether recurrence is affected by treatment.
+>
+> Prepare simple and proportion/expected tables, prepare a bar chart, identify
 > and perform the appropriate statistical test.
 > > ## Solution to Challenge 3
-> > 
-> > 
+> >
+> >
 > > ```r
 > > # Create the initial counts table
-> > counts2 <- table(gallstones$Treatment, gallstones$Rec)
+> > counts2 <- table(gallstones$Rec, gallstones$Treatment)
 > > counts2
-> > 
+> >
 > > # Plot using barplot
-> > barplot(counts2, beside = TRUE, legend = rownames(counts2), 
-            col = c('red','blue'))
+> > barplot(counts2, beside = TRUE, legend = rownames(counts2),
+> >         col = c('red','blue'))
 > > # Or plot using ggplot
-> > ggplot(gallstones, aes(Treatment, fill=Rec)) + 
+> > ggplot(gallstones, aes(Treatment, fill=Rec)) +
 > >   geom_bar(position="fill") +
 > >   scale_y_continuous(labels=scales::percent) +
 > >   theme(axis.text=element_text(size=14),
@@ -319,17 +349,18 @@ statistical power to detect a relationship.
 > >         legend.title=element_text(size=14),
 > >         axis.title=element_text(size=14),
 > >         plot.title = element_text(size=18, face="bold")) +
-> >   ggtitle("Treatment vs. Recurrence") 
-> > 
+> >   ggtitle("Treatment vs. Recurrence")
+> >
 > > # Look at expected values to select Chi-square or Fisher's Exact
 > > library(gmodels) # Optional if the library is already installed
 > > CrossTable(gallstones$Treatment,gallstones$Rec,format="SPSS",prop.chisq=F,expected=T)
-> > 
+> >
 > > # All expected values are greater than 5
 > > chisq.test(gallstones$Treatment, gallstones$Rec, correct=FALSE)
 > > ```
-> > Again, despite the barplot suggesting an association, the p-value is 
+> > Again, despite the barplot suggesting an association, the p-value is
 > > non-significant, so we reject the alternative hypothesis that treatment has
 > > an effect on recurrence rate
 > {: .solution}
 {: .challenge}
+

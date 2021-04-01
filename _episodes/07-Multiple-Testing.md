@@ -8,7 +8,7 @@ questions:
 - "How do we interpret p-values when mutiple comparisons are carried out?"
 objectives:
 - "Recognise the impact of multiple testing on the meaning of p-values"
-- "Adjust p-values to compensate for the effects of multiple testing" 
+- "Adjust p-values to compensate for the effects of multiple testing"
 keypoints:
 - "Understand the impact of multiple testing on p-values"
 - "Use `p.adjust` to correct multiple-testing p-values"
@@ -18,8 +18,8 @@ output: html_document
 
 
 ## Multiple testing
-In ANOVA, if H<sub>0</sub> is rejected, we carry out a _post hoc_ test to 
-identify which group(s) are significantly different from the other ones. If 
+In ANOVA, if H<sub>0</sub> is rejected, we carry out a _post hoc_ test to
+identify which group(s) are significantly different from the other ones. If
 there are three groups (A, B and C), that means we are performing 3 comparisons:
 1. A vs B
 2. A vs C
@@ -27,7 +27,7 @@ there are three groups (A, B and C), that means we are performing 3 comparisons:
 
 Each time we perform a t-test, we chose a significance threshold under which we
 reject the null hypothesis. A significance level of 0.05 for example means a 5%
-chance of making a type I error - incorrectly rejecting H<sub>0</sub>. When 
+chance of making a type I error - incorrectly rejecting H<sub>0</sub>. When
 performing multiple tests, that probability of error applies for each individual
 comparison, so the more tests performed, the higher likelihood of a type I error.
 
@@ -35,31 +35,31 @@ In our example three-way comparison with signficance threshold of 0.05:
 * Prob(making no mistake) = 0.95 x 0.95 x 0.95 = 0.857
 * Prob(making a mistake) = 1 - 0.857 = 0.143
 
-So rather than a 5% chance of a type I error, we instead have a much higher 
+So rather than a 5% chance of a type I error, we instead have a much higher
 14.3% chance, which is clearly not acceptable.
 
 > ## Challenge 1
 >
-> Memory test! A type I error is an incorrect rejection of the null hypothesis. 
+> Memory test! A type I error is an incorrect rejection of the null hypothesis.
 > Can you remember what a type II error is?
 > > ## Solution to Challenge 1
-> > 
+> >
 > > A type II error is a failure to reject the null hypothesis when it is false
 > {: .solution}
 {: .challenge}
 
 ### Correction for multiple testing
-To compensate for the effects of multiple testing on expected error rate, we 
-need to adjust the p-value according to the number of hypothesis tests 
-performed. 
+To compensate for the effects of multiple testing on expected error rate, we
+need to adjust the p-value according to the number of hypothesis tests
+performed.
 
 Examples of correction approaches include:
 * False Discovery Rate (FDR): controls the type I error rate
-* Bonferroni correction (FWER): reduce the probability of even one false 
+* Bonferroni correction (FWER): reduce the probability of even one false
 discovery
 
 In R, the `p.adjust` function can be used to perform multiple-testing correction
-on a vector of p-values. 
+on a vector of p-values.
 
 ```r
 # Create a vector of multiple p-values to be tested
@@ -122,24 +122,24 @@ a given experimental design
 ## Final practice exercises
 > ## Challenge 2
 >
-> Do patients with multiple gallstones experience more recurrences than those 
+> Do patients with multiple gallstones experience more recurrences than those
 > with single stones?
 > > ## Solution to Challenge 2
-> > 
+> >
 > > The variables of interest are multiple stones (categorical, 2 groups)
 > > and recurrence (categorical, 2 groups). The appropriate test is therefore
-> > either Chi-square or Fisher's Exact, depending on the expected count for 
+> > either Chi-square or Fisher's Exact, depending on the expected count for
 > > each category
 > > ```r
 > > # Create the frequency table
 > > table(gallstones$Rec,gallstones$Mult)
-> > 
+> >
 > > # Complete Cross-table
 > > library(gmodels)
 > > CrossTable(gallstones$Rec,gallstones$Mult,format="SPSS",prop.chisq=F,expected=T)
-> > 
+> >
 > > # Visualisation
-> > 
+> >
 > > library(ggplot2)
 > > ggplot(gallstones, aes(Rec, fill=Mult)) +
 > >   geom_bar(position="fill") +
@@ -149,8 +149,8 @@ a given experimental design
 > >         legend.title=element_text(size=18),
 > >         axis.title=element_text(size=18),
 > >         plot.title = element_text(size=22, face="bold"))+
-> >   ggtitle("Recurrence vs. Mult") 
-> > 
+> >   ggtitle("Recurrence vs. Mult")
+> >
 > > # Chi-square test performed because more than 5 expected counts in each cell
 > > chisq.test(gallstones$Rec,gallstones$Mult)
 > > ```
@@ -164,7 +164,7 @@ a given experimental design
 >
 > Is the patient's age associated with gallstone recurrence?
 > > ## Solution to Challenge 3
-> > 
+> >
 > > The variables of interest are gallstone recurrence (categorical, 2 groups)
 > > and age (continuous). The appropriate test is therefore either the t-test
 > > or Mann-Whitney test, depending on whether the data is normally distributed
@@ -173,24 +173,21 @@ a given experimental design
 > > # Test normality in both groups
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="NoRecurrence")])
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="Recurrence")])
-> > 
+> >
 > > # Other option
 > > by(gallstones$Age,gallstones$Rec,shapiro.test)
-> > 
-> > # We have to perform a Mann-Whitney test 
+> >
+> > # We have to perform a Mann-Whitney test
 > > wilcox.test(gallstones$Age~gallstones$Rec)
-> > 
-> > # We can compare with a T-test
-> > t.test(gallstones$Age~gallstones$Rec)
-> > 
+> >
 > > # Boxplots to visualise
 > > plot(gallstones$Age~gallstones$Rec,col=c("red","blue"),ylab="Age",
 > >      xlab="Recurrence",cex.lab=1.3)
-> > 
+> >
 > > # Statistical descriptions
 > > by(gallstones$Age,gallstones$Rec,median)
 > > by(gallstones$Age,gallstones$Rec,IQR)
-> > 
+> >
 > > by(gallstones$Age,gallstones$Rec,mean)
 > > by(gallstones$Age,gallstones$Rec,sd)
 > > ```
@@ -204,22 +201,22 @@ a given experimental design
 >
 > Does alcohol consumption influence the time to gallstone dissolution?
 > > ## Solution to Challenge 4
-> > 
+> >
 > > The variables of interest are alcohol consumption (categorical, 3 groups)
 > > and dissolution time (continuous). The appropriate test is therefore either
-> > ANOVA or Kruskal-Wallis, depending on whether the data is normally 
+> > ANOVA or Kruskal-Wallis, depending on whether the data is normally
 > > distributed or not
 > > ```r
 > > # Test normality in each groups
 > > by(gallstones$Dis,gallstones$Alcohol.Consumption,shapiro.test)
-> > 
+> >
 > > # If distribution normal in each group
 > > result<-aov(gallstones$Dis~gallstones$Alcohol.Consumption)
 > > summary(result)
-> > 
+> >
 > > # If distribution not normal
 > > kruskal.test(gallstones$Dis~gallstones$Alcohol.Consumption)
-> > 
+> >
 > > # Visualisation
 > > plot(gallstones$Dis~gallstones$Alcohol.Consumption,col=2:4)
 > > ```
@@ -233,29 +230,29 @@ a given experimental design
 >
 > Is there any effect of treatment and/or gender on the time to dissolution?
 > > ## Solution to Challenge 5
-> > 
-> > The variables of interest are gender (categorical, 2 groups), treatment 
+> >
+> > The variables of interest are gender (categorical, 2 groups), treatment
 > > (categorical, two groups) and dissolution time (continuous). The appropriate
 > > test is therefore a two-way ANOVA
 > > ```r
 > > # Visualisation
 > > par(mfrow=c(1,2))
 > > plot(Dis~Treatment+Gender, data=gallstones)
-> > 
+> >
 > > # Interaction plot to visualise
 > > interaction.plot(gallstones$Treatment, gallstones$Gender, gallstones$Dis,
 > >                  col=2:3,lwd=3,cex.axis=1.5,cex.lab=1.5)
-> > 
+> >
 > > # anova 2 way with aov function
 > > result<-aov(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > summary(result)
-> > 
+> >
 > > # anova 2 way with lm function
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > anova(result)
-> > 
+> >
 > > # Checking the assumptions of anova
-> > 
+> >
 > > result<-lm(Dis~Treatment+Gender+Treatment*Gender,data=gallstones)
 > > plot(result)
 > > ```
@@ -270,7 +267,7 @@ a given experimental design
 ## Finishing up
 It is always a good idea to conclude any R analysis with the `sessionInfo()`
 command to save with the output as a permanent record of software versions being
-used. This helps resolve issues where updated versions of tools may give 
+used. This helps resolve issues where updated versions of tools may give
 different analysis outcomes.
 
 ```r
@@ -278,36 +275,34 @@ sessionInfo()
 ```
 
 ~~~
-## R version 4.0.0 (2020-04-24)
+## R version 4.0.5 (2021-03-31)
 ## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Catalina 10.15.5
-## 
+## Running under: macOS Catalina 10.15.7
+##
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
 ## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
-## 
+##
 ## locale:
 ## [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
-## 
+##
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
+## [1] stats     graphics  grDevices utils     datasets  methods   base
+##
 ## other attached packages:
-## [1] PMCMRplus_1.4.4         ggplot2_3.3.0           gmodels_2.18.1         
-## [4] knitr_1.28              requirements_0.0.0.9000 remotes_2.1.1          
-## 
+## [1] FSA_0.8.32              ggplot2_3.3.3           gmodels_2.18.1
+## [4] knitr_1.31              requirements_0.0.0.9000 remotes_2.2.0
+##
 ## loaded via a namespace (and not attached):
-##  [1] gmp_0.5-13.6       Rcpp_1.0.4.6       compiler_4.0.0     pillar_1.4.4      
-##  [5] kSamples_1.2-9     tools_4.0.0        digest_0.6.25      memoise_1.1.0     
-##  [9] evaluate_0.14      lifecycle_0.2.0    tibble_3.0.1       gtable_0.3.0      
-## [13] pkgconfig_2.0.3    rlang_0.4.6        yaml_2.2.1         mvtnorm_1.1-0     
-## [17] xfun_0.13          Rmpfr_0.8-1        withr_2.2.0        stringr_1.4.0     
-## [21] dplyr_0.8.5        SuppDists_1.1-9.5  vctrs_0.3.0        gtools_3.8.2      
-## [25] grid_4.0.0         tidyselect_1.1.0   glue_1.4.0         R6_2.4.1          
-## [29] rmarkdown_2.1      gdata_2.18.0       purrr_0.3.4        magrittr_1.5      
-## [33] scales_1.1.0       htmltools_0.4.0    ellipsis_0.3.0     MASS_7.3-51.6     
-## [37] BWStest_0.2.2      assertthat_0.2.1   colorspace_1.4-1   multcompView_0.1-8
-## [41] stringi_1.4.6      munsell_0.5.0      crayon_1.3.4
+##  [1] Rcpp_1.0.6        plyr_1.8.6        compiler_4.0.5    pillar_1.5.1
+##  [5] tools_4.0.5       digest_0.6.27     evaluate_0.14     lifecycle_1.0.0
+##  [9] tibble_3.1.0      gtable_0.3.0      pkgconfig_2.0.3   rlang_0.4.10
+## [13] DBI_1.1.1         yaml_2.2.1        xfun_0.22         withr_2.4.1
+## [17] stringr_1.4.0     dplyr_1.0.5       generics_0.1.0    vctrs_0.3.7
+## [21] gtools_3.8.2      grid_4.0.5        tidyselect_1.1.0  glue_1.4.2
+## [25] R6_2.5.0          fansi_0.4.2       rmarkdown_2.7     gdata_2.18.0
+## [29] purrr_0.3.4       magrittr_2.0.1    scales_1.1.1      htmltools_0.5.1.1
+## [33] ellipsis_0.3.1    MASS_7.3-53.1     assertthat_0.2.1  colorspace_2.0-0
+## [37] utf8_1.2.1        stringi_1.5.3     munsell_0.5.0     crayon_1.4.1
 ~~~
 {: .output}
-

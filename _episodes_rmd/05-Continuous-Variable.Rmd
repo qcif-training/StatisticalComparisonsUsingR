@@ -249,6 +249,12 @@ by(gallstones$Height, gallstones$Gender, sd)
 by(gallstones$Diam, gallstones$Rec, median)
 by(gallstones$Diam, gallstones$Rec, IQR)
 ```
+```{r}
+# Many of the summary statistics can be calculated in one step with the FSA 
+# Summarize function
+library(FSA)
+Summarize(gallstones$Height~gallstones$Gender)
+```
 
 ## Paired samples
 If data is paired, that is, it is the same samples under two different 

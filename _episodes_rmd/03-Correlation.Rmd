@@ -72,9 +72,10 @@ scatter plots
 
 ```{r eval=FALSE}
 plot(gallstones$Height, gallstones$Weight, 
-     xlab = "Height", 
+     xlab = "Height",
      ylab = "Weight",
-     main = "Plot of patient weight against height")
+     cex.lab=0.8, cex.main=1,pch=1, # Set some plot formatting
+     main="Scatter-plot of weight against height")
 ```
 ![RStudio layout](../fig/03-fig2.png)
 
@@ -112,13 +113,17 @@ ggplot(gallstones, aes(x = Height, y = Weight)) +
 > > > comparisons at once
 > > > ```{r eval=FALSE}
 > > > par(mfrow=c(4,4))
+> > > # Note - this 4x4 arrangement may not display properly if you are using
+> > > # a small screen. Try maximising the plot window before displaying
+> > > # Alternatively use par(mfrow=c(2,2)) - this will generate 4 panes of plots
+> > > # which you can scroll though using the arrows at the top of the panel
 > > > for (data1 in c("Age","Height","Weight","BMI")) {
 > > >   for (data2 in c("Age","Height","Weight","BMI")) {
 > > >     plot(gallstones[,data1], gallstones[,data2], xlab=data1, ylab=data2)
 > > >   }
 > > > }
-> > > # Once you've looked at the graphs, set the plot option back to just 1x1
-> > > par(mfrow=c(1,1)) 
+> > > # Once you've looked at the graphs, reset the plotting layout
+> > > dev.off()
 > > > ```
 > > {: .callout}
 > {: .solution}
@@ -231,17 +236,7 @@ correlation is significantly different from zero.
 > >      main="Plot of dissolution time against diameter"
 > > )
 > > ```
-> > There is no obvious sign of correlation, but both variables are skewed
-> > towards the low end of values. We can log-transform the axes to make the 
-> > data more evenly distributed.
-> > ```{r eval=FALSE}
-> > plot(gallstones$Diam, gallstones$Dis,
-> >      xlab="Diameter", ylab="Dissolution time",
-> >      main="Plot of dissolution time against diameter",
-> >      log="xy"
-> > )
-> > ```
-> > Still no obvious correlation, but we can confirm that mathematically
+> > There is no obvious sign of correlation, but we can confirm that mathematically
 > > ```{r eval=FALSE}
 > > # Test data for normality
 > > hist(gallstones$Diam)

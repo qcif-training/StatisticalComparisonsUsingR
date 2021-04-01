@@ -97,9 +97,14 @@ the recurrence of gallstones.
 
 ```{r}
 # Summarise the data into a table.
-counts <- table(gallstones$Obese, gallstones$Rec)
+counts <- table(gallstones$Rec, gallstones$Obese)
 counts
+addmargins(counts)
+# Displaying as proportions may be easier to interpret than counts
+round(prop.table(table(gallstones$Rec, gallstones$Obese), margin = 2)*100,2) 
 ```
+
+Obese patients had a 63.6% chance of recurrence, non-obese patients only 34.6%
 
 ```{r eval=FALSE}
 # Plots are generally easier to interpret than tables, so review data as a 
@@ -121,6 +126,7 @@ ggplot(gallstones, aes(Obese, fill=Rec)) +
         plot.title = element_text(size=18, face="bold")) +
   ylab("proportion") +
   ggtitle("Obesity vs. Recurrence") 
+
 ```
 ![RStudio layout](../fig/04-fig2.png)
 
@@ -203,7 +209,7 @@ statistical power to detect a relationship.
 > > 
 > > ```{r eval=FALSE}
 > > # Create the initial counts table
-> > counts2 <- table(gallstones$Treatment, gallstones$Rec)
+> > counts2 <- table(gallstones$Rec, gallstones$Treatment)
 > > counts2
 > >
 > > # Plot using barplot
@@ -232,3 +238,4 @@ statistical power to detect a relationship.
 > > an effect on recurrence rate
 > {: .solution}
 {: .challenge}
+

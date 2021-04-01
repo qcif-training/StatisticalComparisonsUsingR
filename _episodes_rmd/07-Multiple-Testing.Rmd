@@ -25,7 +25,7 @@ levels(gallstones$Alcohol.Consumption)<-c("NonAlcohol","Previous","Alcohol")
 levels(gallstones$Mult)<-c("Single","Multiple")
 library(gmodels)
 library(ggplot2)
-library(PMCMRplus)
+library(FSA)
 happiness <- read.csv("data/happiness.csv", stringsAsFactors = TRUE)
 ```
 
@@ -177,9 +177,6 @@ a given experimental design
 > > 
 > > # We have to perform a Mann-Whitney test 
 > > wilcox.test(gallstones$Age~gallstones$Rec)
-> > 
-> > # We can compare with a T-test
-> > t.test(gallstones$Age~gallstones$Rec)
 > > 
 > > # Boxplots to visualise
 > > plot(gallstones$Age~gallstones$Rec,col=c("red","blue"),ylab="Age",

@@ -14,7 +14,7 @@ keypoints:
 - "Identify situations needing multiple sample tests and choose the relevant 
 test using the decision tree" 
 - "Perform multi-group testing using `aov` and `kruskal.test`"
-- "Perform and interpret post hoc tests using `TukeyHSD` and `kwAllPairsDunnTest`"
+- "Perform and interpret post hoc tests using `TukeyHSD` and `dunn.test`"
 - "Study interactions using `interaction.plot` and `aov`"
 - "Check model assumptions using `plot`"
 
@@ -33,6 +33,7 @@ levels(gallstones$Alcohol.Consumption)<-c("NonAlcohol","Previous","Alcohol")
 levels(gallstones$Mult)<-c("Single","Multiple")
 library(gmodels)
 library(ggplot2)
+library(FSA)
 ```
 
 ## Comparison of multiple groups
@@ -107,6 +108,7 @@ patients. So based on the decision tree, the appropriate test is either one-way
 ANOVA or Kruskal-Wallis test. The choice between these is made depending on 
 whether the data is normally distributed or not
 ```{r}
+table(gallstones$Alcohol.Consumption)
 by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ```
 
@@ -119,7 +121,7 @@ analysis
 kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
 ```{r eval=FALSE}
-plot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
+boxplot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
 
 ![RStudio layout](../fig/06-fig3.png)
@@ -151,10 +153,7 @@ which (if any) are different.
 
 ```{r}
 # Dunn's test, since we used Kruskal-Wallis for the initial analysis
-library(PMCMRplus)
-dunn.tab <- kwAllPairsDunnTest(x=gallstones$Weight, g=as.integer(gallstones$Alcohol.Consumption), 
-                   p.adjust.method="bonferroni")
-summary(dunn.tab)
+dunnTest(gallstones$Weight~gallstones$Alcohol.Consumption, method = "bonferroni")
 ```
 
 The output shows a pairwise comparison and associated p-value for each combination
@@ -182,14 +181,13 @@ p-value reported for each pairwise comparison
 > > ```{r eval = FALSE}
 > > # Create a copy of the gallstones data frame so as not to break things later
 > > dummy_data <- gallstones
-> > # Double the weight for Alcohol.Consumption category 3
-> > ac_three <- which(gallstones$Weight == 3)
+> > # Double the weight for Alcohol.Consumption category 'Alcohol'
+> > ac_three <- which(gallstones$Alcohol.Consumption == 'Alcohol')
 > > dummy_data[ac_three, "Weight"] <- 2 * dummy_data[ac_three, "Weight"]
 > > # Then do the testing
 > > kruskal.test(dummy_data$Weight ~ dummy_data$Alcohol.Consumption)
-> > dunn.tab <- kwAllPairsDunnTest(x=dummy_data$Weight, g=dummy_data$Alcohol.Consumption,
-> >                    p.adjust.method="bonferroni")
-> > summary(dunn.tab)
+> > dunnTest(dummy_data$Weight~dummy_data$Alcohol.Consumption, 
+> >                    method = "bonferroni")
 > > ```
 > {: .solution}
 {: .challenge}
@@ -335,13 +333,12 @@ units.
 After fitting an ANOVA model it is important to always check the relevant model
 assumptions. This includes making QQ-plots and residual plots
 ```{r eval = FALSE}
+par(mfrow=c(2,2))
 plot(result)
 ```
 
 ![RStudio layout](../fig/06-fig9.png)
-![RStudio layout](../fig/06-fig10.png)
-![RStudio layout](../fig/06-fig11.png)
-![RStudio layout](../fig/06-fig12.png)
+
 
 #### Characteristics of a well-behaved residual vs. fits plot
 1. The residuals "bounce randomly" around the 0 line. This suggests that the 
@@ -360,8 +357,8 @@ residuals are considered to be normally distributed.
 2. If some points are far from the line have a deeper look to see if they are 
 outliers.
 
-In this case, it appears that there is a deviation from normality because many
-of the points do not fall on the straight line.
+***In this case, it appears that there is a deviation from normality because 
+many of the points do not fall on the straight line.***
  
 #### Scale location plot
 Square root of the standardized residuals (sort of a square root of relative 
