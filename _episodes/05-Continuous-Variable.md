@@ -369,6 +369,16 @@ Summarize(gallstones$Height~gallstones$Gender)
 ~~~
 {: .output}
 
+```r
+Summarize(gallstones$Diam~gallstones$Rec)
+```
+~~~
+##   gallstones$Rec  n     mean       sd min Q1 median Q3 max
+## 1   NoRecurrence 21 12.42857 7.440238   3  6   10.0 18  27
+## 2     Recurrence 16 10.06250 6.180278   4  5    8.5 14  26
+~~~
+{: .output}
+
 ## Paired samples
 If data is paired, that is, it is the same samples under two different
 conditions, we can take advantage of that to carry out statistical tests with
