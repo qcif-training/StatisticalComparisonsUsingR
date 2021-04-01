@@ -254,6 +254,7 @@ by(gallstones$Diam, gallstones$Rec, IQR)
 # Summarize function
 library(FSA)
 Summarize(gallstones$Height~gallstones$Gender)
+Summarize(gallstones$Diam~gallstones$Rec)
 ```
 
 ## Paired samples

@@ -359,15 +359,6 @@ by(gallstones$Diam, gallstones$Rec, IQR)
 # Many of the summary statistics can be calculated in one step with the FSA
 # Summarize function
 library(FSA)
-```
-
-~~~
-## ## FSA v0.8.32. See citation('FSA') if used in publication.
-## ## Run fishR() for related website and fishR('IFAR') for related book.
-~~~
-{: .output}
-
-```r
 Summarize(gallstones$Height~gallstones$Gender)
 ```
 
