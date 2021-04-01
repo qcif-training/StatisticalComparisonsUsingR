@@ -193,9 +193,9 @@ The one-way ANOVA and Kruskal-Wallis tests only identify that one (or more) of
 the groups has a significant difference to the others. To go further, we would
 want to identify which group(s) were different. For this we would use a
 **_Post-hoc_ test**, either Tukeys' HSD for ANOVA or Dunn's test (in the
-PMCMRplus package) for Kruskal-Wallis. This performs a multiple-testing
-corrected pairwise comparison between each combination of groups to highlight
-which (if any) are different.
+FSA package) for Kruskal-Wallis. This performs a multiple-testing corrected
+pairwise comparison between each combination of groups to highlight which (if
+any) are different.
 
 
 ```r
