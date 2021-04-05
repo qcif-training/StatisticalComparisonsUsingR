@@ -14,7 +14,7 @@ keypoints:
 - "Identify situations needing multiple sample tests and choose the relevant 
 test using the decision tree" 
 - "Perform multi-group testing using `aov` and `kruskal.test`"
-- "Perform and interpret post hoc tests using `TukeyHSD` and `dunn.test`"
+- "Perform and interpret post hoc tests using `TukeyHSD` and `dunnTest`"
 - "Study interactions using `interaction.plot` and `aov`"
 - "Check model assumptions using `plot`"
 
