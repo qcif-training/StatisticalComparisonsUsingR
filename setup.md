@@ -19,7 +19,7 @@ __Install Packages__
 The following packages are required during the workshop and must be installed beforehand:
 * ggplot2
 * gmodels
-* PMCMRplus
+* FSA
 * DescTools
 
-To install packages, use the command `install.packages("PACKAGE_NAME")`, substituting PACKAGE_NAME with the name of the required package (this is case sensitive). To install all three packages in a single command run `install.packages(c("ggplot2", "gmodels", "PMCMRplus", "DescTools"))`. If you are asked whether to install packages from source, select "No".
+To install packages, use the command `install.packages("PACKAGE_NAME")`, substituting PACKAGE_NAME with the name of the required package (this is case sensitive). To install all three packages in a single command run `install.packages(c("ggplot2", "gmodels", "FSA", "DescTools"))`. If you are asked whether to install packages from source, select "No".
