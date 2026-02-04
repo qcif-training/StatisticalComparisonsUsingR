@@ -43,7 +43,7 @@ chance of making a type I error - incorrectly rejecting H<sub>0</sub>. When
 performing multiple tests, that probability of error applies for each individual
 comparison, so the more tests performed, the higher likelihood of a type I error.
 
-In our example three-way comparison with signficance threshold of 0.05:
+In our example three-way comparison with significance threshold of 0.05:
 * Prob(making no mistake) = 0.95 x 0.95 x 0.95 = 0.857
 * Prob(making a mistake) = 1 - 0.857 = 0.143
 
@@ -76,7 +76,7 @@ on a vector of p-values.
 # Create a vector of multiple p-values to be tested
 # Note, most of these *individually* meet the significance threshold of <0.05
 pval <- c(0.02, 0.01, 0.05, 0.04, 0.1, 0.6, 0.5, 0.03, 0.005, 0.0005)
-# False Discovery Rate correction - only three tests remain signficant
+# False Discovery Rate correction - only three tests remain significant
 # And round to 3 decimal places for neater display
 round(p.adjust(pval, method = 'fdr'),3)
 # Bonferroni correction - now only one remains significant

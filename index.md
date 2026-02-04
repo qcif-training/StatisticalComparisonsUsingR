@@ -22,7 +22,7 @@ Topics covered during the workshop will include:
 <ul>
 	<li>An introduction to hypothesis testing terminology</li>
 	<li>Correlation analysis between two continuous variables</li>
-	<li>Statistical tests for both categorial and continuous variables</li>
+	<li>Statistical tests for both categorical and continuous variables</li>
 	<li>ANOVA - testing with more than two groups</li>
 </ul>
 <!-- This is an html comment -->
