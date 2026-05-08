@@ -4,13 +4,16 @@
 title: "Review of Variable Terminology"
 teaching: 15
 exercises: 5
+questions:
+- "What are the different terminology variables?"
+- "What are measures of central tendency and variability?"
 objectives:
 - "Define terminology variables"
 - "Review measures of central tendency and variability"
 - "Review visualisation techniques such as box plots and histograms"
 keypoints:
 - "Understand the terminology variables that will be referenced in this workshop"
-- "Underastand how to calculate measures of central tendency and variability"
+- "Understand how to calculate measures of central tendency and variability"
 - "Understand that box plots and histograms can be used to visualise data spread"
 - "Understand the normal distribution and why normality tests are an important step in conducting statistical comparisons"
 output: html_document
@@ -26,23 +29,23 @@ Variables are the quantities measured in a sample. They may be classified as:
 
   - Continuous (e.g. age, patient cholesterol levels)
 
-  ![RStudio layout](../fig/00-fig1.png){width=70%}
+  ![RStudio layout](../fig/00-fig1.png)
 
   - Discrete (take a finite number of values)
 
-  ![RStudio layout](../fig/00-fig2.png){width=70%}
+  ![RStudio layout](../fig/00-fig2.png)
 
 – Categorical
 
   - Nominal (e.g. gender, blood group)
 
-  ![RStudio layout](../fig/00-fig3.png){width=70%}
+  ![RStudio layout](../fig/00-fig3.png)
 
   - Ordinal (ranked e.g. mild, moderate or severe illness)
 
-  ![RStudio layout](../fig/00-fig4.png){width=70%}
-  
-    - Often ordinal variables are re-coded to be quantitative.
+  ![RStudio layout](../fig/00-fig4.png)
+
+_Note: Often ordinal variables are re-coded to be quantitative._
 
 ## Measures of Central Tendency and variability
 
@@ -56,7 +59,7 @@ Numerical descriptive measures include:
 The mean is the sum of measurements divided by the total number of measurements. If the data are arranged in increasing order, the median is:
 
 - the middle value if n is an odd number, or
-the midway between the two middle values if n is an even number
+- the midway between the two middle values if n is an even number
 
 The mode is the most commonly occurring value (value with the highest frequency).
 
@@ -64,12 +67,14 @@ The mode is the most commonly occurring value (value with the highest frequency)
 > The systolic blood pressure of seven middle aged men were as follows:
 > 151, 124, 132, 170, 146, 124 and 113
 >
-> **Mean:**
-> $$\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$$
+> **Mean:** $\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$
 >
-> **Median:** 113, 124, 124, **132**, 146, 151, 170
+> **Median:**
+>
+> 113, 124, 124, **132**, 146, 151, 170
 >
 > **Mode:**
+>
 > | 113 | **124** | 132 | 146 | 151 | 170 |
 > |-----|---------|-----|-----|-----|-----|
 > | 1   | **2**   | 1   | 1   | 1   | 1   |
@@ -100,7 +105,7 @@ The sample variance, s², is the arithmetic mean of the squared deviations from 
 
 $$s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}$$
 
-![RStudio layout](../fig/00-fig5.png){width=50%}
+![RStudio layout](../fig/00-fig5.png)
 
 The sample standard deviation, s, is the square-root of the variance.
 
@@ -129,42 +134,40 @@ The interquartile range (IQR) is the difference between the first and third quar
 
 A box-plot is a visual description of the distribution based on:
 
-– Minimum
-– Q1
-– Median
-– Q3
-– Maximum
+- Minimum
+- Q1
+- Median
+- Q3
+- Maximum
 
 Box-plots are useful for comparing samples from several different treatments or population.
 
-![RStudio layout](../fig/00-fig6.png){width=50%}
+![RStudio layout](../fig/00-fig6.png)
 
 ## Histograms
 
-A histogram is used to display the distribution of quantitative data in which the values are broken in a number of bins.
-The histogram is obtained by drawing rectangles in which the bases are the bins intervals and the heights are the counts in each bin.
+A histogram is used to display the distribution of quantitative data in which the values are broken in a number of bins. The histogram is obtained by drawing rectangles in which the bases are the bins intervals and the heights are the counts in each bin.
 
-Histograms are usually accompanied by a Probability Density Function, which is used for calculating the probabilities for continuous random variables 
-and represents the density of probability for a continuous random variable over the specified ranges.
+Histograms are usually accompanied by a Probability Density Function, which is used for calculating the probabilities for continuous random variables and represents the density of probability for a continuous random variable over the specified ranges.
 
-![RStudio layout](../fig/00-fig7.png){width=80%}
+![RStudio layout](../fig/00-fig7.png)
 
 ## The Normal Distribution
 
-Many variables of interest follow a normal distribution (e.g. age, height, weight, …). The normal distribution has a symmetric bell-shaped density curve,
-and is characterised by two parameters:
+Many variables of interest follow a normal distribution (e.g. age, height, weight, …). The normal distribution has a symmetric bell-shaped density curve, and is characterised by two parameters:
 
 1. the mean µ
 2. standard deviation σ
 
 X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation):
-$X \sim N(\mu, \sigma)$
 
-![RStudio layout](../fig/00-fig8.png){width=60%}
+$$X \sim N(\mu, \sigma)$$
+
+![RStudio layout](../fig/00-fig8.png)
 
 ### Measures of variability: Which one to use?
 
-![RStudio layout](../fig/00-fig9.png){width=50%}
+![RStudio layout](../fig/00-fig9.png)
 
 | Type of variable | Best measure of central tendency | Best measure of spread |
 |---|---|---|
@@ -173,17 +176,15 @@ $X \sim N(\mu, \sigma)$
 
 ### Tests for normality and variance equivalence
 
-If our outcome variable is continuous and we are measuring it between two or more groups, then there are two additional tests that will need to be performed
-to help us identify which is the correct statistical test to test the hypothesis on.
+If our outcome variable is continuous and we are measuring it between two or more groups, then there are two additional tests that will need to be performed to help us identify which is the correct statistical test to test the hypothesis on.
 
 1. **The Shapiro-Wilks’ test of Normality**
 2. **The Levene’s test of Equality of Variances**
 
-Normal distribution: How to know?
+#### Normal distribution: How to know?
 
 To assess whether or not a random sample is selected from a normal distribution:
 
 - Normal probability plot (quantile-quantile plot) to visualize the normality of the data
-- Shapiro-Wilk test:
+- Shapiro-Wilk test: H<sub>0</sub>: x<sub>1</sub>, …, x<sub>n</sub> are from a normally distributed population
 
-H<sub>0</sub>: x<sub>1</sub>, …, x<sub>n</sub> are from a normally distributed population
