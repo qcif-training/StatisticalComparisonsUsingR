@@ -74,9 +74,13 @@ The systolic blood pressure of seven middle aged men were as follows:
 
 **Mode:**
 
+<div style="width: fit-content;">
+
 | 113 | **124** | 132 | 146 | 151 | 170 |
 |:---:|:-------:|:---:|:---:|:---:|:---:|
 | 1   | **2**   | 1   | 1   | 1   | 1   |
+
+</div>
 
 ### Measures of variability
 
@@ -91,11 +95,15 @@ The sample range is the difference between the largest and smallest observations
 
 Using blood pressure:
 
+<div style="width: fit-content;">
+
 | | |
 |---|---|
 | Min | 113 mmHg |
 | Max | 170 mmHg |
 | **Range** | **57 mmHg** |
+
+</div>
 
 This is useful for the “best” and “worst” case scenarios.
 
@@ -112,23 +120,23 @@ The sample standard deviation, s, is the square-root of the variance.
 Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
 
 **Range:**
-$\text{Max} - \text{Min} = 170 - 113 = 57$
+$$\text{Max} - \text{Min} = 170 - 113 = 57$$
 
 **Mean:**
-$\bar{x} = 137.14$
+$$\bar{x} = 137.14$$
 
 **Variance:**
 $$s^2 = \frac{(151-137.14)^2 + (124-137.14)^2 + \cdots}{7-1} \approx 384.14$$
 
 **Standard deviation:**
-$s = \sqrt{384.14} \approx 19.60$
+$$s = \sqrt{384.14} \approx 19.60$$
 
 #### Interquartile range
 
 The Median divides a distribution into two halves. The first and third quartiles (denoted Q₁ and Q₃) are defined as follows:
 
-– 25% of the data lie below Q₁ (and 75% is above Q₁),
-– 25% of the data lie above Q₃ (and 75% is below Q₃)
+- 25% of the data lie below Q₁ (and 75% is above Q₁),
+- 25% of the data lie above Q₃ (and 75% is below Q₃)
 
 The interquartile range (IQR) is the difference between the first and third quartiles: IQR = Q₃- Q₁.
 
@@ -161,7 +169,7 @@ Many variables of interest follow a normal distribution (e.g. age, height, weigh
 1. the mean µ
 2. standard deviation σ
 
-X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation): $X \sim N(\mu, \sigma)$
+X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation): $$X \sim N(\mu, \sigma)$$
 
 ![RStudio layout](../fig/00-fig8.png)
 
@@ -169,10 +177,14 @@ X follows a Normal distribution with the parameters μ (mean) and σ (standard d
 
 ![RStudio layout](../fig/00-fig9.png)
 
+<div style="width: fit-content;">
+
 | Type of variable | Best measure of central tendency | Best measure of spread |
 |---|---|---|
 | Interval/ratio (not skewed) | Mean | Standard deviation |
 | Interval/ratio (skewed) | Median | Range or inter-quartile range |
+
+</div>
 
 ### Tests for normality and variance equivalence
 
