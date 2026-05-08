@@ -26,21 +26,21 @@ Variables are the quantities measured in a sample. They may be classified as:
 
   - Continuous (e.g. age, patient cholesterol levels)
 
-  ![RStudio layout](../fig/00-fig1.png)
+  ![RStudio layout](../fig/00-fig1.png){width=70%}
 
   - Discrete (take a finite number of values)
 
-  ![RStudio layout](../fig/00-fig2.png)
+  ![RStudio layout](../fig/00-fig2.png){width=70%}
 
 – Categorical
 
   - Nominal (e.g. gender, blood group)
 
-  ![RStudio layout](../fig/00-fig3.png)
+  ![RStudio layout](../fig/00-fig3.png){width=70%}
 
   - Ordinal (ranked e.g. mild, moderate or severe illness)
 
-  ![RStudio layout](../fig/00-fig4.png)
+  ![RStudio layout](../fig/00-fig4.png){width=70%}
   
     - Often ordinal variables are re-coded to be quantitative.
 
@@ -63,13 +63,13 @@ The mode is the most commonly occurring value (value with the highest frequency)
 > ## Example: Calculating measures of central tendency
 > The systolic blood pressure of seven middle aged men were as follows:
 > 151, 124, 132, 170, 146, 124 and 113
+>
 > **Mean:**
 > $$\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$$
 >
 > **Median:** 113, 124, 124, **132**, 146, 151, 170
 >
 > **Mode:**
->
 > | 113 | **124** | 132 | 146 | 151 | 170 |
 > |-----|---------|-----|-----|-----|-----|
 > | 1   | **2**   | 1   | 1   | 1   | 1   |
@@ -100,17 +100,20 @@ The sample variance, s², is the arithmetic mean of the squared deviations from 
 
 $$s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}$$
 
-![RStudio layout](../fig/00-fig5.png)
+![RStudio layout](../fig/00-fig5.png){width=50%}
 
 The sample standard deviation, s, is the square-root of the variance.
 
 > ## Example: Calculating measures of variability
 > Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
 >
-> - **Range:** $\text{Max} - \text{Min} = 170 - 113 = 57$
-> - **Mean:** $\bar{x} = 137.14$
-> - **Variance:** $s^2 = \frac{(151-137.14)^2 + (124-137.14)^2 + \cdots}{7-1} \approx 384.14$
-> - **Standard deviation:** $s = \sqrt{384.14} \approx 19.60$
+> **Range:** $\text{Max} - \text{Min} = 170 - 113 = 57$
+>
+> **Mean:** $\bar{x} = 137.14$
+>
+> **Variance:** $s^2 = \frac{(151-137.14)^2 + (124-137.14)^2 + \cdots}{7-1} \approx 384.14$
+>
+> **Standard deviation:** $s = \sqrt{384.14} \approx 19.60$
 {: .callout}
 
 #### Interquartile range
@@ -134,7 +137,7 @@ A box-plot is a visual description of the distribution based on:
 
 Box-plots are useful for comparing samples from several different treatments or population.
 
-![RStudio layout](../fig/00-fig6.png)
+![RStudio layout](../fig/00-fig6.png){width=50%}
 
 ## Histograms
 
@@ -144,21 +147,24 @@ The histogram is obtained by drawing rectangles in which the bases are the bins 
 Histograms are usually accompanied by a Probability Density Function, which is used for calculating the probabilities for continuous random variables 
 and represents the density of probability for a continuous random variable over the specified ranges.
 
-![RStudio layout](../fig/00-fig7.png)
+![RStudio layout](../fig/00-fig7.png){width=80%}
 
 ## The Normal Distribution
 
 Many variables of interest follow a normal distribution (e.g. age, height, weight, …). The normal distribution has a symmetric bell-shaped density curve,
-and is characterised by two parameters: 1) the mean µ, and 2) standard deviation σ.
+and is characterised by two parameters:
+
+1. the mean µ
+2. standard deviation σ
 
 X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation):
 $X \sim N(\mu, \sigma)$
 
-![RStudio layout](../fig/00-fig8.png)
+![RStudio layout](../fig/00-fig8.png){width=60%}
 
 ### Measures of variability: Which one to use?
 
-![RStudio layout](../fig/00-fig9.png)
+![RStudio layout](../fig/00-fig9.png){width=50%}
 
 | Type of variable | Best measure of central tendency | Best measure of spread |
 |---|---|---|
