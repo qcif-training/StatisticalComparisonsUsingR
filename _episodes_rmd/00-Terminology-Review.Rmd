@@ -26,7 +26,7 @@ Variables are the quantities measured in a sample. They may be classified as:
 
   - Continuous (e.g. age, patient cholesterol levels)
 
-  ![RStudio layout](../fig/00-fig1.png){width=70%}
+  ![RStudio layout](../fig/00-fig1.png){width="70%"}
 
   - Discrete (take a finite number of values)
 
