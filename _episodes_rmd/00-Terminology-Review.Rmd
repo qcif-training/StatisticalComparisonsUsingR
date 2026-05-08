@@ -63,22 +63,20 @@ The mean is the sum of measurements divided by the total number of measurements.
 
 The mode is the most commonly occurring value (value with the highest frequency).
 
-> ## Example: Calculating measures of central tendency
-> The systolic blood pressure of seven middle aged men were as follows:
-> 151, 124, 132, 170, 146, 124 and 113
->
-> **Mean:** $\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$
->
-> **Median:**
->
-> 113, 124, 124, **132**, 146, 151, 170
->
-> **Mode:**
->
-> | 113 | **124** | 132 | 146 | 151 | 170 |
-> |-----|---------|-----|-----|-----|-----|
-> | 1   | **2**   | 1   | 1   | 1   | 1   |
-{: .callout}
+## Example: Calculating measures of central tendency
+
+The systolic blood pressure of seven middle aged men were as follows:
+151, 124, 132, 170, 146, 124 and 113
+
+**Mean:** $\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$
+
+**Median:** 113, 124, 124, **132**, 146, 151, 170
+
+**Mode:**
+
+| 113 | **124** | 132 | 146 | 151 | 170 |
+|:---:|:-------:|:---:|:---:|:---:|:---:|
+| 1   | **2**   | 1   | 1   | 1   | 1   |
 
 ### Measures of variability
 
@@ -109,17 +107,21 @@ $$s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}$$
 
 The sample standard deviation, s, is the square-root of the variance.
 
-> ## Example: Calculating measures of variability
-> Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
->
-> **Range:** $\text{Max} - \text{Min} = 170 - 113 = 57$
->
-> **Mean:** $\bar{x} = 137.14$
->
-> **Variance:** $s^2 = \frac{(151-137.14)^2 + (124-137.14)^2 + \cdots}{7-1} \approx 384.14$
->
-> **Standard deviation:** $s = \sqrt{384.14} \approx 19.60$
-{: .callout}
+## Example: Calculating measures of variability
+
+Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
+
+**Range:**
+$\text{Max} - \text{Min} = 170 - 113 = 57$
+
+**Mean:**
+$\bar{x} = 137.14$
+
+**Variance:**
+$$s^2 = \frac{(151-137.14)^2 + (124-137.14)^2 + \cdots}{7-1} \approx 384.14$$
+
+**Standard deviation:**
+$s = \sqrt{384.14} \approx 19.60$
 
 #### Interquartile range
 
@@ -159,9 +161,7 @@ Many variables of interest follow a normal distribution (e.g. age, height, weigh
 1. the mean µ
 2. standard deviation σ
 
-X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation):
-
-$$X \sim N(\mu, \sigma)$$
+X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation): $X \sim N(\mu, \sigma)$
 
 ![RStudio layout](../fig/00-fig8.png)
 
