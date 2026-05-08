@@ -63,24 +63,21 @@ The mean is the sum of measurements divided by the total number of measurements.
 
 The mode is the most commonly occurring value (value with the highest frequency).
 
-## Example: Calculating measures of central tendency
+### Example: Calculating measures of central tendency
 
 The systolic blood pressure of seven middle aged men were as follows:
 151, 124, 132, 170, 146, 124 and 113
 
-**Mean:** $\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$
+**Mean:**
+$$\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$$
 
 **Median:** 113, 124, 124, **132**, 146, 151, 170
 
 **Mode:**
 
-<div style="width: fit-content;">
-
 | 113 | **124** | 132 | 146 | 151 | 170 |
 |:---:|:-------:|:---:|:---:|:---:|:---:|
 | 1   | **2**   | 1   | 1   | 1   | 1   |
-
-</div>
 
 ### Measures of variability
 
@@ -95,15 +92,11 @@ The sample range is the difference between the largest and smallest observations
 
 Using blood pressure:
 
-<div style="width: fit-content;">
-
 | | |
 |---|---|
 | Min | 113 mmHg |
 | Max | 170 mmHg |
 | **Range** | **57 mmHg** |
-
-</div>
 
 This is useful for the “best” and “worst” case scenarios.
 
@@ -115,7 +108,7 @@ $$s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}$$
 
 The sample standard deviation, s, is the square-root of the variance.
 
-## Example: Calculating measures of variability
+### Example: Calculating measures of variability
 
 Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
 
@@ -131,7 +124,7 @@ $$s^2 = \frac{(151-137.14)^2 + (124-137.14)^2 + \cdots}{7-1} \approx 384.14$$
 **Standard deviation:**
 $$s = \sqrt{384.14} \approx 19.60$$
 
-#### Interquartile range
+### Interquartile range
 
 The Median divides a distribution into two halves. The first and third quartiles (denoted Q₁ and Q₃) are defined as follows:
 
@@ -177,14 +170,10 @@ X follows a Normal distribution with the parameters μ (mean) and σ (standard d
 
 ![RStudio layout](../fig/00-fig9.png)
 
-<div style="width: fit-content;">
-
 | Type of variable | Best measure of central tendency | Best measure of spread |
 |---|---|---|
 | Interval/ratio (not skewed) | Mean | Standard deviation |
 | Interval/ratio (skewed) | Median | Range or inter-quartile range |
-
-</div>
 
 ### Tests for normality and variance equivalence
 
@@ -193,7 +182,7 @@ If our outcome variable is continuous and we are measuring it between two or mor
 1. **The Shapiro-Wilks’ test of Normality**
 2. **The Levene’s test of Equality of Variances**
 
-#### Normal distribution: How to know?
+### Normal distribution: How to know?
 
 To assess whether or not a random sample is selected from a normal distribution:
 
