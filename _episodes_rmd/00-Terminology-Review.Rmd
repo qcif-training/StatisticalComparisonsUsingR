@@ -166,7 +166,11 @@ Box-plots are useful for comparing samples from several different treatments or 
 
 A histogram is used to display the distribution of quantitative data in which the values are broken in a number of bins. The histogram is obtained by drawing rectangles in which the bases are the bins intervals and the heights are the counts in each bin.
 
+Frequency histogram:
+
 ![RStudio layout](../fig/00-fig8.png)
+
+Relative frequency histogram:
 
 ![RStudio layout](../fig/00-fig9.png)
 
@@ -229,7 +233,10 @@ Before log-transformation:
 
 ![RStudio layout](../fig/00-fig14.png)
 
+Shapiro-Wilk test results: p = 0.01 → non-normally distributed
+
 After log transformation:
 
 ![RStudio layout](../fig/00-fig15.png)
 
+Shapiro-Wilk test results: p = 0.89 → normally distributed
