@@ -140,8 +140,9 @@ The **interquartile range (IQR)** is the difference between the first and third 
 
 Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
 
-Q1 = $$N/4 = 7 / 4 = 1.75$$
-Q3 = $$3 x N/4 = 21 / 4 = 5.25$$
+Q1 = $$\frac{N}{4} = \frac{7}{4}= 1.75$$
+
+Q3 = $$3 \times \frac{N}{4} = \frac{21}{4} = 5.25$$
 
 ![RStudio layout](../fig/00-fig6.png)
 
@@ -171,7 +172,7 @@ A histogram is used to display the distribution of quantitative data in which th
 
 A relative frequency histogram represents the proportion of counts in each bin (total area of 1):
 
-$$\text{height} = \frac{\text{count}}{\text{width}x\text{total number}}$$ → first one: $$\text{height} = \frac{1}{20x7} \approx 0.007$$
+$$\text{height} = \frac{\text{count}}{\text{width} \times \text{total number}}$$ → first one: $$\text{height} = \frac{1}{20 \times 7} \approx 0.007$$
 
 Histograms are usually accompanied by a Probability Density Function, which is used for calculating the probabilities for continuous random variables and represents the density of probability for a continuous random variable over the specified ranges.
 
@@ -224,5 +225,11 @@ The log-transformation of data is very common, mostly to eliminate skew in data.
 
 Example:
 
-![RStudio layout](../fig/00-fig14.png) → ![RStudio layout](../fig/00-fig15.png)
+Before log-transformation:
+
+![RStudio layout](../fig/00-fig14.png)
+
+After log transformation:
+
+![RStudio layout](../fig/00-fig15.png)
 
