@@ -74,7 +74,7 @@ measurement variable, and one categorical variable (with three or more
 categories). 
 
 Assumptions for the one-way ANOVA are:
-* Independant samples
+* Independent samples
 * Normal distribution in each group
 * Homogeneity of variances
 
@@ -222,7 +222,7 @@ Prozac on the reported 'happiness score' of patients, and whether males and
 female patients respond differently.
 * Happiness score recorded for 24 patients
 * Patients randomised to either placebo or Prozac **treatment** (first factor)
-* Patients **gender** recorded (second factor)
+* Patients' **gender** recorded (second factor)
 
 Read the data in from the file "happiness.csv"
 ```{r}
@@ -306,7 +306,7 @@ it appears that Prozac is associated with higher happiness scores, but this
 should be confirmed with _post hoc_ testing.
 
 #### Gender
-The p-value for gender is not signficant, so there is not evidence for
+The p-value for gender is not significant, so there is not evidence for
 a gender effect on happiness; that is, there is no difference in happiness 
 levels between males and females.
 
@@ -326,7 +326,7 @@ The $Treatment section of this output supports our conclusion from the two-way
 ANOVA that Prozac increases happiness score, by an average of 1.6 happiness 
 units (95% CI: 0.95-2.3). The $Treatment:Gender section indicates that Prozac 
 has no effect on happiness in females (or at least, not a statistically 
-signficant effect), but in males it increases happiness by approximatey 3.0 
+significant effect), but in males it increases happiness by approximatey 3.0 
 units.
 
 ### Checking assumptions

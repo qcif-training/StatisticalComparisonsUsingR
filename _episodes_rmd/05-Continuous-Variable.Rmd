@@ -95,7 +95,7 @@ If data is normally distributed for **both** groups, we will generally use the
 Student's T-test. This compares the means of two groups measured on the same 
 continuous variable. Tests can be two-sided (testing whether the groups are not
 equal) or one-sided (testing either whether the second group is greater than or
-less that the first). As we discussed in the introduction, generally a two-sided
+less than the first). As we discussed in the introduction, generally a two-sided
 test is preferred unless there is a specific reason why a single-sided one is
 justified.
 
