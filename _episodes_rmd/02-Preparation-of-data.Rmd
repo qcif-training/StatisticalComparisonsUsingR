@@ -5,7 +5,7 @@ exercises: 10
 questions:
 - "How can I import a dataset into R?"
 objectives:
-- "Review the structure of a CSV datafile"
+- "Review the structure of a CSV data file"
 - "Read a CSV file into a dataframe"
 - "Manage the assignment of data as factors or character strings"
 keypoints:
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Prior to uploading any dataset into R for analysis, it is useful to review the 
 contents of that file to understand the structure of the data. This will allow
 you to choose the best data structure for your dataset, and will identify the 
-relevant command and settings you need when uploading the data to R. 
+relevant commands and settings you need when uploading the data to R. 
 
 For small files, like the one we are using today, this review can be done with a
 simple text editor, either an app on your computer or from within RStudio. For 
@@ -34,7 +34,7 @@ open and may even crash your computer. Such large files may have documentation
 explaining their format, or you may need to use the `head` function to look at 
 just the first part of the file.
 
-Today we will be working with a datafile based on a study into the effects of
+Today we will be working with a data file based on a study into the effects of
 treatment with the drug ursodeoxycholic acid on gallstones. This is based on a 
 real study ([Hood et al, 1993](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1375471/)).
 In this study, detailed follow-up records were kept for 93 patients receiving
@@ -60,19 +60,19 @@ data substituted for real patient information.
 > > * Height – patient’s height: numerical value in (probably) cm
 > > * Weight – patient’s weight: numerical value in (probably) kg
 > > * BMI – patient’s body mass index (weight/height in m<sup>2</sup>)
-> > * Obese – is the patient obese (BMI>30): 0=no, 1=yes;
-> > * Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker; 
+> > * Obese – is the patient obese (BMI>30): 0=no, 1=yes
+> > * Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker
 > > * Alcohol.Consumption – does the patient drink alcohol: 1=no, 2=previously,
-> > 3=currently; 
+> > 3=currently
 > > * Treatment – did the patient receive the ursodeoxycholic acid treatment: 
-> > 0=untreated, 1=treated; 
-> > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
+> > 0=untreated, 1=treated
+> > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence
 > > * Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
-> > stones; 
-> > * Diam – original gallstone diameter in mm; 
+> > stones
+> > * Diam – original gallstone diameter in mm
 > > * Dis – time in months for gallstone dissolution
 > > 
-> > There are a total of 37 patient records in this file
+> > There are a total of 37 patient records in this file.
 > {: .solution}
 {: .challenge}
 
@@ -97,7 +97,7 @@ dataset.
 gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
 ```
 
-Now the file is uploaded, you can find out more about this dataset using the 
+Now that the file has been uploaded, you can find out more about this dataset using the 
 `head`, `str` and `summary` functions.
 ```{r}
 head(gallstones)
@@ -109,7 +109,7 @@ summary(gallstones)
 
 This shows, among other details, that the dataset consists of records from 37 
 patients, aged 31 to 90, of whom 21 are female and 16 male. Looking further, you
-may notice that patient identifier, which should be unique, has been imported 
+may notice that the patient identifier, which should be unique, has been imported 
 as a factor - this is probably not the best option for a unique identifier so it 
 would be best to convert this to character strings.
 

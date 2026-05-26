@@ -6,7 +6,7 @@ questions:
 - "What is a categorical variable?"
 - "What statistical tests are used with categorical data?"
 objectives:
-- "Tests for use with categorical variables"
+- "Identifying tests for use with categorical variables"
 - "Summarising categorical data with barcharts"
 - "Using factors to code categorical variables"
 keypoints:
@@ -45,7 +45,7 @@ than would happen just by chance?
 ## Ordinal data
 
 An intermediate between categorical data and continuous data is __ordinal__ 
-data. Unlike categorical data, ordinal data does have natural order to the 
+data. Unlike categorical data, ordinal data does have a natural order to the 
 categories, but samples are still assigned to one of a fixed number of 
 categories. For example, it is common on survey forms to see an ordinal age 
 field: under 15, 15-25, 26-40, etc. Ordinal data is outside the scope of today's
@@ -58,7 +58,7 @@ workshop - talk to a statistician if you need more advice.
 > > ## Solution to Challenge 1
 > > 
 > > There are seven categorical fields in this dataset: Gender, Obese, 
-> > Smoking.Status, Alcohol.Consumption, Treatment, Rec, and Mult
+> > Smoking.Status, Alcohol.Consumption, Treatment, Rec, and Mult.
 > {: .solution}
 {: .challenge}
 
@@ -104,14 +104,14 @@ addmargins(counts)
 round(prop.table(table(gallstones$Rec, gallstones$Obese), margin = 2)*100,2) 
 ```
 
-Obese patients had a 63.6% chance of recurrence, non-obese patients only 34.6%
+Obese patients had a 63.6% chance of recurrence; non-obese patients only 34.6%.
 
 ```{r eval=FALSE}
 # Plots are generally easier to interpret than tables, so review data as a 
 # bar graph
 barplot(counts, beside=TRUE, legend=rownames(counts), col = c('red','blue'))
 ```
-![RStudio layout](../fig/04-fig1.png)
+![Bar graph of obesity and recurrence](../fig/04-fig1.png)
 
 ```{r eval=FALSE}
 # ggplot can be used for higher quality figures, and to plot proportions rather
@@ -124,11 +124,11 @@ ggplot(gallstones, aes(Obese, fill=Rec)) +
         legend.title=element_text(size=14),
         axis.title=element_text(size=14),
         plot.title = element_text(size=18, face="bold")) +
-  ylab("proportion") +
+  ylab("Percentage of Patients") +
   ggtitle("Obesity vs. Recurrence") 
 
 ```
-![RStudio layout](../fig/04-fig2.png)
+![Stacked bar graph of obesity and recurrence](../fig/04-fig2.png)
 
 From the charts and table it certainly looks like obesity is associated with a
 higher rate of recurrence, so we will test whether that is statistically
@@ -167,11 +167,11 @@ CrossTable(gallstones$Rec, gallstones$Obese,
 This is slightly complicated output, but we are most interested in the "Expected 
 Values" and "Column Percent" figures - the second and fourth line of each box. 
 These show: 
-1. The expected number of obese patients suffering recurrence is 4.757 (<5)
+1. The expected number of obese patients suffering recurrence is 4.757 (<5).
 2. The recurrence rate in non-obese patients is 34.6%, whereas in obese patients 
-it is 63.6%
+it is 63.6%.
 
-Because one expected value is less than 5, we should use Fisher's Exact test
+Because one expected value is less than 5, we should use Fisher's exact test.
 ```{r}
 fisher.test(gallstones$Obese, gallstones$Rec)
 ```
@@ -187,12 +187,12 @@ statistical power to detect a relationship.
 
 > ## Challenge 2
 > 
-> When would you use the Chi-square test
+> When would you use the Chi-square test?
 > 1. When one variable is categorical and the other continuous
 > 2. When there is categorical data with more than five counts expected in each 
 > cell
 > 3. When there is paired categorical data
-> 4. You can use it interchangeably with Fisher's Exact test
+> 4. You can use it interchangeably with Fisher's exact test
 > 
 > > ## Solution to Challenge 2
 > > 
@@ -226,7 +226,7 @@ statistical power to detect a relationship.
 > >         plot.title = element_text(size=18, face="bold")) +
 > >   ggtitle("Treatment vs. Recurrence") 
 > > 
-> > # Look at expected values to select Chi-square or Fisher's Exact
+> > # Look at expected values to select Chi-square or Fisher's exact test
 > > library(gmodels) # Optional if the library is already installed
 > > CrossTable(gallstones$Treatment,gallstones$Rec,format="SPSS",prop.chisq=F,expected=T)
 > > 
@@ -234,8 +234,8 @@ statistical power to detect a relationship.
 > > chisq.test(gallstones$Treatment, gallstones$Rec, correct=FALSE)
 > > ```
 > > Again, despite the barplot suggesting an association, the p-value is 
-> > non-significant, so we reject the alternative hypothesis that treatment has
-> > an effect on recurrence rate
+> > non-significant, so we fail to reject the null hypothesis and cannot conclude 
+> > that treatment has an effect on recurrence rate.
 > {: .solution}
 {: .challenge}
 
