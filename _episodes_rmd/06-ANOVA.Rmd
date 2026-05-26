@@ -46,7 +46,7 @@ tests. As with two-sample testing, the appropriate test is determined in large
 part by whether the data in each group is normally distributed, and whether the
 data is paired, as outlined in the figure below.
 
-![RStudio layout](../fig/06-fig1.png)
+![Decision tree for comparisons between more than two groups](../fig/06-fig1.png)
 
 > ## Challenge 1
 >
@@ -90,7 +90,7 @@ The ANOVA extension of the t-test is called the **F-test**, and is based around
 decomposing the total variation in the sample into the variability (sum of 
 squares) within groups and between groups.
 
-![RStudio layout](../fig/06-fig2.png)
+![F-test table](../fig/06-fig2.png)
 
 ## ANOVA one-way example
 
@@ -124,7 +124,7 @@ kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 boxplot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ```
 
-![RStudio layout](../fig/06-fig3.png)
+![Box plots of weight by alcohol consumption group](../fig/06-fig3.png)
 
 We can see that with a p-value of 0.64, we reject the alternative hypothesis and
 conclude that in this dataset, there is no evidence for a difference in 
@@ -236,7 +236,7 @@ table(happiness$Gender, happiness$Treatment)
 
 This corresponds to this design:
 
-![RStudio layout](../fig/06-fig4.png)
+![Study design](../fig/06-fig4.png)
 
 As usual, an early step in studying our data is to visualise it.
 ```{r eval=FALSE}
@@ -246,7 +246,7 @@ plot(Score ~ Treatment + Gender, data = happiness)
 par(mfrow=c(1,1))
 ```
 
-![RStudio layout](../fig/06-fig5.png)
+![Box plots of score by treatment and by gender](../fig/06-fig5.png)
 
 ```{r eval = FALSE}
 # Then using ggplot to separate out the four different combinations of factor
@@ -254,7 +254,7 @@ ggplot(data = happiness, aes(x = Treatment, y = Score, fill = Gender)) +
   geom_boxplot(position = position_dodge())
 ```
 
-![RStudio layout](../fig/06-fig6.png)
+![Box plots of score by treatment, filled by gender](../fig/06-fig6.png)
 
 Judging by the boxplots, there appears to be a difference in happiness score for 
 the different treatment drugs (score higher with treatment than placebo). 
@@ -273,7 +273,7 @@ below shows examples of (left) where both main effects have a difference but
 there is no interaction and (right) where there is a strong interaction but
 little main effect.
 
-![RStudio layout](../fig/06-fig7.png)
+![Interaction diagram](../fig/06-fig7.png)
 
 Interaction plots can be made in R using the `interaction.plot` command. Note 
 the order of factors - switching these alters which variable is plotted on the 
@@ -283,7 +283,7 @@ interaction.plot(happiness$Treatment, happiness$Gender, happiness$Score,
                  col=2:3, lwd=3)
 ```
 
-![RStudio layout](../fig/06-fig8.png)
+![Interaction plot of score by treatment and gender](../fig/06-fig8.png)
 
 The interaction plot seems to show that there is a strong interaction effect 
 between Treatment and Gender on happiness score, but to confirm that we can fit
@@ -337,7 +337,7 @@ par(mfrow=c(2,2))
 plot(result)
 ```
 
-![RStudio layout](../fig/06-fig9.png)
+![ANOVA model assumptions](../fig/06-fig9.png)
 
 
 #### Characteristics of a well-behaved residual vs. fits plot
