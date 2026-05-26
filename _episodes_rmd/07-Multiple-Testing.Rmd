@@ -1,9 +1,9 @@
 ---
-title: "Multiple testing, summary, and final exercises"
+title: "Multiple Testing, Summary, and Final Exercises"
 teaching: 10
 exercises: 45
 questions:
-- "How do we interpret p-values when mutiple comparisons are carried out?"
+- "How do we interpret p-values when multiple comparisons are carried out?"
 objectives:
 - "Recognise the impact of multiple testing on the meaning of p-values"
 - "Adjust p-values to compensate for the effects of multiple testing" 
@@ -37,7 +37,7 @@ there are three groups (A, B and C), that means we are performing 3 comparisons:
 2. A vs C
 3. B vs C
 
-Each time we perform a t-test, we chose a significance threshold under which we
+Each time we perform a t-test, we choose a significance threshold under which we
 reject the null hypothesis. A significance level of 0.05 for example means a 5%
 chance of making a type I error - incorrectly rejecting H<sub>0</sub>. When 
 performing multiple tests, that probability of error applies for each individual
@@ -56,7 +56,7 @@ So rather than a 5% chance of a type I error, we instead have a much higher
 > Can you remember what a type II error is?
 > > ## Solution to Challenge 1
 > > 
-> > A type II error is a failure to reject the null hypothesis when it is false
+> > A type II error is a failure to reject the null hypothesis when it is false.
 > {: .solution}
 {: .challenge}
 
@@ -67,7 +67,7 @@ performed.
 
 Examples of correction approaches include:
 * False Discovery Rate (FDR): controls the type I error rate
-* Bonferroni correction (FWER): reduce the probability of even one false 
+* Bonferroni correction (FWER): reduces the probability of even one false 
 discovery
 
 In R, the `p.adjust` function can be used to perform multiple-testing correction
@@ -85,37 +85,37 @@ p.adjust(pval, method = 'bonferroni')
 ```
 
 ## Summary of relevant statistical tests
-This table can be used as a reference to select the appropriate test to use from
-a given experimental design
+This table can be used as a reference to select the appropriate test to use for
+a given experimental design.
 
 |Analysis required (continuous data) |Normally distributed data |Non-normally distributed data |
 |-----|-----|-----|
 |Compare mean or median of one sample group against a known value |One sample t-test |Wilcoxon Rank Sum test |
 |Compare means or medians of two sample groups (unpaired data) |Unpaired t-test |Mann-Whitney test |
-|Compare means or medians of two sample groups (paired data) |Paired t-test |Wilcoxon Matched Pairs test |
+|Compare means or medians of two sample groups (paired data) |Paired t-test |Wilcoxon signed-rank (matched pairs) test |
 |Compare means or medians of ≥ three sample groups (unpaired data) |ANOVA |Kruskal-Wallis ANOVA |
 |Compare means or medians of ≥ three sample groups (paired data) |Repeated measures ANOVA |Friedman test |
 
 |Analysis required (categorical data) |Test used |
 |-----|-----|
-|Compare two sample proportions of categorical data (unpaired data, ≤5 in one group) |Fisher exact test |
+|Compare two sample proportions of categorical data (unpaired data, ≤5 in one group) |Fisher's exact test |
 |Compare two sample proportions of categorical data (unpaired data, >5 in all groups) |Chi-square test |
 |Compare two sample proportions of categorical data (paired data) |McNemar test |
 
 ## Summary of R functions
 
 * Check for normality: `shapiro.test(var)`
-* Correlation (normally distributed) `cor.test(var1,var2,method="pearson")`
-* Correlation (Non-normally distributed) `cor.test(var1,var2,method="spearman")`
-* Chi-square `chisq.test(table(var1,var2))`
-* Fisher’s exact (≤5 counts) `fisher.test(table(var1,var2))`
-* Unpaired t-test `t.test(var1~var2)`
-* Paired t-test `t.test(var1~var2,paired=TRUE)`
-* Wilcoxon Rank Sum test `wilcox.test(var1~var2)`
-* Wilcoxon Matched Pairs Test `wilcox.test(var1~var2,paired=TRUE)`
+* Correlation (normally distributed): `cor.test(var1,var2,method="pearson")`
+* Correlation (Non-normally distributed): `cor.test(var1,var2,method="spearman")`
+* Chi-square: `chisq.test(table(var1,var2))`
+* Fisher’s exact (≤5 counts): `fisher.test(table(var1,var2))`
+* Unpaired t-test: `t.test(var1~var2)`
+* Paired t-test: `t.test(var1~var2,paired=TRUE)`
+* Wilcoxon rank-sum test: `wilcox.test(var1~var2)`
+* Wilcoxon signed-rank (matched pairs) test: `wilcox.test(var1~var2,paired=TRUE)`
 * Compare >2 groups for one factor
-* ANOVA `aov(outcome~factor1)`
-* Kruskal-Wallis ANOVA `kruskal.test(outcome~factor1)`
+* ANOVA: `aov(outcome~factor1)`
+* Kruskal-Wallis ANOVA: `kruskal.test(outcome~factor1)`
 
 ## Final practice exercises
 > ## Challenge 2
@@ -126,8 +126,8 @@ a given experimental design
 > > 
 > > The variables of interest are multiple stones (categorical, 2 groups)
 > > and recurrence (categorical, 2 groups). The appropriate test is therefore
-> > either Chi-square or Fisher's Exact, depending on the expected count for 
-> > each category
+> > either Chi-square or Fisher's exact test, depending on the expected count for 
+> > each category.
 > > ```r
 > > # Create the frequency table
 > > table(gallstones$Rec,gallstones$Mult)
@@ -154,7 +154,7 @@ a given experimental design
 > > ```
 > > ### Conclusion
 > > With a p-value of 0.1295, there is no evidence for a significant association
-> > between gallstone recurrence and the presence of multiple stones
+> > between gallstone recurrence and the presence of multiple stones.
 > {: .solution}
 {: .challenge}
 
@@ -166,7 +166,7 @@ a given experimental design
 > > The variables of interest are gallstone recurrence (categorical, 2 groups)
 > > and age (continuous). The appropriate test is therefore either the t-test
 > > or Mann-Whitney test, depending on whether the data is normally distributed
-> > or not
+> > or not.
 > > ```r
 > > # Test normality in both groups
 > > shapiro.test(gallstones$Age[which(gallstones$Rec=="NoRecurrence")])
@@ -191,7 +191,7 @@ a given experimental design
 > > ```
 > > ### Conclusion
 > > With a p-value of 0.7707, there is no evidence for a significant association
-> > between gallstone recurrence and the age of patients
+> > between gallstone recurrence and the age of patients.
 > {: .solution}
 {: .challenge}
 
@@ -203,9 +203,9 @@ a given experimental design
 > > The variables of interest are alcohol consumption (categorical, 3 groups)
 > > and dissolution time (continuous). The appropriate test is therefore either
 > > ANOVA or Kruskal-Wallis, depending on whether the data is normally 
-> > distributed or not
+> > distributed or not.
 > > ```r
-> > # Test normality in each groups
+> > # Test normality in each group
 > > by(gallstones$Dis,gallstones$Alcohol.Consumption,shapiro.test)
 > > 
 > > # If distribution normal in each group
@@ -220,7 +220,7 @@ a given experimental design
 > > ```
 > > ### Conclusion
 > > With a p-value of 0.2389, there is no evidence for a significant association
-> > between alcohol consumption and dissolution time
+> > between alcohol consumption and dissolution time.
 > {: .solution}
 {: .challenge}
 
@@ -231,7 +231,7 @@ a given experimental design
 > > 
 > > The variables of interest are gender (categorical, 2 groups), treatment 
 > > (categorical, two groups) and dissolution time (continuous). The appropriate
-> > test is therefore a two-way ANOVA
+> > test is therefore a two-way ANOVA.
 > > ```r
 > > # Visualisation
 > > par(mfrow=c(1,2))
@@ -255,7 +255,7 @@ a given experimental design
 > > plot(result)
 > > ```
 > > ### Conclusion
-> > With a p-value of <0.0016, there is evidence for a significant effect  of
+> > With a p-value of <0.0016, there is evidence for a significant effect of
 > > treatment on dissolution time. There is no evidence for a difference between
 > > genders for dissolution time, nor evidence for an interaction between
 > > treatment and gender (both males and females have a similar response).

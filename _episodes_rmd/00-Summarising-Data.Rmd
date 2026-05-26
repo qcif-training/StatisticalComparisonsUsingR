@@ -3,17 +3,17 @@ title: "Summarising Data"
 teaching: 30
 exercises: 5
 questions:
-- "What are the different terminology variables?"
+- "What are the different types of variables?"
 - "What are measures of central tendency and variability?"
 objectives:
-- "Define terminology variables"
+- "Define the different types of variables"
 - "Review measures of central tendency and variability"
 - "Review visualisation techniques such as box plots and histograms"
 keypoints:
-- "Understand the terminology variables that will be referenced in this workshop"
+- "Understand the variable types referenced in this workshop"
 - "Understand how to calculate measures of central tendency and variability"
 - "Understand that box plots and histograms can be used to visualise data spread"
-- "Understand the normal distribution and why normality tests are an important step in conducting statistical comparisons"
+- "Understand the normal distribution and why normality testing is an important step before conducting statistical comparisons"
 output: html_document
 ---
 
@@ -21,7 +21,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Terminology Variables
+## Variable Types
 
 Variables are the quantities measured in a sample. They may be classified as:
 
@@ -29,21 +29,21 @@ Variables are the quantities measured in a sample. They may be classified as:
 
   - Continuous (e.g., age, patient cholesterol levels)
 
-  ![RStudio layout](../fig/00-fig1.png)
+  ![Continuous variable example](../fig/00-fig1.png)
 
   - Discrete (take a finite number of values)
 
-  ![RStudio layout](../fig/00-fig2.png)
+  ![Discrete variable example](../fig/00-fig2.png)
 
 - Categorical
 
   - Nominal (e.g., gender, blood group)
 
-  ![RStudio layout](../fig/00-fig3.png)
+  ![Nominal variable example](../fig/00-fig3.png)
 
   - Ordinal (ranked e.g., mild, moderate or severe illness)
 
-  ![RStudio layout](../fig/00-fig4.png)
+  ![Ordinal variable example](../fig/00-fig4.png)
 
 _Note: Often ordinal variables are re-coded to be quantitative._
 
@@ -51,8 +51,8 @@ _Note: Often ordinal variables are re-coded to be quantitative._
 
 Numerical descriptive measures include:
 
-- **Measures of central tendency:** Describe the center of the distribution
-- **Measures of variability:** Describe how the measurements vary about the center of the distribution
+- **Measures of central tendency:** Describe the centre of the distribution
+- **Measures of variability:** Describe how the measurements vary about the centre of the distribution
 
 ### Measures of central tendency
 
@@ -67,7 +67,7 @@ The **mode** is the most commonly occurring value (value with the highest freque
 
 ### Example: Calculating measures of central tendency
 
-The systolic blood pressure of seven middle aged men were as follows:
+The systolic blood pressure readings of seven middle-aged men were as follows:
 
 151, 124, 132, 170, 146, 124 and 113
 
@@ -78,8 +78,9 @@ $$\bar{x} = \frac{151 + 124 + 132 + 170 + 146 + 124 + 113}{7} = 137.14$$
 
 **Mode:**
 
-| 113 | **124** | 132 | 146 | 151 | 170 |
+|     |         |     |     |     |     |
 |:---:|:-------:|:---:|:---:|:---:|:---:|
+| 113 | **124** | 132 | 146 | 151 | 170 |
 | 1   | **2**   | 1   | 1   | 1   | 1   |
 
 ### Measures of variability
@@ -93,30 +94,22 @@ Main measures of variability include:
 
 The sample **range** is the difference between the largest and smallest observations in the sample.
 
-Using blood pressure:
-
-- Min: 113 mmHg
-- Max: 170 mmHg
-
-Range = Max - Min
-      = $$170 - 113 = 57 mmHg$$
-
 This is useful for the “best” and “worst” case scenarios.
 
 The sample **variance**, s², is the arithmetic mean of the squared deviations from the sample mean:
 
 $$s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n-1}$$
 
-![RStudio layout](../fig/00-fig5.png)
+![Variance comparison](../fig/00-fig5.png)
 
-The sample **standard deviation**, s, is the square-root of the variance.
+The sample **standard deviation**, s, is the square root of the variance.
 
 ### Example: Calculating measures of variability
 
 Using the blood pressure data (151, 124, 132, 170, 146, 124, 113):
 
 **Range:**
-$$\text{Max} - \text{Min} = 170 - 113 = 57$$
+$$\text{Max} - \text{Min} = 170 - 113 = 57\text{mmHg}$$
 
 **Mean:**
 $$\bar{x} = 137.14$$
@@ -129,12 +122,12 @@ $$s = \sqrt{384.14} \approx 19.60$$
 
 ### Interquartile range
 
-The Median divides a distribution into two halves. The first and third quartiles (denoted Q₁ and Q₃) are defined as follows:
+The median divides a distribution into two halves. The first and third quartiles (denoted Q₁ and Q₃) are defined as follows:
 
 - 25% of the data lie below Q₁ (and 75% is above Q₁),
 - 25% of the data lie above Q₃ (and 75% is below Q₃)
 
-The **interquartile range (IQR)** is the difference between the first and third quartiles: IQR = Q₃- Q₁.
+The **interquartile range (IQR)** is the difference between the first and third quartiles: IQR = Q₃ - Q₁.
 
 ### Example: Calculating measures of variability - interquartile range
 
@@ -144,7 +137,7 @@ Q1 = $$\frac{N}{4} = \frac{7}{4}= 1.75$$
 
 Q3 = $$3 \times \frac{N}{4} = \frac{21}{4} = 5.25$$
 
-![RStudio layout](../fig/00-fig6.png)
+![Calculating interquartile range](../fig/00-fig6.png)
 
 IQR = $$148.5 - 124 = 24.5$$
 
@@ -158,21 +151,21 @@ A box-plot is a visual description of the distribution based on:
 - Q3
 - Maximum
 
-Box-plots are useful for comparing samples from several different treatments or population.
+Box-plots are useful for comparing samples from several different treatments or populations.
 
-![RStudio layout](../fig/00-fig7.png)
+![Annotated box-plot](../fig/00-fig7.png)
 
 ## Histograms
 
-A histogram is used to display the distribution of quantitative data in which the values are broken in a number of bins. The histogram is obtained by drawing rectangles in which the bases are the bins intervals and the heights are the counts in each bin.
+A histogram is used to display the distribution of quantitative data in which the values are broken into a number of bins. The histogram is obtained by drawing rectangles in which the bases are the bin intervals and the heights are the counts in each bin.
 
 Frequency histogram:
 
-![RStudio layout](../fig/00-fig8.png)
+![Frequency histogram](../fig/00-fig8.png)
 
 Relative frequency histogram:
 
-![RStudio layout](../fig/00-fig9.png)
+![Relative frequency histogram](../fig/00-fig9.png)
 
 A relative frequency histogram represents the proportion of counts in each bin (total area of 1):
 
@@ -180,7 +173,7 @@ $$\text{height} = \frac{\text{count}}{\text{width} \times \text{total number}}$$
 
 Histograms are usually accompanied by a Probability Density Function, which is used for calculating the probabilities for continuous random variables and represents the density of probability for a continuous random variable over the specified ranges.
 
-![RStudio layout](../fig/00-fig10.png)
+![Histogram plus box-plot](../fig/00-fig10.png)
 
 ## The Normal Distribution
 
@@ -189,54 +182,56 @@ Many variables of interest follow a normal distribution (e.g., age, height, weig
 1. Mean, µ
 2. Standard deviation, σ
 
-X follows a Normal distribution with the parameters μ (mean) and σ (standard deviation): $$X \sim N(\mu, \sigma)$$
+X follows a normal distribution with the parameters μ (mean) and σ (standard deviation): $$X \sim N(\mu, \sigma)$$
 
-![RStudio layout](../fig/00-fig11.png)
+![Normal distribution](../fig/00-fig11.png)
 
 ### Measures of variability: Which one to use?
 
-![RStudio layout](../fig/00-fig12.png)
+![Symmetric versus skewed distribution](../fig/00-fig12.png)
 
 | Type of variable | Best measure of central tendency | Best measure of spread |
 |---|---|---|
 | Interval/ratio (not skewed) | Mean | Standard deviation |
-| Interval/ratio (skewed) | Median | Range or inter-quartile range |
+| Interval/ratio (skewed) | Median | Range or interquartile range |
 
 ### Tests for normality and variance equivalence
 
-If our outcome variable is continuous and we are measuring it between two or more groups, then there are two additional tests that will need to be performed to help us identify which is the correct statistical test to test the hypothesis on.
+If our outcome variable is continuous and we are measuring it between two or more groups, then there are two additional tests that will need to be performed to help identify the most appropriate statistical test for the hypothesis.
 
-1. **The Shapiro-Wilks’ test of Normality**
-2. **The Levene’s test of Equality of Variances**
+1. **The Shapiro-Wilk test of normality**
+2. **The Levene’s test of equality of variances**
 
 ### Normal distribution: How to know?
 
 To assess whether or not a random sample is selected from a normal distribution:
 
-- Normal probability plot (quantile-quantile plot) to visualize the normality of the data
+- Normal probability plot (quantile-quantile plot) to visualise the normality of the data
 - Shapiro-Wilk test: H<sub>0</sub>: x<sub>1</sub>, …, x<sub>n</sub> are from a normally distributed population
 
 ### Normal distribution: Transformation?
 
-Sometimes data are non-normally distributed but closely related → log-normally distributed
+Sometimes data are non-normally distributed but may be log-normally distributed.
 
-![RStudio layout](../fig/00-fig13.png)
+![Positively skewed data](../fig/00-fig13.png)
 
-- Distribution is right-skewed
-- The logarithm of the data is thus normal
+In the above image,
+
+- The distribution is right-skewed
+- The logarithm of the data is normal
 
 The log-transformation of data is very common, mostly to eliminate skew in data.
 
 Example:
 
-Before log-transformation:
+**Before log-transformation:**
 
-![RStudio layout](../fig/00-fig14.png)
+![Data before log-transformation](../fig/00-fig14.png)
 
 Shapiro-Wilk test results: p = 0.01 → non-normally distributed
 
-After log transformation:
+**After log transformation:**
 
-![RStudio layout](../fig/00-fig15.png)
+![Data after log-transformation](../fig/00-fig15.png)
 
 Shapiro-Wilk test results: p = 0.89 → normally distributed

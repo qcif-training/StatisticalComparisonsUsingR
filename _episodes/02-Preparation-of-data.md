@@ -7,7 +7,7 @@ exercises: 10
 questions:
 - "How can I import a dataset into R?"
 objectives:
-- "Review the structure of a CSV datafile"
+- "Review the structure of a CSV data file"
 - "Read a CSV file into a dataframe"
 - "Manage the assignment of data as factors or character strings"
 keypoints:
@@ -25,7 +25,7 @@ output: html_document
 Prior to uploading any dataset into R for analysis, it is useful to review the 
 contents of that file to understand the structure of the data. This will allow
 you to choose the best data structure for your dataset, and will identify the 
-relevant command and settings you need when uploading the data to R. 
+relevant commands and settings you need when uploading the data to R. 
 
 For small files, like the one we are using today, this review can be done with a
 simple text editor, either an app on your computer or from within RStudio. For 
@@ -34,7 +34,7 @@ open and may even crash your computer. Such large files may have documentation
 explaining their format, or you may need to use the `head` function to look at 
 just the first part of the file.
 
-Today we will be working with a datafile based on a study into the effects of
+Today we will be working with a data file based on a study into the effects of
 treatment with the drug ursodeoxycholic acid on gallstones. This is based on a 
 real study ([Hood et al, 1993](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1375471/)).
 In this study, detailed follow-up records were kept for 93 patients receiving
@@ -60,19 +60,19 @@ data substituted for real patient information.
 > > * Height – patient’s height: numerical value in (probably) cm
 > > * Weight – patient’s weight: numerical value in (probably) kg
 > > * BMI – patient’s body mass index (weight/height in m<sup>2</sup>)
-> > * Obese – is the patient obese (BMI>30): 0=no, 1=yes;
-> > * Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker; 
+> > * Obese – is the patient obese (BMI>30): 0=no, 1=yes
+> > * Smoking.Status – does the patient smoke: 1=non-smoker, 2=smoker
 > > * Alcohol.Consumption – does the patient drink alcohol: 1=no, 2=previously,
-> > 3=currently; 
+> > 3=currently
 > > * Treatment – did the patient receive the ursodeoxycholic acid treatment: 
-> > 0=untreated, 1=treated; 
-> > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence; 
+> > 0=untreated, 1=treated
+> > * Rec – did gallstones recur: 0=no recurrence, 1=recurrence
 > > * Mult – did the patient have multiple gallstones: 0=single stone, 1=multiple 
-> > stones; 
-> > * Diam – original gallstone diameter in mm;
+> > stones
+> > * Diam – original gallstone diameter in mm
 > > * Dis – time in months for gallstone dissolution
 > > 
-> > There are a total of 37 patient records in this file
+> > There are a total of 37 patient records in this file.
 > {: .solution}
 {: .challenge}
 
@@ -92,35 +92,41 @@ dataset.
 {: .callout}
 
 
-```r
+``` r
 # The default settings of `read.csv` differ between R versions, so when running
 # the command, we need to specify the stringsAsFactors parameter
 gallstones <- read.csv("data/gallstones.csv", stringsAsFactors = TRUE)
 ```
 
-Now the file is uploaded, you can find out more about this dataset using the
-`head`, `str`, and `summary` functions.
+Now that the file has been uploaded, you can find out more about this dataset using the 
+`head`, `str` and `summary` functions.
 
-```r
+``` r
 head(gallstones)
 ```
 
-~~~
-##   Patient_ID Gender Age Height Weight      BMI Obese Smoking.Status Alcohol.Consumption Treatment Rec Mult Diam Dis
-## 1        P25      F  64    147     65 30.08006     1              2                   1         1   1    1    6   8
-## 2        P28      F  81    151     69 30.26183     1              2                   2         0   1    1    7   6
-## 3        P17      M  77    156     59 24.24392     0              2                   1         0   0    0   20  20
-## 4        P27      F  80    156     47 19.31295     0              2                   3         1   0    0   15   2
-## 5         P5      F  86    156     53 21.77844     0              2                   2         0   1    0   18  14
-## 6         P6      F  69    157     48 19.47341     0              1                   3         1   0    0   19   8
-~~~
-{: .output}
+```
+##   Patient_ID Gender Age Height Weight      BMI Obese Smoking.Status
+## 1        P25      F  64    147     65 30.08006     1              2
+## 2        P28      F  81    151     69 30.26183     1              2
+## 3        P17      M  77    156     59 24.24392     0              2
+## 4        P27      F  80    156     47 19.31295     0              2
+## 5         P5      F  86    156     53 21.77844     0              2
+## 6         P6      F  69    157     48 19.47341     0              1
+##   Alcohol.Consumption Treatment Rec Mult Diam Dis
+## 1                   1         1   1    1    6   8
+## 2                   2         0   1    1    7   6
+## 3                   1         0   0    0   20  20
+## 4                   3         1   0    0   15   2
+## 5                   2         0   1    0   18  14
+## 6                   3         1   0    0   19   8
+```
 
-```r
+``` r
 str(gallstones)
 ```
 
-~~~
+```
 ## 'data.frame':	37 obs. of  14 variables:
 ##  $ Patient_ID         : Factor w/ 37 levels "P1","P10","P11",..: 18 21 9 20 33 34 35 19 28 30 ...
 ##  $ Gender             : Factor w/ 2 levels "F","M": 1 1 2 1 1 1 1 1 1 1 ...
@@ -136,14 +142,13 @@ str(gallstones)
 ##  $ Mult               : int  1 1 0 0 0 0 1 0 0 1 ...
 ##  $ Diam               : int  6 7 20 15 18 19 14 18 15 5 ...
 ##  $ Dis                : int  8 6 20 2 14 8 8 4 15 3 ...
-~~~
-{: .output}
+```
 
-```r
+``` r
 summary(gallstones)
 ```
 
-~~~
+```
 ##    Patient_ID Gender      Age            Height          Weight     
 ##  P1     : 1   F:21   Min.   :31.00   Min.   :147.0   Min.   : 46.0  
 ##  P10    : 1   M:16   1st Qu.:67.00   1st Qu.:160.0   1st Qu.: 58.0  
@@ -176,28 +181,25 @@ summary(gallstones)
 ##  3rd Qu.:12.00  
 ##  Max.   :48.00  
 ## 
-~~~
-{: .output}
+```
 
 ## Columns as factors
 
 This shows, among other details, that the dataset consists of records from 37 
 patients, aged 31 to 90, of whom 21 are female and 16 male. Looking further, you
-may notice that patient identifier, which should be unique, has been imported 
+may notice that the patient identifier, which should be unique, has been imported 
 as a factor - this is probably not the best option for a unique identifier so it 
 would be best to convert this to character strings.
 
 
-```r
+``` r
 gallstones$Patient_ID <- as.character(gallstones$Patient_ID)
 str(gallstones$Patient_ID)
 ```
 
-~~~
+```
 ##  chr [1:37] "P25" "P28" "P17" "P27" "P5" "P6" "P7" "P26" "P34" "P36" "P11" ...
-~~~
-{: .output}
-
+```
 > ## Tip
 > Sometimes patient ID is numeric and ordered according to recruitment. In this
 > situation, it can be used as a surrogate for time to check for any biases over 

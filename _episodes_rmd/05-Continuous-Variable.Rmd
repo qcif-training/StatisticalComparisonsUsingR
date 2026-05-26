@@ -5,7 +5,7 @@ exercises: 10
 questions:
 - "Do two sample groups differ for a continuous trait?"
 objectives:
-- "Tests for use with comparison of two groups of continuous data"
+- "Comparing two groups of continuous data"
 - "Summarising continuous data graphically"
 - "Selecting and using relevant statistical tests"
 keypoints:
@@ -42,7 +42,7 @@ gallstones study are taller than female patients.
 
 > ## Discussion
 >
-> See if you can identify other examples where you might use a two sample groups
+> See if you can identify other examples where you might use a two-sample groups
 > comparison. Do you have any in your own research?
 {: .discussion}
 
@@ -52,11 +52,11 @@ As with testing for categorical variables, there are a range of different
 statistical analyses for two sample group comparisons; the appropriate one to 
 use is determined by the nature of the dataset. There are two primary questions
 we need to ask to identify the relevant test: are the two datasets 
-normally-distributed, and are the data paired (that is, are there repeated
+normally distributed, and are the data paired (that is, are there repeated
 measurements on the same samples)? The figure below summarises the choice of
 statistical test used for each of these cases.
 
-![RStudio layout](../fig/05-fig1.png)
+![Decision tree for comparisons between two groups](../fig/05-fig1.png)
 
 The first step is to determine whether the continuous variable in each group is
 normally distributed. We've already learned about the `shapiro.test` function to 
@@ -81,7 +81,7 @@ test.
 > (with and without recurrence) had different BMIs?
 > > ## Solution to Challenge 1
 > > 
-> > One data set is normally distributed, the other is not, so we choose the 
+> > One dataset is normally distributed, the other is not, so we choose the 
 > > option for non-normally distributed data - the branch to the right (we can 
 > > only answer yes to the first question if both datasets are normal). The data
 > > is not paired - the patients with recurrence are a different group to those
@@ -89,10 +89,10 @@ test.
 > {: .solution}
 {: .challenge}
 
-## Two sample Student's T-test
+## Two sample Student's t-test
 
 If data is normally distributed for **both** groups, we will generally use the 
-Student's T-test. This compares the means of two groups measured on the same 
+Student's t-test. This compares the means of two groups measured on the same 
 continuous variable. Tests can be two-sided (testing whether the groups are not
 equal) or one-sided (testing either whether the second group is greater than or
 less than the first). As we discussed in the introduction, generally a two-sided
@@ -108,29 +108,29 @@ H<sub>0</sub>: µ<sub>1</sub> <= µ<sub>2</sub> | against | H<sub>1</sub>:
 H<sub>0</sub>: µ<sub>1</sub> >= µ<sub>2</sub> | against | H<sub>1</sub>: 
 µ<sub>1</sub> < µ<sub>2</sub> (less)
 
-If **equal variance**: Student's T-test  
-If **unequal variance**: Welch's two-sample T-test  
-If **data are paired**: Student's paired T-test  
+If **equal variance**: Student's t-test  
+If **unequal variance**: Welch's two-sample t-test  
+If **data are paired**: Student's paired t-test  
 
 > ## Tip
 > The R `t.test` function combines all three of these tests, and defaults to 
-> Welch's two-sample T-test. To perform a standard T-test, use the parameter 
-> setting `var.equal = TRUE`, and for a paired T-test, use `paired = TRUE`. 
+> Welch's two-sample t-test. To perform a standard t-test, use the parameter 
+> setting `var.equal = TRUE`, and for a paired t-test, use `paired = TRUE`. 
 {: .callout}
 
 ## Two sample Mann-Whitney test
 
-Unless **both** groups are normally distributed, use the Mann-Whitney test. This
-is a non-parametric test analogous to the unpaired T-test, used when the 
-_dependent_ variable is non-normally distributed
+Unless **both** groups are normally distributed, use the Mann-Whitney test 
+(also known as the Wilcoxon rank-sum test). This is a non-parametric test analogous 
+to the unpaired t-test, used when the _dependent_ variable is non-normally distributed.
 
 The Mann-Whitney test compares the medians of the two groups rather than the 
 means, by considering the data as rank order values rather than absolute values.
 
 > ## Tip
 > The `wilcox.test` function in R defaults to unpaired data - effectively 
-> returning the Mann-Whitney test instead. Carry out a paired Wilcox test with 
-> the `paired = TRUE` argument
+> returning the Mann-Whitney test instead. Carry out a paired Wilcoxon test 
+> (called the Wilcoxon signed-rank test) with the `paired = TRUE` argument.
 {: .callout}
 
 ## Two sample test example
@@ -144,14 +144,14 @@ Null hypothesis: There is no difference in height between the groups
 
 _Step one - visualise the data_  
 We will start by reviewing the data using a boxplot to see if there is an 
-indication of difference between the groups
+indication of difference between the groups.
 ```{r eval=FALSE}
 plot(gallstones$Height ~ gallstones$Gender, 
      col=c('red','blue'),
      ylab = 'Height',
      xlab = 'Gender')
 ```
-![RStudio layout](../fig/05-fig2.png)
+![Box plots of height by gender](../fig/05-fig2.png)
 
 Visually there certainly appears to be a difference. But is it statistically
 significant?
@@ -163,18 +163,18 @@ hist(gallstones$Height[which(gallstones$Gender == 'F')], main = "Histogram of he
 hist(gallstones$Height[which(gallstones$Gender == 'M')], main = "Histogram of heights of males", xlab = "")
 par(mfrow=c(1,1))
 ```
-![RStudio layout](../fig/05-fig3.png)
+![Histograms of height by gender](../fig/05-fig3.png)
 
 This doesn't look very normally-distributed, but we do have relatively few data
-points. A more convincing way to determine this would be with the Shapiro-Wilks
-test
+points. A more convincing way to determine this would be with the Shapiro-Wilk
+test.
 ```{r}
 by(gallstones$Height, gallstones$Gender, shapiro.test)
 ```
 
 Neither test gives a significant p-value, so in the absence of sufficient 
 evidence to accept the alternative hypothesis of non-normality, we treat the
-data as if it were normal; that is, we use a T-test 
+data as if it were normal; that is, we use a t-test.
 
 _Step three - are variances equal?_  
 ```{r}
@@ -188,10 +188,10 @@ LeveneTest(gallstones$Height ~ gallstones$Gender)
 Although the standard deviations of the two groups (and hence the variances) 
 seem to be quite different, Levene's test gives a non-significant p-value of 0.07.
 This means that we shouldn't reject the null hypothesis of equal variance, and
-so we should perform a Student's T-test. If the variances had been different, 
-then we would have used Welch's two-sample T-test instead.
+so we should perform a Student's t-test. If the variances had been different, 
+then we would have used Welch's two-sample t-test instead.
 
-_Step four - carry out a T-test_  
+_Step four - carry out a t-test_  
 ```{r}
 # Specify equal variance using the var.equal = TRUE argument.
 # var.equal would be set to FALSE if the p-value of the Levene's test was less 
@@ -215,7 +215,7 @@ and females in our dataset.
 > > boxplot(gallstones$Diam ~ gallstones$Rec, col = c("red","blue"),
 > >      ylab = "Diameter",
 > >      xlab = "Recurrence")
-> > # Test whether data is normally distributecd
+> > # Test whether data is normally distributed
 > > by(gallstones$Diam, gallstones$Rec, hist)
 > > by(gallstones$Diam, gallstones$Rec, shapiro.test)
 > > ```
@@ -236,7 +236,7 @@ and females in our dataset.
 If there is a significant difference between the two groups (or even if there
 isn't) it is often useful to generate some summary statistics for each group. 
 We can do this with the `by` command, which we've used already in this section, 
-combined with summary functions
+combined with summary functions.
 
 ```{r}
 # For normally distributed data, report the mean and standard deviation
@@ -258,13 +258,13 @@ Summarize(gallstones$Diam~gallstones$Rec)
 ```
 
 ## Paired samples
-If data is paired, that is, it is the same samples under two different 
+If data is paired, that is, they are the same samples under two different 
 conditions, we can take advantage of that to carry out statistical tests with 
 greater discriminatory power. That is because by using paired samples, we remove
 a lot of the noise that can otherwise obscure our results. Paired data must have
 the same number of results in each group, there must be a one-to-one relationship
 between the groups (every sample that appears in one group must appear in the 
-other), and the data must be the same sample order in each group.
+other), and the data must be in the same sample order in each group.
 
 Otherwise, paired sample analysis is performed in a similar way to unpaired 
 analysis. The main difference is to add the `paired = TRUE` argument to the 

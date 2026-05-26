@@ -38,7 +38,7 @@ library(FSA)
 
 ## Comparison of multiple groups
 
-The T-test, Mann-Whitney Test and others discussed earlier are designed to 
+The t-test, Mann-Whitney test and others discussed earlier are designed to 
 identify differences in the means or medians of two groups. When working with 
 data that is in three or more groups, where we are testing if there is a 
 difference between any one of those groups with the others, we need to use other
@@ -51,7 +51,7 @@ data is paired, as outlined in the figure below.
 > ## Challenge 1
 >
 > Based on what you have learned previously in this workshop, how can we best
-> determine whether the data in each sample is normally distributed
+> determine whether the data in each sample is normally distributed?
 > > ## Solution to Challenge 1
 > > 
 > > We can use the `shapiro.test` function to test for normality - or rather, to 
@@ -62,7 +62,7 @@ data is paired, as outlined in the figure below.
 > > ```
 > > Remember, as with the two sample tests, if any one group is not normally
 > > distributed, the whole analysis must be performed with the relevant 
-> > non-parametric test
+> > non-parametric test.
 > {: .solution}
 {: .challenge}
 
@@ -88,7 +88,7 @@ H<sub>1</sub>: µ<sub>1</sub> ≠ µ<sub>2</sub> OR µ<sub>1</sub> ≠ µ<sub>3<
 
 The ANOVA extension of the t-test is called the **F-test**, and is based around 
 decomposing the total variation in the sample into the variability (sum of 
-squares) within groups and between groups
+squares) within groups and between groups.
 
 ![RStudio layout](../fig/06-fig2.png)
 
@@ -106,16 +106,16 @@ There are two variables - one categorical with more than two levels and one
 continuous. The data are not paired - all the measurements are from different 
 patients. So based on the decision tree, the appropriate test is either one-way
 ANOVA or Kruskal-Wallis test. The choice between these is made depending on 
-whether the data is normally distributed or not
+whether the data is normally distributed or not.
 ```{r}
 table(gallstones$Alcohol.Consumption)
 by(gallstones$Weight, gallstones$Alcohol.Consumption, shapiro.test)
 ```
 
-The Shapiro test for group 1 gives a significant p-value, indicating that we 
+The Shapiro-Wilk test for group 1 gives a significant p-value, indicating that we 
 should reject the null hypothesis that the data is normally distributed. This 
 would indicate that the Kruskal-Wallis test is the appropriate one for this 
-analysis
+analysis.
 
 ```{r}
 kruskal.test(gallstones$Weight ~ gallstones$Alcohol.Consumption)
@@ -127,12 +127,12 @@ boxplot(gallstones$Weight ~ gallstones$Alcohol.Consumption)
 ![RStudio layout](../fig/06-fig3.png)
 
 We can see that with a p-value of 0.64, we reject the alternative hypothesis and
-concluded that in this data set, there is no evidence for a difference in 
+conclude that in this dataset, there is no evidence for a difference in 
 patient weight associated with their level of alcohol consumption. This is 
 consistent with the plot, which doesn't show any clear differences between the
 three categories.
 
-For comparison and practice, let's also perform an ANOVA
+For comparison and practice, let's also perform an ANOVA.
 ```{r}
 result <- aov(gallstones$Weight~gallstones$Alcohol.Consumption)
 summary(result)
@@ -146,7 +146,7 @@ so would not be a valid test anyway.
 The one-way ANOVA and Kruskal-Wallis tests only identify that one (or more) of 
 the groups has a significant difference to the others. To go further, we would
 want to identify which group(s) were different. For this we would use a 
-**_Post-hoc_ test**, either Tukeys' HSD for ANOVA or Dunn's test (in the 
+**_Post-hoc_ test**, either Tukey's HSD for ANOVA or Dunn's test (in the 
 FSA package) for Kruskal-Wallis. This performs a multiple-testing corrected 
 pairwise comparison between each combination of groups to highlight which (if 
 any) are different.
@@ -158,16 +158,16 @@ dunnTest(gallstones$Weight~gallstones$Alcohol.Consumption, method = "bonferroni"
 
 The output shows a pairwise comparison and associated p-value for each combination
 of the groups being tested - groups 2 and 1 first, then groups 3 and 1, and finally
-groups 3 and 2. In this example, the p-values are all 1 - there is not evidence for 
+groups 3 and 2. In this example, the p-values are all 1 - there is no evidence for 
 even the slightest difference between the groups!
 
-If there is a significant p-value with a one-way ANOVA, use the Tukey HSD test
+If there is a significant p-value with a one-way ANOVA, use Tukey's HSD test.
 ```{r}
 TukeyHSD(result)
 ```
 
 The layout here is similar to the Dunn's test with one row per comparison and the 
-p-value reported for each pairwise comparison
+p-value reported for each pairwise comparison.
 
 > ## Challenge 2
 >
@@ -194,7 +194,7 @@ p-value reported for each pairwise comparison
 
 > ## Challenge 3
 >
-> Try using the dummmy dataset from challenge 2 for an ANOVA and Tukey's test
+> Try using the dummy dataset from challenge 2 for an ANOVA and Tukey's test.
 > > ## Solution to Challenge 3
 > >
 > >
@@ -218,7 +218,7 @@ that we will use here.
 
 ### Two-way ANOVA example
 The dataset we will use here is a small study to investigate the influence of 
-Prozac on the reported 'happiness score' of patients, and whether males and 
+Prozac on the reported 'happiness score' of patients, and whether male and 
 female patients respond differently.
 * Happiness score recorded for 24 patients
 * Patients randomised to either placebo or Prozac **treatment** (first factor)
@@ -238,7 +238,7 @@ This corresponds to this design:
 
 ![RStudio layout](../fig/06-fig4.png)
 
-As usual, an early step in studying our data is to visualise it
+As usual, an early step in studying our data is to visualise it.
 ```{r eval=FALSE}
 # First, plot just using each of the factors independently
 par(mfrow=c(1,2))
@@ -262,8 +262,8 @@ However, the difference is less pronounced between the gender groups.
 
 Two-way ANOVA tests for two things:
 **Main effects** - each factor independently
-* Are patients happier on placebo or Prozac
-* Do males and females differ in happiness score
+* Are patients happier on placebo or Prozac?
+* Do males and females differ in happiness score?
 
 **Interaction effects** - the effects of one factor are different depending on 
 the level (category) of the other factor
@@ -306,7 +306,7 @@ it appears that Prozac is associated with higher happiness scores, but this
 should be confirmed with _post hoc_ testing.
 
 #### Gender
-The p-value for gender is not significant, so there is not evidence for
+The p-value for gender is not significant, so there is no evidence for
 a gender effect on happiness; that is, there is no difference in happiness 
 levels between males and females.
 
@@ -326,12 +326,12 @@ The $Treatment section of this output supports our conclusion from the two-way
 ANOVA that Prozac increases happiness score, by an average of 1.6 happiness 
 units (95% CI: 0.95-2.3). The $Treatment:Gender section indicates that Prozac 
 has no effect on happiness in females (or at least, not a statistically 
-significant effect), but in males it increases happiness by approximatey 3.0 
+significant effect), but in males it increases happiness by approximately 3.0 
 units.
 
 ### Checking assumptions
 After fitting an ANOVA model it is important to always check the relevant model
-assumptions. This includes making QQ-plots and residual plots
+assumptions. This includes making QQ-plots and residual plots.
 ```{r eval = FALSE}
 par(mfrow=c(2,2))
 plot(result)
@@ -354,7 +354,7 @@ suggests that there are no outliers.
 1. If the points on the q-q plot fall approximately on a straight line, the 
 residuals are considered to be normally distributed.
 
-2. If some points are far from the line have a deeper look to see if they are 
+2. If some points are far from the line, have a deeper look to see if they are 
 outliers.
 
 ***In this case, it appears that there is a deviation from normality because 
@@ -370,7 +370,7 @@ Measure of importance of each point in determining the regression result.
 Superimposed on the plot are contour lines for the Cook’s distance (another 
 measure of the importance of each observation). 
 
-Smaller distances means that removing the observation has little affect on the 
+Smaller distances means that removing the observation has little effect on the 
 regression results. Distances larger than 2 are suspicious and suggest the 
 presence of a possible outlier.
 
